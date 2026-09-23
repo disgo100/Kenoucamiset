@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendas & Stylos - Contacto y Atención al Cliente</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="CSS styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Distribución Armoniosa en 2 Columnas Desacopladas */
+        .contact-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 440px;
+            gap: 2.5rem;
+            align-items: start;
+            width: 100%;
+        }
+        @media screen and (max-width: 992px) {
+            .contact-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .contain-card-summary {
+                position: static;
+            }
+        }
+
+        /* Tarjeta Contenedora Columna Izquierda (Formulario de Contacto) */
+        .contain-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contain-card:hover {
+            border-color: var(--card-hover-border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Tarjeta Contenedora Columna Derecha (Información Sticky) */
+        .contain-card-summary {
+            background: #ffffff;
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
+            position: sticky;
+            top: 90px;
+        }
+
+        /* Grilla Interna para Campos del Formulario */
+        .form-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-fields-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .form-field-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Estilo de Inputs Amplios */
+        .form-control-enhanced {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .form-control-enhanced:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            background: #ffffff;
+        }
+
+        /* Tarjetas Informativas Clickeables */
+        .info-channel-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a.info-channel-card:hover {
+            border-color: var(--accent);
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .info-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(2, 132, 199, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* Bloque de Redes Sociales Distribuido Equitativamente (4 Redes) */
+        .social-media-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 48px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            width: 100%;
+        }
+
+        .social-btn.instagram:hover {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+            border-color: transparent;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(214, 36, 159, 0.3);
+        }
+
+        .social-btn.facebook:hover {
+            background: #1877f2;
+            border-color: #1877f2;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
+        }
+
+        .social-btn.tiktok:hover {
+            background: #000;
+            border-color: #00f2fe;
+            color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .social-btn.youtube:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Botón Agendar Calendario */
+        .btn-calendar-add {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            padding: 0.35rem 0.7rem;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 0.4rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-calendar-add:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item active"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ENCABEZADO HERO DE CONTACTO -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag">COMUNICACIÓN DIRECTA Y ATENCIÓN</span>
+            <h2 class="hero-title">CONTACTO & ATENCIÓN AL CLIENTE</h2>
+            <p class="hero-description">¿Tienes alguna duda sobre nuestras prendas urbanas, requieres asesoría para un estampado personalizado o necesitas consultar el estado de tu pedido? Estamos listos para atenderte.</p>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DE CONTACTO (DISPOSICIÓN ARMONIOSA EN 2 COLUMNAS) -->
+    <main style="max-width: 1350px; margin: 2rem auto; padding: 0 1.5rem;">
+        
+        <div class="contact-grid-layout">
+            
+            <!-- COLUMNA 1: FORMULARIO DE CONTACTO AMPLIO (.contain-card) -->
+            <section class="contain-card">
+                <div style="border-bottom: 1px solid #282828; padding-bottom: 1.2rem; margin-bottom: 1.8rem;">
+                    <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.3rem; font-weight: 800;">
+                        <i class="fa-solid fa-paper-plane" style="color: var(--accent);"></i> Envíanos un Mensaje Directo
+                    </h3>
+                    <p style="color: #888; font-size: 0.9rem;">Diligencia los datos a continuación para ponernos en contacto contigo inmediatamente.</p>
+                </div>
+                
+                <form id="contact-form" class="form-fields-grid">
+                    
+                    <!-- 1. Nombre Completo -->
+                    <div class="form-group">
+                        <label for="contact-nombre" style="font-weight: 700; color: #bbb; margin-bottom: 0.4rem; display: block; font-size: 0.88rem;">
+                            <i class="fa-solid fa-user" style="color: #00f2fe;"></i> Nombre Completo: *
+                        </label>
+                        <input type="text" id="contact-nombre" class="form-control-enhanced" placeholder="Ej. Carlos Eduardo Pérez" required>
+                    </div>
+
+                    <!-- 2. Correo Electrónico -->
+                    <div class="form-group">
+                        <label for="contact-email" style="font-weight: 700; color: #bbb; margin-bottom: 0.4rem; display: block; font-size: 0.88rem;">
+                            <i class="fa-solid fa-envelope" style="color: #00f2fe;"></i> Correo Electrónico: *
+                        </label>
+                        <input type="email" id="contact-email" class="form-control-enhanced" placeholder="carlos@ejemplo.com" required>
+                    </div>
+
+                    <!-- 3. Teléfono / Celular -->
+                    <div class="form-group">
+                        <label for="contact-telefono" style="font-weight: 700; color: #bbb; margin-bottom: 0.4rem; display: block; font-size: 0.88rem;">
+                            <i class="fa-solid fa-phone" style="color: #4cd137;"></i> Celular / Teléfono (Solo números, máx. 15): *
+                        </label>
+                        <input type="tel" id="contact-telefono" class="form-control-enhanced" placeholder="Ej. 3001234567" maxlength="15" inputmode="numeric" required>
+                    </div>
+
+                    <!-- 4. Asunto o Motivo de Consulta -->
+                    <div class="form-group">
+                        <label for="contact-asunto" style="font-weight: 700; color: #bbb; margin-bottom: 0.4rem; display: block; font-size: 0.88rem;">
+                            <i class="fa-solid fa-list-check" style="color: #fbc531;"></i> Motivo de Consulta: *
+                        </label>
+                        <select id="contact-asunto" class="form-control-enhanced">
+                            <option value="Consulta General">Consulta General sobre Colecciones</option>
+                            <option value="Cotización Especial">Cotización / Pedido de Estampados</option>
+                            <option value="Estado de Pedido">Estado de un Pedido en Curso</option>
+                            <option value="Soporte y Garantía">Soporte Técnico o Garantía</option>
+                        </select>
+                    </div>
+
+                    <!-- 5. Mensaje o Detalle (Ocupa todo el Ancho) -->
+                    <div class="form-group form-field-full">
+                        <label for="contact-mensaje" style="font-weight: 700; color: #bbb; margin-bottom: 0.4rem; display: block; font-size: 0.88rem;">
+                            <i class="fa-solid fa-comment-dots" style="color: var(--accent);"></i> Detalle de tu Mensaje: *
+                        </label>
+                        <textarea id="contact-mensaje" class="form-control-enhanced" rows="5" placeholder="Escribe aquí tu consulta o requerimiento con el mayor detalle posible..." required style="resize: vertical;"></textarea>
+                    </div>
+
+                    <!-- ACEPTACIÓN DE TRATAMIENTO DE DATOS PERSONALES (LEY 1581 / MINTIC) -->
+                    <div class="form-field-full" style="background: rgba(2, 132, 199, 0.05); border: 1px solid rgba(2, 132, 199, 0.25); border-radius: 10px; padding: 0.85rem 1rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer; font-size: 0.82rem; color: #cbd5e1; line-height: 1.45; margin: 0;">
+                            <input type="checkbox" id="check-privacidad-contacto" style="margin-top: 0.2rem; width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0;" required>
+                            <span>
+                                Autorizo a Prendas & Stylos a tratar mis datos de contacto para atender mi mensaje o requerimiento conforme a la Ley 1581 de 2012 y sus <a href="privacidad.html" target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: underline;">Políticas de Privacidad</a>.
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- Botones de Salida de Formulario (BOTÓN PRINCIPAL: ENVÍANOS UN WHATSAPP CON ICONO Y COLOR VERDE) -->
+                    <div class="form-field-full" style="display: flex; gap: 1rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" id="btn-contact-whatsapp" class="btn-hero-primary" style="flex: 1; justify-content: center; background: #25d366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); min-width: 220px; color: #fff;">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Envíanos un WhatsApp
+                        </button>
+                        <button type="button" id="btn-contact-limpiar" class="btn-hero-secondary" style="justify-content: center; min-width: 140px;">
+                            <i class="fa-solid fa-rotate-left"></i> Limpiar
+                        </button>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- COLUMNA 2: CANALES DE ATENCIÓN Y UBICACIÓN STICKY (.contain-card-summary) -->
+            <section class="contain-card-summary">
+                
+                <div style="border-bottom: 1px dashed var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.2rem;">
+                        <i class="fa-solid fa-headset" style="color: var(--accent);"></i> Canales Directos
+                    </h3>
+                    <span style="color: var(--text-muted); font-size: 0.82rem;">Haz clic en cualquiera de nuestras vías de atención</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1.1rem;">
+                    
+                    <!-- 1. TARJETA LÍNEA DIRECTA CELULAR -->
+                    <a href="tel:+573173247083" class="info-channel-card" title="Llamar a nuestra Línea Celular">
+                        <div class="info-icon-wrapper" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); color: #10b981;">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Línea Celular / WhatsApp:</span>
+                            <strong style="color: var(--text-main); font-size: 1rem;">+57 317 324 7083</strong>
+                            <span style="display: inline-block; background: rgba(16, 185, 129, 0.15); color: #059669; font-size: 0.7rem; padding: 0.15rem 0.5rem; border-radius: 10px; font-weight: 700; margin-top: 0.2rem;">Atención Telefónica</span>
+                        </div>
+                    </a>
+
+                    <!-- 2. TARJETA DE CORREO DE ATENCIÓN -->
+                    <a href="mailto:atencion@prendasystylos.com?subject=Consulta%20desde%20la%20Web%20-%20Prendas%20%26%20Stylos" class="info-channel-card" title="Enviar Correo Electrónico Directo">
+                        <div class="info-icon-wrapper" style="background: rgba(2, 132, 199, 0.12); border-color: rgba(2, 132, 199, 0.3); color: var(--accent);">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Correo de Atención (Clic para enviar):</span>
+                            <strong style="color: var(--text-main); font-size: 0.92rem;">atencion@prendasystylos.com</strong>
+                        </div>
+                    </a>
+
+                    <!-- 3. TARJETA PUNTO DE RECOGIDA EN CALI (DIRECCIÓN REAL) -->
+                    <a href="https://www.google.com/maps/search/?api=1&query=Cra+28+D1+%2372+L+94+Barrio+Los+Robles+Cali+Colombia" target="_blank" rel="noopener noreferrer" class="info-channel-card" title="Abrir Ubicación en Google Maps">
+                        <div class="info-icon-wrapper" style="background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.3); color: #f59e0b;">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div>
+                            <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Taller & Showroom (Cali):</span>
+                            <strong style="color: var(--text-main); font-size: 0.92rem;">Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            <span style="color: var(--accent); font-size: 0.78rem; font-weight: 700; display: flex; align-items: center; gap: 0.3rem; margin-top: 0.2rem;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver en Google Maps
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- 4. TARJETA HORARIO DE SERVICIO (HORARIO DE OFICINA) -->
+                    <div class="info-channel-card" style="cursor: default; flex-direction: column; align-items: flex-start; gap: 0.6rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; width: 100%;">
+                            <div class="info-icon-wrapper" style="background: rgba(2, 132, 199, 0.12); border-color: rgba(2, 132, 199, 0.3); color: var(--accent);">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Horario de Servicio (Oficina & Taller):</span>
+                                <strong style="color: var(--text-main); font-size: 0.9rem;">Lun - Vie: 8:00 AM - 6:00 PM</strong>
+                                <span style="color: var(--text-secondary); font-size: 0.78rem; display: block;">Sábados: 9:00 AM - 1:00 PM</span>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px dashed var(--border-color); width: 100%; padding-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="color: var(--text-muted); font-size: 0.75rem;">¿Deseas recordar nuestro horario?</span>
+                            <button id="btn-agendar-calendario" class="btn-calendar-add" title="Agregar recordatorio al Calendario">
+                                <i class="fa-solid fa-calendar-plus"></i> Agendar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 5. BLOQUE: SÍGUENOS EN REDES SOCIALES (EXCEPTUANDO PINTEREST Y WHATSAPP) REDISTRIBUIDO -->
+                    <div style="border-top: 1px dashed var(--border-color); padding-top: 1.2rem; margin-top: 0.5rem;">
+                        <h4 style="color: var(--text-main); font-size: 0.95rem; font-weight: 800; margin-bottom: 0.6rem;">
+                            <i class="fa-solid fa-hashtag" style="color: var(--accent);"></i> Síguenos en Redes Sociales:
+                        </h4>
+                        <div class="social-media-container">
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn instagram" title="Síguenos en Instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn facebook" title="Síguenos en Facebook">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn tiktok" title="Síguenos en TikTok">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn youtube" title="Suscríbete en YouTube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Columna 1: Marca & Compromiso de Calidad -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">En Prendas & Stylos estamos comprometidos a brindar soluciones de calidad en estampado y personalización de prendas para nuestros clientes.</p>
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navega -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navega</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="cotizador.html">Personalizar</a></li>
+                        <li><a href="galeria.html">Tienda</a></li>
+                        <li><a href="blog.html">Blog & Cuidado</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contactanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Servicios -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Servicios</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
+                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
+                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
+                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
+                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contáctanos -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contactanos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT DE CONTACTO Y NAVEGACIÓN -->
+    <script src="JS/menu_catalogo.js"></script>
+    <script src="JS/contacto.js"></script>
+</body>
+</html>

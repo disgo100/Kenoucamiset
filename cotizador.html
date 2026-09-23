@@ -1,0 +1,514 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendas & Stylos - Cotizador Automático de Estampados</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="CSS styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Distribución Armoniosa y Amplia */
+        .cotizador-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 440px;
+            gap: 2.5rem;
+            align-items: start;
+            width: 100%;
+        }
+
+        @media screen and (max-width: 992px) {
+            .cotizador-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .contain-card-summary {
+                position: static;
+            }
+        }
+
+        /* Contenedor Principal de Formulario (.contain-card) Amplio */
+        .contain-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: var(--shadow-md);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contain-card:hover {
+            border-color: var(--card-hover-border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Contenedor de Resumen Lateral Flotante */
+        .contain-card-summary {
+            background: #ffffff;
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            border-radius: 16px;
+            padding: 2.2rem;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
+            position: sticky;
+            top: 90px;
+        }
+
+        /* Grilla Interna para Campos de Datos (Aprovechamiento de Espacio) */
+        .form-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-fields-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+        }
+
+        .form-field-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Estilo de Inputs Amplios */
+        .form-control-enhanced {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .form-control-enhanced:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            background: #ffffff;
+        }
+
+        /* Atajos y Chips Distribuidos */
+        .qty-chips-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.7rem;
+        }
+
+        .qty-chip {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .qty-chip:hover, .qty-chip.active {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Escala de Descuentos Distribuida */
+        .discount-badge-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 0.6rem;
+            margin-top: 0.9rem;
+        }
+
+        .discount-step {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            transition: all 0.25s ease;
+        }
+
+        .discount-step.active {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: #10b981;
+            color: #059669;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item active"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ENCABEZADO HERO DEL COTIZADOR -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag">PRESUPUESTO EN TIEMPO REAL</span>
+            <h2 class="hero-title">COTIZADOR AUTOMÁTICO DE ESTAMPADOS</h2>
+            <p class="hero-description">Calcula de forma instantánea el valor de tus prendas personalizadas según la cantidad, la técnica de estampado (DTF, Vinilo, Serigrafía) y aprovecha nuestros descuentos escalonados por volumen.</p>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL COTIZADOR CON DISPOSICIÓN EN 2 COLUMNAS -->
+    <main style="max-width: 1350px; margin: 2rem auto; padding: 0 1.5rem;">
+        
+        <div class="cotizador-grid-layout">
+            
+            <!-- COLUMNA 1: CONFIGURACIÓN Y PARÁMETROS AMPLIA (.contain-card) -->
+            <section class="contain-card">
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.2rem; margin-bottom: 1.8rem;">
+                    <h3 style="font-size: 1.4rem; color: var(--text-main); margin-bottom: 0.3rem; font-weight: 800;">
+                        <i class="fa-solid fa-clipboard-check" style="color: var(--accent);"></i> Realiza Tu Pedido
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Configura tu prenda, técnica de estampado y volumen para obtener tu cotización estimada en tiempo real.</p>
+                </div>
+                
+                <form id="cotizador-form" class="form-fields-grid">
+                    
+                    <!-- 1. Tipo de Prenda Base -->
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.4rem;">
+                            <label for="tipo-prenda" style="font-weight: 700; color: var(--text-main); margin: 0; font-size: 0.95rem;">
+                                <i class="fa-solid fa-shirt" style="color: var(--accent);"></i> 1. Tipo de Prenda Base:
+                            </label>
+                            <button type="button" class="btn-open-size-guide" style="background: rgba(2, 132, 199, 0.08); border: 1px solid rgba(2, 132, 199, 0.3); color: var(--accent); padding: 0.25rem 0.65rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;">
+                                <i class="fa-solid fa-ruler-combined"></i> Ver Tallas & Medidas
+                            </button>
+                        </div>
+                        <select id="tipo-prenda" class="form-control-enhanced">
+                            <option value="35000" data-nombre="Camiseta 100% Algodón (220g)">Camiseta 100% Algodón 220g ($35.000 COP)</option>
+                            <option value="42000" data-nombre="Camiseta Oversize Heavy Weight">Camiseta Oversize Heavy Weight ($42.000 COP)</option>
+                            <option value="75000" data-nombre="Hoodie Perchado Mota Fina">Hoodie Perchado Mota Fina ($75.000 COP)</option>
+                            <option value="55000" data-nombre="Buso Cuello Redondo">Buso Cuello Redondo ($55.000 COP)</option>
+                            <option value="48000" data-nombre="Jogger Cargo Techwear">Jogger Cargo Techwear ($48.000 COP)</option>
+                        </select>
+                    </div>
+
+                    <!-- 2. Técnica de Estampado -->
+                    <div class="form-group">
+                        <label for="tecnica-estampado" style="font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem; display: block; font-size: 0.95rem;">
+                            <i class="fa-solid fa-paint-roller" style="color: var(--accent);"></i> 2. Técnica de Estampado:
+                        </label>
+                        <select id="tecnica-estampado" class="form-control-enhanced">
+                            <option value="18000" data-nombre="DTF Textil de Alta Definición">DTF Textil Alta Definición ($18.000 COP/un)</option>
+                            <option value="15000" data-nombre="Vinilo Textil Importado (Mate/Brillo)">Vinilo Textil Importado ($15.000 COP/un)</option>
+                            <option value="12000" data-nombre="Serigrafía Tradicional / Plastisol">Serigrafía Tradicional ($12.000 COP/un)</option>
+                            <option value="22000" data-nombre="DTF + Vinilo Reflectivo Especial">DTF + Vinilo Reflectivo ($22.000 COP/un)</option>
+                        </select>
+                    </div>
+
+                    <!-- 3. Ubicaciones / Posiciones -->
+                    <div class="form-group form-field-full">
+                        <label for="posiciones-estampado" style="font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem; display: block; font-size: 0.95rem;">
+                            <i class="fa-solid fa-layer-group" style="color: #fbc531;"></i> 3. Posiciones de Estampado:
+                        </label>
+                        <select id="posiciones-estampado" class="form-control-enhanced">
+                            <option value="1">1 Posición (Frente O Espalda)</option>
+                            <option value="1.6">2 Posiciones (Frente + Espalda)</option>
+                            <option value="2.1">3 Posiciones (Frente + Espalda + Manga)</option>
+                        </select>
+                    </div>
+
+                    <!-- 4. Cantidad de Unidades con Atajos (Ocupa todo el Ancho) -->
+                    <div class="form-group form-field-full">
+                        <label for="cantidad-unidades" style="font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem; display: block; font-size: 0.95rem;">
+                            <i class="fa-solid fa-boxes-stacked" style="color: #10b981;"></i> 4. Cantidad de Prendas (Unidades):
+                        </label>
+
+                        <div style="display: flex; gap: 0.8rem; align-items: center;">
+                            <button type="button" id="btn-qty-minus" class="btn-size-guide" style="padding: 0.85rem 1.2rem; font-weight: 900; font-size: 1.2rem; cursor: pointer;">-</button>
+                            <input type="number" id="cantidad-unidades" class="form-control-enhanced" value="12" min="1" max="1000" step="1" required style="text-align: center; font-weight: 800; font-size: 1.2rem; flex: 1;">
+                            <button type="button" id="btn-qty-plus" class="btn-size-guide" style="padding: 0.85rem 1.2rem; font-weight: 900; font-size: 1.2rem; cursor: pointer;">+</button>
+                        </div>
+
+                        <!-- Chips de Selección Rápida Distribuidos -->
+                        <div style="margin-top: 1rem;">
+                            <span style="color: var(--text-muted); font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Selección rápida de volumen:</span>
+                            <div class="qty-chips-wrapper">
+                                <button type="button" class="qty-chip" data-qty="6">6 un.</button>
+                                <button type="button" class="qty-chip active" data-qty="12">12 un.</button>
+                                <button type="button" class="qty-chip" data-qty="24">24 un.</button>
+                                <button type="button" class="qty-chip" data-qty="50">50 un.</button>
+                                <button type="button" class="qty-chip" data-qty="100">100 un.</button>
+                            </div>
+                        </div>
+
+                        <!-- Indicadores de Escala de Descuento Distribuidos -->
+                        <div style="margin-top: 1.2rem;">
+                            <span style="color: var(--text-muted); font-size: 0.82rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Escala de descuentos activa:</span>
+                            <div class="discount-badge-bar">
+                                <div class="discount-step" id="step-d1">1-10 un.<br><strong>0% OFF</strong></div>
+                                <div class="discount-step active" id="step-d2">11-25 un.<br><strong>10% OFF</strong></div>
+                                <div class="discount-step" id="step-d3">26-50 un.<br><strong>15% OFF</strong></div>
+                                <div class="discount-step" id="step-d4">51+ un.<br><strong>20% OFF</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Garantías y Beneficios de Producción -->
+                    <div class="form-field-full" style="border-top: 1px dashed var(--border-color); padding-top: 1.2rem; margin-top: 0.4rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.8rem;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <i class="fa-solid fa-medal" style="color: var(--accent); font-size: 1.3rem;"></i>
+                                <div>
+                                    <strong style="color: var(--text-main); font-size: 0.85rem; display: block;">Calidad Textil</strong>
+                                    <span style="color: var(--text-muted); font-size: 0.78rem;">Algodón y tintas premium</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <i class="fa-solid fa-truck-fast" style="color: #10b981; font-size: 1.3rem;"></i>
+                                <div>
+                                    <strong style="color: var(--text-main); font-size: 0.85rem; display: block;">Producción Rápida</strong>
+                                    <span style="color: var(--text-muted); font-size: 0.78rem;">2 a 4 días hábiles</span>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                                <i class="fa-solid fa-headset" style="color: #f59e0b; font-size: 1.3rem;"></i>
+                                <div>
+                                    <strong style="color: var(--text-main); font-size: 0.85rem; display: block;">Asesoría Directa</strong>
+                                    <span style="color: var(--text-muted); font-size: 0.78rem;">Atención vía WhatsApp</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </section>
+
+            <!-- COLUMNA 2: RESUMEN DE PRESUPUESTO STICKY (.contain-card-summary) -->
+            <section class="contain-card-summary">
+                <div style="border-bottom: 1px dashed var(--border-color); padding-bottom: 1rem; margin-bottom: 1.2rem;">
+                    <h3 style="font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.2rem;">
+                        <i class="fa-solid fa-receipt" style="color: var(--accent);"></i> Resumen de Pre-Orden
+                    </h3>
+                    <span style="color: var(--text-muted); font-size: 0.82rem;">Pre-orden actualizada en tiempo real</span>
+                </div>
+
+                <div id="resumen-cotizacion" style="display: flex; flex-direction: column; gap: 0.9rem;">
+                    
+                    <div style="background: #f8fafc; padding: 0.9rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 0.2rem;">Prenda Seleccionada:</span>
+                        <strong id="summary-prenda" style="color: var(--text-main); font-size: 0.95rem;">Camiseta 100% Algodón</strong>
+                    </div>
+
+                    <div style="background: #f8fafc; padding: 0.9rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <span style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-bottom: 0.2rem;">Técnica & Posiciones:</span>
+                        <strong id="summary-tecnica" style="color: var(--text-main); font-size: 0.95rem;">DTF Textil (1 Posición)</strong>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                        <div style="background: #f8fafc; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Unidades:</span>
+                            <strong id="summary-cantidad" style="color: var(--text-main); font-size: 1.1rem;">12 un.</strong>
+                        </div>
+                        <div style="background: #f8fafc; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                            <span style="color: var(--text-muted); font-size: 0.78rem; display: block;">Descuento:</span>
+                            <strong id="summary-descuento" style="color: #10b981; font-size: 1.1rem;">10% OFF</strong>
+                        </div>
+                    </div>
+
+                    <div style="border-top: 1px dashed var(--border-color); padding-top: 0.9rem; margin-top: 0.2rem;">
+                        <div style="display: flex; justify-content: space-between; color: var(--text-secondary); margin-bottom: 0.4rem; font-size: 0.88rem;">
+                            <span>Valor Unitario Prenda + Estampado:</span>
+                            <span id="summary-unitario" style="color: var(--text-main); font-weight: 700;">$47.700 COP</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; color: var(--text-muted); margin-bottom: 0.8rem; font-size: 0.88rem;">
+                            <span>Subtotal sin Descuento:</span>
+                            <span id="summary-subtotal" style="color: var(--text-muted); text-decoration: line-through;">$636.000 COP</span>
+                        </div>
+
+                        <!-- TOTAL DESTACADO -->
+                        <div style="background: rgba(2, 132, 199, 0.08); padding: 1.1rem; border-radius: 12px; border: 1px solid rgba(2, 132, 199, 0.35); text-align: center;">
+                            <span style="font-weight: 700; color: var(--text-secondary); font-size: 0.85rem; display: block; text-transform: uppercase; letter-spacing: 1px;">TOTAL PRE-ORDEN CON DESCUENTO</span>
+                            <span id="summary-total" style="font-weight: 900; color: var(--accent); font-size: 1.8rem; display: block; margin-top: 0.2rem;">$572.400 COP</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ACCIONES Y BOTONES DE SALIDA -->
+                <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                    <button id="btn-pedir-whatsapp" class="btn-hero-primary" style="width: 100%; justify-content: center; background: #25d366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Enviar Pre-Orden por WhatsApp
+                    </button>
+                    
+                    <button id="btn-agregar-carrito-cotizado" class="btn-hero-secondary" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-cart-plus"></i> Añadir Pre-Orden al Carrito
+                    </button>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573173247083?text=Hola%20Prendas%20%26%20Stylos,%20necesito%20asesoría%20sobre%20una%20cotización" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-float" 
+       title="Chatea con nosotros en WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Columna 1: Marca & Compromiso de Calidad -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">En Prendas & Stylos estamos comprometidos a brindar soluciones de calidad en estampado y personalización de prendas para nuestros clientes.</p>
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navega -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navega</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="cotizador.html">Personalizar</a></li>
+                        <li><a href="galeria.html">Tienda</a></li>
+                        <li><a href="blog.html">Blog & Cuidado</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contactanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Servicios -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Servicios</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
+                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
+                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
+                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
+                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contáctanos -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contactanos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT GENERAL Y DEL COTIZADOR -->
+    <script src="JS/menu_catalogo.js"></script>
+    <script src="JS/cotizador.js"></script>
+</body>
+</html>

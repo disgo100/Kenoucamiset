@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Políticas de Privacidad y Tratamiento de Datos - Prendas & Stylos</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="CSS styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --------------------------------------------------------------------------
+           ESTILOS PROFESIONALES DE LA POLÍTICA DE PRIVACIDAD
+           Diseño centrado, minimalista, limpio y de alta legibilidad ejecutiva
+           -------------------------------------------------------------------------- */
+        .privacy-page-wrapper {
+            background-color: var(--bg-light);
+            min-height: 100vh;
+        }
+
+        .privacy-container {
+            max-width: 960px;
+            margin: 2rem auto 4.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+
+
+        /* Tarjeta Resumen Ejecutivo / Bienvenida */
+        .executive-summary-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2.2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .executive-icon-box {
+            width: 54px;
+            height: 54px;
+            border-radius: 14px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(2, 132, 199, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .executive-body h3 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .executive-body p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Tarjetas Principales de Sección */
+        .privacy-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+            scroll-margin-top: 2rem;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .privacy-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: var(--shadow-md);
+        }
+
+        .privacy-card-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .legal-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid rgba(2, 132, 199, 0.22);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .privacy-section-title {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -0.3px;
+        }
+
+        .privacy-intro-text {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Sección 1: Grid de Identificación Corporativa */
+        .company-id-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .company-id-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .company-id-item:hover {
+            background: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .company-id-icon {
+            color: var(--accent);
+            font-size: 1.15rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .company-id-item span {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .company-id-item strong {
+            color: var(--text-main);
+            font-size: 0.92rem;
+            line-height: 1.4;
+            display: block;
+        }
+
+        /* Sección 2: Marco Normativo */
+        .normative-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .normative-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+        }
+
+        .normative-item i {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .normative-item strong {
+            color: var(--text-main);
+            font-size: 0.92rem;
+            display: inline;
+        }
+
+        .normative-item span {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.55;
+            display: inline;
+        }
+
+        .compliance-callout {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, rgba(248, 250, 252, 0.8) 100%);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 1.25rem 1.5rem;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Sección 3: Datos Recopilados Natural (Sin tablas) */
+        .data-collected-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .data-collected-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            transition: all 0.25s ease;
+        }
+
+        .data-collected-card:hover {
+            background: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .data-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .data-card-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .data-card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+            flex: 1;
+        }
+
+        .data-card-purpose {
+            background: #ffffff;
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 0.75rem 0.9rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .data-card-purpose i {
+            color: #10b981;
+            margin-top: 0.2rem;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        /* Banner de Seguridad Bancaria */
+        .security-guarantee-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.04) 0%, rgba(254, 242, 242, 0.5) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            border-radius: 14px;
+            padding: 1.35rem 1.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .security-icon-circle {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(239, 68, 68, 0.12);
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .security-box-title {
+            color: #b91c1c;
+            font-size: 0.95rem;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .security-box-desc {
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Sección 4: Grid de Finalidades */
+        .purposes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.1rem;
+        }
+
+        .purpose-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.35rem;
+            transition: all 0.25s ease;
+        }
+
+        .purpose-card:hover {
+            background: #ffffff;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .purpose-card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .purpose-card h4 {
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 0.35rem;
+        }
+
+        .purpose-card p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Sección 5: Compartimiento */
+        .trust-no-sale-banner {
+            background: #ffffff;
+            border: 2px solid #10b981;
+            border-radius: 14px;
+            padding: 1.35rem 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.08);
+        }
+
+        .trust-no-sale-banner i {
+            color: #10b981;
+            font-size: 2.2rem;
+            flex-shrink: 0;
+        }
+
+        .trust-no-sale-banner strong {
+            color: var(--text-main);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: 800;
+        }
+
+        .trust-no-sale-banner span {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .partners-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .partner-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+        }
+
+        .partner-item i {
+            font-size: 1.15rem;
+            margin-top: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .partner-item strong {
+            color: var(--text-main);
+            font-size: 0.92rem;
+            font-weight: 750;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .partner-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Sección 6: Derechos ARCO */
+        .arco-rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .arco-right-item {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.3rem;
+            transition: all 0.25s ease;
+        }
+
+        .arco-right-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+            background: #ffffff;
+        }
+
+        .arco-right-item strong {
+            font-size: 1.05rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .arco-right-item p {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        /* Sección 8: PQRS Box */
+        .pqrs-box {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.06) 0%, rgba(248, 250, 252, 0.8) 100%);
+            border: 1px solid rgba(2, 132, 199, 0.25);
+            border-radius: 16px;
+            padding: 1.8rem;
+        }
+
+        .pqrs-channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 1.2rem 0 1.5rem 0;
+        }
+
+        .pqrs-channel-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            transition: all 0.2s ease;
+        }
+
+        .pqrs-channel-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pqrs-channel-card span {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .pqrs-channel-card a, .pqrs-channel-card strong {
+            font-size: 0.95rem;
+            font-weight: 750;
+            color: var(--text-main);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .pqrs-channel-card a:hover {
+            color: var(--accent);
+        }
+
+        .hero-meta-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+
+        .hero-meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+        }
+
+        .hero-meta-chip i {
+            color: var(--accent);
+        }
+
+        @media screen and (max-width: 768px) {
+            .privacy-card {
+                padding: 1.6rem 1.25rem;
+                border-radius: 14px;
+            }
+            .executive-summary-card {
+                flex-direction: column;
+                padding: 1.4rem;
+                gap: 1rem;
+            }
+
+        }
+
+        /* Estilos de Enlaces y Redes Sociales en el Pie de Página */
+        .main-footer a {
+            text-decoration: none !important;
+        }
+        .main-footer .footer-links-list li a {
+            color: #556987;
+            text-decoration: none !important;
+            font-size: 0.94rem;
+            font-weight: 500;
+            transition: color 0.25s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+        .main-footer .footer-links-list li a:hover {
+            color: var(--accent) !important;
+            transform: translateX(4px);
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- HERO SECTION PRIVACIDAD ELEVADO -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.8rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag"><i class="fa-solid fa-scale-balanced"></i> HABEAS DATA & PROTECCIÓN AL CONSUMIDOR</span>
+            <h2 class="hero-title">POLÍTICAS DE PRIVACIDAD & TRATAMIENTO DE DATOS</h2>
+            <p class="hero-description">Marco normativo, derechos de los titulares y políticas de protección y seguridad de datos conforme a la legislación colombiana (Ley Estatutaria 1581 de 2012, MinTIC y Superintendencia de Industria y Comercio).</p>
+            
+            <div class="hero-meta-badges">
+                <div class="hero-meta-chip"><i class="fa-solid fa-calendar-check"></i> Vigencia Septiembre 2026</div>
+                <div class="hero-meta-chip"><i class="fa-solid fa-landmark"></i> Ley 1581 de 2012</div>
+                <div class="hero-meta-chip"><i class="fa-solid fa-building-columns"></i> Vigilado por la SIC</div>
+                <div class="hero-meta-chip"><i class="fa-solid fa-shield-halved"></i> Cifrado SSL / TLS 256 bits</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTENEDOR PRINCIPAL CENTRADO -->
+    <main class="privacy-container">
+        
+        <!-- RESUMEN EJECUTIVO Y COMPROMISO ÉTICO -->
+        <div class="executive-summary-card">
+            <div class="executive-icon-box">
+                <i class="fa-solid fa-fingerprint"></i>
+            </div>
+            <div class="executive-body">
+                <h3>Compromiso Institucional con tu Privacidad</h3>
+                <p>
+                    En <strong>Prendas & Stylos</strong> valoramos profundamente la confianza que depositas en nosotros. Tratamos tu información personal con total transparencia, principios éticos y los más altos estándares técnicos de seguridad informática. <strong>Bajo ninguna circunstancia vendemos ni comercializamos tus datos personales.</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 1: IDENTIFICACIÓN DEL RESPONSABLE -->
+        <section id="responsable" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-building"></i> SECCIÓN 1</span>
+                <h3 class="privacy-section-title">1. Identificación del Responsable del Tratamiento</h3>
+            </div>
+            <p class="privacy-intro-text">
+                La tienda en línea y taller de personalización textil <strong>Prendas & Stylos</strong>, en calidad de <strong>Responsable del Tratamiento de Datos Personales</strong>, informa a sus usuarios, clientes y visitantes las políticas que rigen la recolección, almacenamiento, uso, circulación y protección de la información suministrada a través de sus canales digitales y presenciales:
+            </p>
+
+            <div class="company-id-grid">
+                <div class="company-id-item">
+                    <i class="fa-solid fa-shop company-id-icon"></i>
+                    <div>
+                        <span>Establecimiento / Marca</span>
+                        <strong>Prendas & Stylos</strong>
+                    </div>
+                </div>
+                <div class="company-id-item">
+                    <i class="fa-solid fa-location-dot company-id-icon"></i>
+                    <div>
+                        <span>Domicilio & Showroom</span>
+                        <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                    </div>
+                </div>
+                <div class="company-id-item">
+                    <i class="fa-solid fa-phone company-id-icon" style="color: #10b981;"></i>
+                    <div>
+                        <span>Línea Celular & WhatsApp</span>
+                        <strong>+57 317 324 7083</strong>
+                    </div>
+                </div>
+                <div class="company-id-item">
+                    <i class="fa-solid fa-envelope company-id-icon"></i>
+                    <div>
+                        <span>Correo Oficial Habeas Data</span>
+                        <strong style="color: var(--accent);">atencion@prendasystylos.com</strong>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: MARCO NORMATIVO Y PRINCIPIOS RECTORES -->
+        <section id="marco-legal" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-landmark"></i> SECCIÓN 2</span>
+                <h3 class="privacy-section-title">2. Marco Normativo y Principios Rectores</h3>
+            </div>
+            <p class="privacy-intro-text">
+                El presente documento ha sido formulado en estricta conformidad con el régimen legal de protección de datos personales y comercio electrónico de la República de Colombia, vigilado por la <strong>Superintendencia de Industria y Comercio (SIC)</strong> y orientado por las directrices del <strong>Ministerio de Tecnologías de la Información y las Comunicaciones (MinTIC)</strong>:
+            </p>
+
+            <div class="normative-list">
+                <div class="normative-item">
+                    <i class="fa-solid fa-gavel"></i>
+                    <div>
+                        <strong>Ley Estatutaria 1581 de 2012:</strong>
+                        <span> Disposiciones generales para la protección de datos personales (Régimen General de Habeas Data).</span>
+                    </div>
+                </div>
+                <div class="normative-item">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <div>
+                        <strong>Decreto 1377 de 2013 y Decreto Único 1074 de 2015:</strong>
+                        <span> Reglamentación sobre la autorización del titular, políticas de tratamiento, transferencias y transmisiones de datos.</span>
+                    </div>
+                </div>
+                <div class="normative-item">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <div>
+                        <strong>Ley 1480 de 2011 (Estatuto del Consumidor - Capítulo VI):</strong>
+                        <span> Protección al consumidor en entornos de comercio electrónico, derecho de retracto y reversión de pagos.</span>
+                    </div>
+                </div>
+                <div class="normative-item">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <div>
+                        <strong>Ley 527 de 1999:</strong>
+                        <span> Validez jurídica y probatoria de los mensajes de datos y transacciones en canales electrónicos.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="compliance-callout">
+                <strong style="color: var(--text-main); font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                    <i class="fa-solid fa-circle-check" style="color: #10b981;"></i> Principios de Legalidad, Finalidad y Libertad
+                </strong>
+                <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin: 0;">
+                    El tratamiento de datos personales en Prendas & Stylos solo se ejecuta mediando la <strong>autorización previa, expresa e informada</strong> del titular, únicamente para finalidades legítimas y necesarias para la prestación de nuestros servicios, asegurando en todo momento confidencialidad, veracidad y seguridad de la información.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: DATOS RECOPILADOS (SIMPLIFICADO, NATURAL, SIN TABLAS NI REFERENCIAS A ARCHIVOS HTML) -->
+        <section id="datos-recopilados" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-user-shield"></i> SECCIÓN 3</span>
+                <h3 class="privacy-section-title">3. Datos Personales Recopilados</h3>
+            </div>
+            
+            <p class="privacy-intro-text">
+                En Prendas & Stylos recopilamos únicamente los datos pertinentes, adecuados y estrictamente necesarios para tramitar tus compras, elaborar tus prendas personalizadas y brindarte una atención cercana y eficiente:
+            </p>
+
+            <div class="data-collected-grid">
+                <!-- 1. Al Realizar Compras o Pedidos -->
+                <div class="data-collected-card">
+                    <div class="data-card-icon" style="background: rgba(2, 132, 199, 0.12); color: var(--accent);">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <h4 class="data-card-title">Al Realizar Compras o Pedidos</h4>
+                    <p class="data-card-desc">
+                        Solicitamos tu nombre completo, número de documento de identidad (cédula de ciudadanía o NIT para facturación legal), teléfono celular, correo electrónico y dirección física o ciudad de destino.
+                    </p>
+                    <div class="data-card-purpose">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Finalidad:</strong> Elaborar tus prendas textiles, expedir tu comprobante de compra y coordinar la entrega física en tu domicilio.</span>
+                    </div>
+                </div>
+
+                <!-- 2. Al Efectuar Pagos en Línea -->
+                <div class="data-collected-card">
+                    <div class="data-card-icon" style="background: rgba(16, 185, 129, 0.12); color: #10b981;">
+                        <i class="fa-solid fa-credit-card"></i>
+                    </div>
+                    <h4 class="data-card-title">Al Procesar Pagos en Línea</h4>
+                    <p class="data-card-desc">
+                        La liquidación de pagos mediante débito interbancario PSE, tarjetas de crédito/débito o billeteras digitales se realiza de forma directa y encriptada a través de pasarelas de pago auditadas.
+                    </p>
+                    <div class="data-card-purpose">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Finalidad:</strong> Validación transaccional antifraude y liquidación de tus pagos con operadores financieros autorizados.</span>
+                    </div>
+                </div>
+
+                <!-- 3. Al Contactarnos o Cotizar -->
+                <div class="data-collected-card">
+                    <div class="data-card-icon" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b;">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h4 class="data-card-title">Al Contactarnos o Solicitar Asesoría</h4>
+                    <p class="data-card-desc">
+                        Al enviarnos tus consultas o solicitar cotizaciones personalizadas de estampados, registramos tu nombre, número de WhatsApp o correo electrónico y el detalle de tu requerimiento.
+                    </p>
+                    <div class="data-card-purpose">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Finalidad:</strong> Asesorarte en técnicas de estampado (DTF, vinilo, bordado), responder inquietudes y elaborar presupuestos a tu medida.</span>
+                    </div>
+                </div>
+
+                <!-- 4. Durante tu Sesión de Compra -->
+                <div class="data-collected-card">
+                    <div class="data-card-icon" style="background: rgba(99, 102, 241, 0.12); color: #6366f1;">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <h4 class="data-card-title">Preferencia de tu Sesión</h4>
+                    <p class="data-card-desc">
+                        Tu navegador conserva de manera local y transitoria las prendas que agregas al pedido y tus opciones de cotización mientras navegas por nuestra tienda.
+                    </p>
+                    <div class="data-card-purpose">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Finalidad:</strong> Mantener tus selecciones guardadas para que tu experiencia de compra sea rápida, cómoda y sin interrupciones.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GARANTÍA DE CERO ALMACENAMIENTO DE DATOS BANCARIOS -->
+            <div class="security-guarantee-box">
+                <div class="security-icon-circle">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <strong class="security-box-title">Garantía de Cero Almacenamiento de Datos Bancarios Sensibles</strong>
+                    <p class="security-box-desc">
+                        Prendas & Stylos <strong>NUNCA almacena ni tiene acceso a códigos de seguridad CVV, números completos de tarjetas de crédito o contraseñas bancarias</strong>. Todas las transacciones se realizan mediante conexiones seguras con cifrado SSL/TLS de 256 bits y operadores financieros vigilados por la Superintendencia Financiera de Colombia bajo el estándar PCI-DSS.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: FINALIDADES DEL TRATAMIENTO -->
+        <section id="finalidades" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-bullseye"></i> SECCIÓN 4</span>
+                <h3 class="privacy-section-title">4. Finalidades del Tratamiento de Datos</h3>
+            </div>
+            <p class="privacy-intro-text">
+                Al otorgar su consentimiento, el Titular autoriza a Prendas & Stylos a tratar sus datos exclusivamente para los siguientes propósitos legítimos:
+            </p>
+
+            <div class="purposes-grid">
+                <div class="purpose-card">
+                    <div class="purpose-card-icon" style="color: var(--accent);"><i class="fa-solid fa-shirt"></i></div>
+                    <h4>1. Gestión y Fabricación de Pedidos</h4>
+                    <p>Confección, personalización mediante DTF/Vinilo y elaboración de comprobantes de orden de compra.</p>
+                </div>
+
+                <div class="purpose-card">
+                    <div class="purpose-card-icon" style="color: #10b981;"><i class="fa-solid fa-truck-ramp-box"></i></div>
+                    <h4>2. Despacho y Logística de Entrega</h4>
+                    <p>Coordinación de envíos locales en Cali y nacionales en Colombia a través de mensajería postal habilitada.</p>
+                </div>
+
+                <div class="purpose-card">
+                    <div class="purpose-card-icon" style="color: #f59e0b;"><i class="fa-solid fa-receipt"></i></div>
+                    <h4>3. Facturación y Deberes Tributarios</h4>
+                    <p>Cumplimiento de las obligaciones contables, fiscales y comerciales ante la DIAN y organismos del Estado.</p>
+                </div>
+
+                <div class="purpose-card">
+                    <div class="purpose-card-icon" style="color: #6366f1;"><i class="fa-solid fa-comments"></i></div>
+                    <h4>4. Notificaciones y Servicio Posventa</h4>
+                    <p>Avisos sobre el estado de la confección, número de guía de transporte, garantías e inquietudes vía WhatsApp o email.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: COMPARTIMIENTO Y TRANSFERENCIA DE DATOS -->
+        <section id="compartimiento" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-handshake"></i> SECCIÓN 5</span>
+                <h3 class="privacy-section-title">5. Políticas de Compartimiento y Transferencia de Datos</h3>
+            </div>
+            <p class="privacy-intro-text">
+                En estricta conformidad con las directrices del MinTIC y la Superintendencia de Industria y Comercio (SIC), Prendas & Stylos establece que el compartimiento de datos personales se encuentra estrictamente delimitado a lo necesario para la ejecución de sus actividades comerciales:
+            </p>
+
+            <div class="trust-no-sale-banner">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <strong>PROHIBICIÓN ESTRICTA DE VENTA DE BASES DE DATOS</strong>
+                    <span>
+                        Prendas & Stylos <strong>NO vende, arrienda, comercializa ni cede bases de datos personales</strong> a terceras empresas con propósitos publicitarios, telemercadeo o lucro independiente no autorizado.
+                    </span>
+                </div>
+            </div>
+
+            <h4 style="font-size: 1.05rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.8rem;">
+                Terceros Habilitados con Quienes se Transmiten Datos para la Operación:
+            </h4>
+
+            <div class="partners-list">
+                <div class="partner-item">
+                    <i class="fa-solid fa-truck" style="color: var(--accent);"></i>
+                    <div>
+                        <strong>Operadores Logísticos y de Transporte Postal Vigilados por MinTIC</strong>
+                        <p>
+                            Se comparten los datos indispensables (nombre, teléfono, dirección y ciudad de destino) con empresas de mensajería especializada debidamente habilitadas por el MinTIC (ej. Servientrega, Envía, Coordinadora, Interrapidísimo o mensajería urbana local en Cali) única y exclusivamente para hacer efectiva la entrega de los paquetes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="partner-item">
+                    <i class="fa-solid fa-building-columns" style="color: #6366f1;"></i>
+                    <div>
+                        <strong>Entidades Financieras y Pasarelas de Pago Reguladas</strong>
+                        <p>
+                            Los datos de pago son enrutados hacia redes interbancarias (ACH Colombia / PSE), procesadores de adquirencia y billeteras electrónicas vigiladas por la Superintendencia Financiera de Colombia para completar la transacción de manera segura.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="partner-item">
+                    <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+                    <div>
+                        <strong>Plataformas de Mensajería Transaccional Directa</strong>
+                        <p>
+                            Uso de la infraestructura de WhatsApp y servidores de correo electrónico para el envío voluntario de confirmaciones de pedido, presupuestos personalizados y atención directa a consultas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 6: DERECHOS DEL TITULAR (DERECHOS ARCO) -->
+        <section id="derechos-arco" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-scale-balanced"></i> SECCIÓN 6</span>
+                <h3 class="privacy-section-title">6. Derechos del Titular de los Datos (Habeas Data)</h3>
+            </div>
+            <p class="privacy-intro-text">
+                De conformidad con el artículo 8 de la Ley 1581 de 2012, el Titular de los datos personales cuenta con los siguientes derechos fundamentales:
+            </p>
+
+            <div class="arco-rights-grid">
+                <div class="arco-right-item">
+                    <strong style="color: var(--accent);">
+                        <i class="fa-solid fa-eye"></i> Acceso / Conocer
+                    </strong>
+                    <p>Conocer los datos personales que reposan en las bases de datos de Prendas & Stylos de manera gratuita.</p>
+                </div>
+
+                <div class="arco-right-item">
+                    <strong style="color: #10b981;">
+                        <i class="fa-solid fa-pen-to-square"></i> Actualizar & Rectificar
+                    </strong>
+                    <p>Solicitar la corrección de datos inexactos, incompletos, fraccionados o que induzcan a error.</p>
+                </div>
+
+                <div class="arco-right-item">
+                    <strong style="color: #ef4444;">
+                        <i class="fa-solid fa-trash-can"></i> Suprimir / Cancelar
+                    </strong>
+                    <p>Solicitar la eliminación de sus datos cuando considere que no se respetan los principios legales o finalice el vínculo comercial.</p>
+                </div>
+
+                <div class="arco-right-item">
+                    <strong style="color: #f59e0b;">
+                        <i class="fa-solid fa-ban"></i> Revocar Autorización
+                    </strong>
+                    <p>Revocar el consentimiento otorgado para el tratamiento de su información personal en cualquier momento.</p>
+                </div>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.2rem;">
+                <strong style="color: var(--text-main); font-size: 0.92rem; display: block; margin-bottom: 0.3rem;">
+                    <i class="fa-solid fa-building-columns" style="color: var(--accent);"></i> Quejas ante la Superintendencia de Industria y Comercio (SIC):
+                </strong>
+                <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.6; margin: 0;">
+                    El titular tiene derecho a presentar ante la SIC quejas por infracciones a lo dispuesto en la Ley 1581 de 2012 y demás normas concordantes, una vez haya agotado el trámite de consulta o reclamo directo ante Prendas & Stylos.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 7: SEGURIDAD DE LA INFORMACIÓN Y COOKIES -->
+        <section id="seguridad-cookies" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-lock"></i> SECCIÓN 7</span>
+                <h3 class="privacy-section-title">7. Medidas de Seguridad de la Información & Privacidad</h3>
+            </div>
+            <p class="privacy-intro-text">
+                En cumplimiento del principio de seguridad consagrado en la Ley 1581 de 2012 y las recomendaciones de ciberseguridad del MinTIC:
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 0.9rem;">
+                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.1rem 1.3rem;">
+                    <strong style="color: var(--text-main); font-size: 0.92rem; display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.25rem;">
+                        <i class="fa-solid fa-lock" style="color: #10b981;"></i> Cifrado de Comunicaciones (SSL / TLS 256 bits)
+                    </strong>
+                    <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.55; margin: 0;">
+                        Toda la navegación y transmisión de datos en Prendas & Stylos se realiza mediante certificados criptográficos SSL/TLS que garantizan la absoluta confidencialidad entre el navegador del cliente y los servidores web.
+                    </p>
+                </div>
+
+                <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.1rem 1.3rem;">
+                    <strong style="color: var(--text-main); font-size: 0.92rem; display: flex; align-items: center; gap: 0.45rem; margin-bottom: 0.25rem;">
+                        <i class="fa-solid fa-cookie-bite" style="color: #f59e0b;"></i> Sesión Local y Transparencia sin Rastreo Invasivo
+                    </strong>
+                    <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.55; margin: 0;">
+                        Empleamos memoria técnica de sesión únicamente para recordar los artículos dentro de su carrito de compras y las selecciones de cotización de prendas. <strong>No utilizamos cookies de rastreo publicitario invasivo de terceros ni elaboramos perfiles comerciales cruzados no autorizados.</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 8: EJERCICIO DE DERECHOS Y CANALES PQRS -->
+        <section id="canales-pqrs" class="privacy-card">
+            <div class="privacy-card-header">
+                <span class="legal-badge-pill"><i class="fa-solid fa-headset"></i> SECCIÓN 8</span>
+                <h3 class="privacy-section-title">8. Procedimiento para el Ejercicio de Derechos (PQRS)</h3>
+            </div>
+            <p class="privacy-intro-text">
+                Para ejercer sus derechos de consulta, actualización, rectificación o supresión de datos, el Titular o sus causahabientes pueden remitir una comunicación formal a través de nuestros canales oficiales:
+            </p>
+
+            <div class="pqrs-box">
+                <h4 style="font-size: 1.05rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-paper-plane" style="color: var(--accent);"></i> Canales Oficiales Habilitados:
+                </h4>
+                
+                <div class="pqrs-channels-grid">
+                    <div class="pqrs-channel-card">
+                        <span>Correo Electrónico Exclusivo:</span>
+                        <a href="mailto:atencion@prendasystylos.com?subject=Solicitud%20Habeas%20Data%20-%20Ley%201581" style="color: var(--accent);">
+                            atencion@prendasystylos.com
+                        </a>
+                    </div>
+                    <div class="pqrs-channel-card">
+                        <span>Línea Celular / WhatsApp:</span>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" style="color: #10b981;">
+                            +57 317 324 7083
+                        </a>
+                    </div>
+                    <div class="pqrs-channel-card">
+                        <span>Atención Física (Taller):</span>
+                        <strong>Cra 28 D1 #72 L 94 - Los Robles, Cali</strong>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px dashed rgba(2, 132, 199, 0.3); padding-top: 1rem;">
+                    <strong style="color: var(--text-main); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">
+                        Términos Legales de Respuesta (Art. 14 y 15 Ley 1581 de 2012):
+                    </strong>
+                    <ul style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin: 0; padding-left: 1.2rem;">
+                        <li><strong>Consultas:</strong> Serán atendidas en un término máximo de <strong>diez (10) días hábiles</strong> contados a partir de la fecha de recibo.</li>
+                        <li><strong>Reclamos y Supresión:</strong> Serán resueltos en un término máximo de <strong>quince (15) días hábiles</strong> siguientes a la recepción de la solicitud completa.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- VIGENCIA -->
+            <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.2rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                <p><strong>Vigencia de las Bases de Datos:</strong> Los datos personales recolectados permanecerán en las bases de datos de Prendas & Stylos durante el tiempo que subsista la relación comercial o contractualmente pactada, y con posterioridad por los lapsos exigidos por la legislación contable, tributaria y mercantil colombiana (mínimo 5 a 10 años conforme al Estatuto Tributario y Código de Comercio).</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER GLOBAL -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                
+                <!-- Columna 1: Marca & Redes Sociales (Módulo Inferior Izquierdo) -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">Marca líder en moda urbana y estampados personalizados en Colombia con técnicas textiles de alta gama (DTF Textil, Vinilo y Serigrafía).</p>
+                    
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navegación Rápida -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navegación Rápida</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Página Principal</a></li>
+                        <li><a href="galeria.html">Galería de Colección</a></li>
+                        <li><a href="cotizador.html">Cotizador de Estampados</a></li>
+                        <li><a href="blog.html">Blog & Cuidado Textil</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto Directo</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Garantía y Legal -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Garantía y Legal</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="privacidad.html" style="color: var(--accent); font-weight: 700;">Políticas de Privacidad</a></li>
+                        <li><a href="privacidad.html#derechos-arco">Derechos Habeas Data (ARCO)</a></li>
+                        <li><a href="privacidad.html#marco-legal">Estatuto del Consumidor (Ley 1480)</a></li>
+                        <li><a href="privacidad.html#canales-pqrs">Canales Oficiales de PQRS</a></li>
+                        <li><a href="https://www.sic.gov.co" target="_blank" rel="noopener noreferrer">Superintendencia de Industria y Comercio (SIC)</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Atención & Contacto -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Atención & Contacto</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT NAVEGADOR -->
+    <script src="JS/menu_catalogo.js"></script>
+
+</body>
+</html>

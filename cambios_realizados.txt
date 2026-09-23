@@ -1,0 +1,103 @@
+Se realizaron las siguientes correcciones y mejoras en el proyecto:
+
+1. Corrección de carga del catálogo (index.html y galeria.html)
+   - El script 'catalogo.js' responsable de cargar y mostrar los productos no estaba enlazado en los archivos HTML principales.
+   - Se añadió la etiqueta <script src="JS/catalogo.js"></script> a 'index.html' y 'galeria.html'.
+
+2. Integración de bases de datos locales (LocalStorage)
+   - 'catalogo.js' estaba intentando leer y escribir variables antiguas ('pys_products' y 'pys_cart').
+   - Se reescribió 'catalogo.js' para que apunte directamente a 'prendas_catalog' (que gestiona el administrador) y a 'prendas_cart', que usa el sistema del carrito de compras.
+   - Ahora, todos los productos cargados en el Panel de Administración se muestran automáticamente en la página principal y la galería.
+
+3. Sincronización del carrito de compras ('cart.js' y 'cotizador.js')
+   - Se ajustaron las funciones de adición de productos al carrito para que todas sigan la misma estructura de datos esperada por 'cart.js' (id, nombre, precio, cantidad, imagen).
+   - Se resolvió un error por el cual el contador del carrito no se actualizaba correctamente al añadir cotizaciones o productos porque no se llamaba a la función 'actualizarContadorCarritoGlobal()'.
+
+4. Mejora del código e integraciones menores
+   - Se corrigió el mapeo de propiedades (como "nombre" vs "name" y "precio" vs "price") al unificar el catálogo del administrador con el de clientes.
+   - Se añadieron fallbacks con productos por defecto en caso de que el administrador nunca haya accedido o cargado prendas, para evitar que la tienda quede vacía en la primera visita.
+
+5. Corrección de desbordamiento y alineación en la Galería (galeria.html y catalogo.js)
+   - Se corrigió la discrepancia de clases CSS entre 'catalogo.js' y 'styles.css' (uso de 'product-image-container' y 'product-image' en vez de estilos inline descontrolados).
+   - Se estableció altura y proporción uniforme (object-fit: cover) para todas las fotos, evitando que imágenes de diferentes proporciones desfiguren la cuadrícula.
+   - Se implementó 'min-width: 0' y 'overflow-wrap: break-word' para erradicar cualquier desbordamiento horizontal en CSS Grid.
+   - Se normalizó la altura de los títulos con line-clamp y se reactivó 'margin-top: auto' en el botón de compra para alinear perfectamente la base de todas las tarjetas.
+   - Se integró la barra de filtros por categoría interactiva en 'galeria.html'.
+
+6. Reestructuración de paneles, eliminación del buscador y sección de YouTube (blog.html, JS/blog.js y styles.css)
+   - Se eliminó el campo de búsqueda redundante y se implementó una barra de filtros de categoría centrada con diseño moderno tipo pills e iconos representativos.
+   - Se solucionó la desalineación de tarjetas del blog incorporando 'product-image-container' con altura fija (220px), line-clamp controlado para títulos y resúmenes, y 'margin-top: auto' en el botón 'Leer Guía Completa'.
+   - Se reemplazaron imágenes rotas o inexistentes por fotografías temáticas de alta definición de Unsplash.
+   - Se diseñó e implementó la nueva sección 'Cuidado de Prendas en YouTube' con tarjetas interactivas de videotutoriales (DTF, vinilo, cuidado de ropa oscura, desmanchado), botón de reproducción con hover neón y banner de suscripción al canal oficial.
+   - Se añadió un modal interactivo con reproductor de video responsivo ('video-modal') que reproduce tutoriales y detiene automáticamente la transmisión al cerrarse.
+
+7. Rediseño de Paleta de Colores Clara, Minimalista y Pie de Página de 4 Columnas (Todos los HTML, styles.css y scripts)
+   - Se renovó integralmente la paleta del proyecto por tonos claros, suaves y no invasivos (fondo #f8fafc, tarjetas #ffffff con bordes tenues #e2e8f0, textos legibles en slate #0f172a / #334155 / #64748b y acentos en azul cian #0284c7).
+   - Se actualizó el texto inferior en todas las páginas a: 'Tienda On Line, estampado y personalización de prendas.'.
+   - Se implementó en todas las páginas un nuevo pie de página minimalista de 4 columnas (Logo + Calidad, Navega, Servicios y Contáctanos) con insignias de pago seguro y enlaces directos.
+   - Se armonizaron los estilos locales en cotizador.html, contacto.html, carrito.html, admin.html, nosotros.html y el menú drawer dinámico en JS/menu_catalogo.js para mantener coherencia visual total.
+   - Se mantuvieron al 100% todas las funcionalidades interactivas (LocalStorage, carrito de compras, cotizador dinámico, modales de blog y YouTube, panel de administración y filtros).
+
+8. Colores Originales en Redes Sociales, Canales de Contacto y Nacimiento del Emprendimiento en Cali
+   - Se añadieron efectos de hover interactivos con los colores y degradados originales para las píldoras de redes sociales en index.html y nosotros.html (Instagram con degradado oficial multicolor, TikTok en negro con glitch 3D cian/rojo, Facebook en azul corporativo #1877f2 y YouTube en rojo #ff0000), tal como en contacto.html.
+   - En contacto.html se configuraron datos reales y legibles: número celular (+57 318 456 7890), correo de atención (atencion@prendasystylos.com), punto físico de recogida en Cali (Cra. 1 # 24-50, San Nicolás con enlace directo a Google Maps) y horario de oficina (Lunes a Viernes de 8:00 AM a 6:00 PM y Sábados de 9:00 AM a 1:00 PM).
+   - En nosotros.html se redactó e integró la sección narrativa "De Cali para el País: El Nacimiento de un Emprendimiento con Alma Urbana", relatando los orígenes hace 5 años en Santiago de Cali, la obsesión por la calidad textil (Heavy Weight 220g+) y la personalización prémium en DTF, vinilo y bordados.
+   - Se unificó el número de WhatsApp (+57 318 456 7890) y los canales de contacto de Cali en los footers y botones flotantes de todo el sitio.
+
+9. Rediseño del Panel de Administración, Monitor de Pedidos en Tiempo Real, Ventana de Inventario Sincronizada y Exportación a PDF/CSV (admin.html, JS/admin.js, JS/cart.js, JS/cotizador.js, JS/menu_catalogo.js y carrito.html)
+   - Armonización estética integral del Panel de Administración (admin.html) con la paleta de colores clara, minimalista y profesional de toda la tienda (fondos #f8fafc, tarjetas blancas #ffffff, bordes #e2e8f0 y acentos en azul cian corporativo).
+   - Sincronización bidireccional automática: tanto el Carrito de Compras (cart.js) como el Cotizador (cotizador.js) ahora registran de forma automática e inmediata cada orden o solicitud en el listado de pedidos del administrador ('prendas_admin_orders').
+   - Monitor de Pedidos interactivo con barra de chips filtrables en tiempo real (Todos, Cotización, En proceso, Vendido, Entregado/Finalizado) con contadores dinámicos y campo de búsqueda instantánea por cliente u orden.
+   - Modal interactivo de Detalle de Orden: permite inspeccionar el desglose de productos, enlazar directamente al WhatsApp del cliente y actualizar o avanzar el estado de la orden con recálculo dinámico de métricas KPI.
+   - Ventana Modal de Inventario & Métricas Sincronizadas: reporte ejecutivo integral con KPIs en vivo (Prendas activas, Unidades de stock, Inventario valorizado en COP, Alertas de stock bajo, Ventas totales y Órdenes), tabla valorizada detallada y funciones para Imprimir o Exportar Informe Oficial en PDF.
+   - Sistema de exportación documental profesional: integración de jsPDF para emitir informes oficiales de auditoría de inventario y pedidos en PDF, además de exportación en formato tabular CSV compatible con hojas de cálculo.
+   - Proforma oficial en PDF para el Cotizador (cotizador.html y JS/cotizador.js) que permite al cliente descargar un documento formal con desglose de valores, escala de descuentos por volumen, condiciones comerciales y tiempos de entrega.
+   - Persistencia de sesión de Administrador unificada entre pestañas ('admin_logged_in'), insignia de administrador activo en cabecera global y estilización coherente del modal de comprobante de compra en el carrito.
+
+10. Implementación de Tabla de Tallas & Medidas Oficial y Rediseño del Encabezado del Menú Lateral (Todos los HTML, styles.css y JS/menu_catalogo.js)
+   - Se retiró la leyenda 'MENÚ PRINCIPAL' del panel desplegable (Nav Drawer) y se reemplazó por la identidad oficial con estilo de marca: 'PRENDAS & STYLOS' (tipografía pesada 900, espaciado de 1px y acento en azul cian corporativo).
+   - Se diseñó e implementó la nueva 'Tabla de Tallas & Medidas Oficial' mediante una ventana modal interactiva (#modal-tallas-medidas) con diseño moderno, accesible globalmente desde el menú lateral en cualquier página y con disparadores directos en 'cotizador.html', 'galeria.html' e 'index.html'.
+   - Se incluyeron pestañas por categoría textil con tablas de medidas exactas en centímetros:
+     * Camisetas Oversize (S a XXL): ancho plano de pecho, contorno, largo total, caída de manga y estatura recomendada para silueta Drop Shoulder.
+     * Camisetas Clásicas / Regular Fit (S a XL): ancho plano, largo, ancho de hombros y manga.
+     * Hoodies & Busos con Capota (S a XL): ancho de pecho, largo total, manga con puño y hombro a hombro.
+     * Shorts Deportivos & Streetwear (S a XL): cintura elástica, contorno de cadera, largo total y equivalencia en tallas colombianas de pantalón (28 a 36).
+     * Gorras & Accesorios: especificaciones de talla única ajustable (54 a 60 cm de circunferencia).
+   - Se incorporó la guía visual interactiva '¿Cómo tomar tus medidas correctamente en casa?' (ancho plano, largo vertical y cintura) junto con recomendaciones de calce y botón de contacto directo con un asesor por WhatsApp.
+
+11. Actualización de 'cotizador.html' a Formato Pre-Orden y Generación de 'orden.pdf' con Datos Personales (cotizador.html y JS/cotizador.js)
+   - Se cambió el encabezado principal de la tarjeta de configuración de "Configura tu Pedido" a "Realiza Tu Pedido".
+   - Se actualizó el indicador de presupuesto de "Cálculo automático" a "Pre-orden" ("Pre-orden actualizada en tiempo real").
+   - Se añadieron campos formales para Datos Personales del solicitante: Nombre Completo, Teléfono/WhatsApp, Correo Electrónico, Ciudad/Dirección y Observaciones/Desglose de Tallas con estilos integrados y validación.
+   - Se reestructuró la generación del documento PDF para que se descargue como 'orden.pdf', incorporando un bloque visual dedicado para 'DATOS DEL CLIENTE / SOLICITANTE' junto al emisor 'PRENDAS & STYLOS' y observaciones especiales.
+   - Se sincronizó el canal de WhatsApp para enviar automáticamente los datos personales del cliente y el detalle completo de la pre-orden.
+
+12. Mejoras de Navegación, Seguridad y Acceso al Panel de Administración (admin.html, JS/admin.js, JS/menu_catalogo.js y todos los HTML)
+   - Se configuraron todos los enlaces hacia 'admin.html' con target="_blank" rel="noopener noreferrer" tanto en menús estáticos como en la barra dinámica de estado administrativo para que el panel se abra siempre en una pestaña nueva.
+   - Se integró el botón interactivo de alternancia de contraseña con icono de ojito (fa-eye / fa-eye-slash) en el modal de autenticación de 'admin.html', permitiendo revelar u ocultar la clave digitada en tiempo real.
+   - Se unificó el enlace del menú lateral en 'admin.html', 'contacto.html' y 'menu_catalogo.js' para que diga "Principal" en lugar de "Catálogo Principal", estandarizando la nomenclatura con el resto del sitio.
+   - Se configuró la acción de cierre de sesión administrativa en 'JS/admin.js' para que al salir redirija automáticamente a la página principal 'index.html'.
+
+13. Simplificación y Reordenamiento Armónico del Cotizador (cotizador.html y JS/cotizador.js)
+   - Se eliminó la sección de solicitud de datos personales (Nombre, Teléfono, Correo, Ciudad, Observaciones) del formulario en 'cotizador.html' para agilizar y hacer inmediata la cotización de prendas.
+   - Se retiró el botón de descarga de 'orden.pdf' y la librería jsPDF en 'cotizador.html', optimizando los tiempos de carga y enfocando la experiencia en los canales directos (WhatsApp y Carrito de Compras).
+   - Se reordenó la cuadrícula de configuración de forma armónica y balanceada: Prenda Base, Técnica de Estampado, Posiciones y Selector de Cantidad con stepper dinámico, atajos rápidos y escala de descuentos por volumen.
+   - Se incorporó un bloque estético de garantías y beneficios de producción (Calidad Textil, Producción Rápida y Asesoría Directa) para equilibrar visualmente la altura de ambas columnas en la página.
+   - Se limpió 'JS/cotizador.js' para sincronizar el flujo sin referencias huérfanas al PDF ni a los campos removidos.
+
+14. Implementación de Pasarela de Pagos, Detalle y Controles Individuales del Carrito (carrito.html y JS/cart.js)
+   - Pasarela de Pagos Segura en Línea:
+     * Se añadió en 'carrito.html' un botón prioritario con gradiente y sombras de alta estética: "Pagar con Pasarela Segura (PSE / Tarjeta / Nequi)" justo arriba de los accesos a WhatsApp y comprobante PDF.
+     * Se construyó una ventana modal completa y moderna para la pasarela con encriptación SSL simulada de 256 bits, desglose del total y conmutador visual dinámico entre 3 métodos de pago:
+       a) PSE (Débito bancario en entidades colombianas: Bancolombia, Nequi, Davivienda, etc., con tipo de persona y documento).
+       b) Tarjetas de Crédito / Débito (con validación, autocompletado y máscara de 16 dígitos, fecha de vencimiento MM/AA, CVV y cuotas).
+       c) Billeteras Móviles (Nequi, Daviplata, Dale) con enlace a número telefónico y autorización push.
+     * Al procesar el pago, se simula la aprobación bancaria con animación de procesamiento seguro, se genera el código de orden y referencia de pago CUS, se registra automáticamente el pedido en 'prendas_admin_orders' con estado "Vendido", se vacía el carrito y se habilita la visualización inmediata del comprobante oficial.
+   - Panel Izquierdo: Detalle y Controles Individuales de Selección:
+     * Se corrigió el problema de contraste en 'JS/cart.js' donde los títulos y subtotales se mostraban en blanco sobre fondo blanco; ahora se renderizan con alta legibilidad usando tokens de diseño institucional ('--text-main' y '--accent').
+     * Se agregó el detalle descriptivo de cada producto (badge con técnica de confección, tipo de prenda o categoría cotizada) y el precio unitario.
+     * Se incorporaron controles individuales de cantidad con botones interactivos de stepper (-) y (+) para disminuir o adicionar más unidades en tiempo real con recálculo automático de subtotales y total general.
+     * Se implementó un botón individual explícito "Descartar" con icono de papelera y confirmación de seguridad para eliminar selecciones de manera independiente sin afectar el resto del pedido.
+   - Panel Derecho: Identidad y Título "Continúa con tu compra":
+     * Se actualizó el encabezado principal de la columna derecha a "Continúa con tu compra" acompañado de un icono de bolsa de compras.
+     * Se modernizó la tarjeta de datos personales del cliente y el selector de entrega a un esquema visual claro (#f8fafc con bordes suaves), eliminando recuadros oscuros desalineados para brindar una estética homogénea y profesional.

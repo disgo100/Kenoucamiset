@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendas & Stylos - Carrito de Compras</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="css styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Distribución Armoniosa en 2 Columnas Desacopladas */
+        .cart-grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 440px;
+            gap: 2.5rem;
+            align-items: start;
+            width: 100%;
+        }
+        @media screen and (max-width: 992px) {
+            .cart-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .contain-card-summary {
+                position: static;
+            }
+        }
+
+        /* Tarjeta Contenedora Columna Izquierda (Productos) */
+        .contain-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contain-card:hover {
+            border-color: var(--card-hover-border);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Tarjeta Contenedora Columna Derecha (Resumen Sticky) */
+        .contain-card-summary {
+            background: #ffffff;
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
+            position: sticky;
+            top: 90px;
+        }
+
+        /* Tarjetas de Items de Productos Amplias y Espaciadas */
+        .cart-item-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            display: grid;
+            grid-template-columns: 85px 1fr auto auto;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.25s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cart-item-card:hover {
+            border-color: var(--card-hover-border);
+            background: #f8fafc;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cart-qty-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #f8fafc;
+            padding: 0.4rem 0.7rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .cart-qty-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            padding: 0.2rem 0.6rem;
+            transition: color 0.2s ease;
+        }
+
+        .cart-qty-btn:hover {
+            color: var(--accent);
+        }
+
+        /* Botón de descarte individual de prenda */
+        .btn-discard-item {
+            background: rgba(239, 68, 68, 0.08);
+            color: #dc2626;
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            padding: 0.42rem 0.85rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 700;
+            font-size: 0.82rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-discard-item:hover {
+            background: #dc2626;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.35);
+        }
+
+        /* Tarjetas de Selección de Método en Pasarela de Pagos */
+        .payment-method-card {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .payment-method-card:hover, .payment-method-card.active {
+            border-color: var(--accent);
+            background: rgba(2, 132, 199, 0.05);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+        }
+
+        /* MODAL FLOTANTE Y MOVIBLE (MOVABLE WINDOW) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content-movable {
+            position: fixed;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 650px;
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+            overflow: hidden;
+            user-select: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-header-drag {
+            background: #f8fafc;
+            padding: 1rem 1.2rem;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header-drag:active {
+            background: #f1f5f9;
+        }
+
+        .modal-body-content {
+            padding: 1.5rem;
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        /* REGLAS DE IMPRESIÓN Y GENERACIÓN DE PDF (@MEDIA PRINT) */
+        @media print {
+            body * {
+                visibility: hidden !important;
+            }
+            #receipt-printable-area, #receipt-printable-area * {
+                visibility: visible !important;
+            }
+            #receipt-printable-area {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                background: #ffffff !important;
+                color: #000000 !important;
+                padding: 20px !important;
+                border: none !important;
+                box-shadow: none !important;
+                font-family: Arial, sans-serif !important;
+            }
+            #receipt-printable-area h2, 
+            #receipt-printable-area h3, 
+            #receipt-printable-area p, 
+            #receipt-printable-area span, 
+            #receipt-printable-area td, 
+            #receipt-printable-area th, 
+            #receipt-printable-area strong {
+                color: #000000 !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+
+        @media screen and (max-width: 680px) {
+            .cart-item-card {
+                grid-template-columns: 75px 1fr;
+                gap: 1rem;
+            }
+            .cart-item-bottom-actions {
+                grid-column: 1 / -1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-top: 1px dashed #2d2d2d;
+                padding-top: 0.8rem;
+                margin-top: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn active" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ENCABEZADO HERO DEL CARRITO -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag">RESUMEN DE TU PEDIDO</span>
+            <h2 class="hero-title">CARRITO DE COMPRAS</h2>
+            <p class="hero-description">Revisa tus prendas seleccionadas, ingresa tus datos para la orden de pedido, elige el método de entrega y finaliza tu compra de forma directa y segura.</p>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL CARRITO (DISPOSICIÓN ARMONIOSA EN 2 COLUMNAS) -->
+    <main style="max-width: 1300px; margin: 2rem auto; padding: 0 1.5rem;">
+        
+        <div class="cart-grid-layout">
+            
+            <!-- COLUMNA IZQUIERDA: LISTA Y DISPOSICIÓN DE ITEMS (.contain-card) -->
+            <section class="contain-card">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #282828; padding-bottom: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.8rem;">
+                    <div>
+                        <h3 style="margin-bottom: 0.2rem; font-size: 1.3rem; color: #fff; font-weight: 800;">
+                            <i class="fa-solid fa-bag-shopping" style="color: var(--accent);"></i> Productos en tu Carrito
+                        </h3>
+                        <span style="color: #888; font-size: 0.85rem;">Verifica las prendas agregadas antes de confirmar tu orden</span>
+                    </div>
+
+                    <button id="btn-empty-cart" class="btn-action-delete" style="padding: 0.5rem 1rem; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <i class="fa-solid fa-trash-can"></i> Vaciar Carrito
+                    </button>
+                </div>
+
+                <!-- LISTA DINÁMICA DE TARJETAS DE ITEMS ESPACIADAS -->
+                <div id="cart-items-container" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    <!-- Renderizado por js/carrito.js -->
+                </div>
+
+                <!-- BOTÓN NAVEGACIÓN SECUNDARIO -->
+                <div style="margin-top: 2rem; border-top: 1px dashed #282828; padding-top: 1.2rem;">
+                    <a href="cotizador.html" class="btn-hero-secondary" style="display: inline-flex; align-items: center; gap: 0.6rem;">
+                        <i class="fa-solid fa-arrow-left"></i> Seguir Explorando el Catálogo de Cotización  
+                    </a>
+                </div>
+
+            </section>
+
+            <!-- COLUMNA DERECHA: DATOS PERSONALES, RESUMEN Y CHECKOUT (.contain-card-summary) -->
+            <section class="contain-card-summary">
+                
+                <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1.2rem;">
+                    <h3 style="font-size: 1.35rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <i class="fa-solid fa-bag-shopping" style="color: var(--accent);"></i> Continúa con tu compra
+                    </h3>
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Ingresa tus datos de entrega y selecciona tu método de pago preferido</span>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+                    
+                    <!-- CAMPOS DE DATOS PERSONALES PARA LA ORDEN DE PEDIDO (AMPLIADOS) -->
+                    <div style="background: #f8fafc; padding: 1.2rem; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <h4 style="color: var(--text-main); font-size: 0.98rem; font-weight: 800; margin-bottom: 0.9rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem;">
+                            <i class="fa-solid fa-id-card" style="color: var(--accent);"></i> Datos Personales del Cliente:
+                        </h4>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="input-nombre" style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
+                                    <i class="fa-solid fa-user" style="color: var(--accent);"></i> Nombre Completo: *
+                                </label>
+                                <input type="text" id="input-nombre" class="form-control" placeholder="Ej. Camilo Andrés Gómez" required style="font-size: 0.92rem; width: 100%; padding: 0.7rem 0.9rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="input-email" style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
+                                    <i class="fa-solid fa-envelope" style="color: var(--accent);"></i> Correo Electrónico: *
+                                </label>
+                                <input type="email" id="input-email" class="form-control" placeholder="tuemail@ejemplo.com" required style="font-size: 0.92rem; width: 100%; padding: 0.7rem 0.9rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="input-cedula" style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
+                                    <i class="fa-solid fa-address-card" style="color: #f59e0b;"></i> Cédula / CC (Solo números, máx. 15): *
+                                </label>
+                                <input type="text" id="input-cedula" class="form-control" placeholder="Ej. 1020304050" maxlength="15" inputmode="numeric" required style="font-size: 0.92rem; width: 100%; padding: 0.7rem 0.9rem;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="input-telefono" style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
+                                    <i class="fa-solid fa-phone" style="color: #10b981;"></i> Celular / Teléfono (Solo números, máx. 15): *
+                                </label>
+                                <input type="tel" id="input-telefono" class="form-control" placeholder="Ej. 3001234567" maxlength="15" inputmode="numeric" required style="font-size: 0.92rem; width: 100%; padding: 0.7rem 0.9rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Método de Entrega -->
+                    <div style="background: #f8fafc; padding: 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <label for="tipo-entrega" style="color: var(--text-main); font-size: 0.88rem; font-weight: 700; display: block; margin-bottom: 0.5rem;">
+                            <i class="fa-solid fa-truck-fast" style="color: var(--accent);"></i> Método de Entrega:
+                        </label>
+                        <select id="tipo-entrega" class="form-control" style="font-size: 0.9rem; width: 100%;">
+                            <option value="recogida">Punto de Entrega / Recogida Local (Gratis)</option>
+                            <option value="envio-local">Envío Urbano Local ($10.000 COP)</option>
+                            <option value="envio-nacional">Envío Nacional Colombia ($18.000 COP)</option>
+                        </select>
+                    </div>
+
+                    <!-- Desglose de Valores -->
+                    <div style="border-top: 1px dashed var(--border-color); padding-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.92rem;">
+                            <span>Subtotal Productos:</span>
+                            <span id="cart-subtotal" style="color: var(--text-main); font-weight: 600;">$0 COP</span>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.92rem;">
+                            <span>Costo de Entrega:</span>
+                            <span id="cart-envio-val" style="color: #10b981; font-weight: 600;">GRATIS</span>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(2, 132, 199, 0.08); padding: 1.1rem; border-radius: 12px; border: 1px solid rgba(2, 132, 199, 0.25); margin-top: 0.8rem;">
+                            <span style="font-weight: 800; color: var(--text-main); font-size: 1.05rem;">TOTAL A PAGAR:</span>
+                            <span id="cart-total" style="font-weight: 900; color: var(--accent); font-size: 1.55rem;">$0 COP</span>
+                        </div>
+                    </div>
+
+                    <!-- AUTORIZACIÓN Y CONSENTIMIENTO INFORMADO (HABEAS DATA LEY 1581 / MINTIC / SIC) -->
+                    <div style="background: rgba(2, 132, 199, 0.05); border: 1px solid rgba(2, 132, 199, 0.25); border-radius: 10px; padding: 0.9rem 1rem;">
+                        <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer; font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; margin: 0;">
+                            <input type="checkbox" id="check-privacidad-cart" style="margin-top: 0.2rem; width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0;" required>
+                            <span>
+                                Autorizo el tratamiento de mis datos personales para la gestión de mi orden, facturación y despacho, y declaro que he leído y acepto las <a href="privacidad.html" target="_blank" style="color: var(--accent); font-weight: 700; text-decoration: underline;">Políticas de Privacidad & Protección de Datos</a> de Prendas & Stylos (Ley 1581 de 2012 / MinTIC / SIC).
+                            </span>
+                        </label>
+                    </div>
+
+                    <!-- BOTONES DE ACCIÓN PRINCIPAL Y CHECKOUT -->
+                    <div style="display: flex; flex-direction: column; gap: 0.8rem; margin-top: 0.5rem;">
+                        <!-- BOTÓN PASARELA DE PAGOS SEGURA -->
+                        <button id="btn-checkout-pasarela" class="btn-hero-primary" style="justify-content: center; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35); border: none; font-size: 0.98rem; padding: 0.85rem 1rem;">
+                            <i class="fa-solid fa-credit-card" style="font-size: 1.15rem;"></i> Pagar con Pasarela Segura (PSE / Tarjeta / Nequi)
+                        </button>
+
+                        <button id="btn-checkout-whatsapp" class="btn-hero-primary" style="justify-content: center; background: #25d366; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.35); font-size: 0.95rem;">
+                            <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Confirmar Pedido por WhatsApp
+                        </button>
+
+                        <button id="btn-imprimir-comprobante" class="btn-hero-secondary" style="justify-content: center; font-size: 0.92rem;">
+                            <i class="fa-solid fa-file-pdf"></i> Generar Comprobante u Orden (PDF)
+                        </button>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL VENTANA FLOTANTE MOVIBLE DE ORDEN (ARRISTRABLE CON DRAG HEADER) -->
+    <div id="receipt-modal" class="modal" style="display: none;">
+        <div id="receipt-modal-card" class="modal-content-movable">
+            
+            <!-- CABECERA ARRASTRABLE PARA MOVER LA VENTANA -->
+            <div id="receipt-drag-header" class="modal-header-drag">
+                <span style="color: var(--text-main, #0f172a); font-weight: 800; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-up-down-left-right" style="color: var(--accent);"></i> Orden de Pedido Generada <small style="color: var(--text-muted, #94a3b8); font-weight: 400;">(Arrastra para mover)</small>
+                </span>
+                <button id="close-receipt-btn" aria-label="Cerrar" style="background: transparent; border: none; color: var(--text-secondary, #64748b); font-size: 1.4rem; cursor: pointer;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- CUERPO IMPRIMIBLE DE LA ORDEN -->
+            <div class="modal-body-content">
+                <div id="receipt-printable-area" style="background: #f8fafc; padding: 1.5rem; border-radius: 10px; border: 1px solid var(--border-color, #e2e8f0); color: var(--text-main, #0f172a); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                    <!-- Contenido generado dinámicamente -->
+                </div>
+
+                <!-- BOTONES DE IMPRESIÓN Y CIERRE -->
+                <div class="no-print" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button id="btn-ejecutar-impresion" class="btn-hero-primary" style="flex: 1; justify-content: center;">
+                        <i class="fa-solid fa-print"></i> Imprimir / Guardar en PDF
+                    </button>
+                    <button id="close-receipt-modal-action" class="btn-size-guide" style="flex: 1;">Cerrar Ventana</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL PASARELA DE PAGOS SEGURA (PSE / TARJETAS / NEQUI) -->
+    <div id="modal-pasarela-pago" class="modal" style="display: none;">
+        <div class="modal-content-movable" style="max-width: 620px; border-radius: 18px; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);">
+            
+            <!-- HEADER DE LA PASARELA -->
+            <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent);">
+                <div style="display: flex; align-items: center; gap: 0.75rem;">
+                    <div style="background: rgba(2, 132, 199, 0.2); width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #38bdf8;">
+                        <i class="fa-solid fa-shield-halved" style="font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: #ffffff; font-size: 1.1rem; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                            Pasarela de Pagos Segura
+                            <span style="font-size: 0.7rem; background: #10b981; color: #fff; padding: 0.15rem 0.45rem; border-radius: 20px; font-weight: 600;">SSL 256-bit</span>
+                        </h3>
+                        <p style="color: #94a3b8; font-size: 0.78rem; margin: 0.15rem 0 0 0;">Prendas & Stylos • Pagos protegidos y verificados</p>
+                    </div>
+                </div>
+                <button id="close-pasarela-btn" aria-label="Cerrar pasarela" style="background: rgba(255,255,255,0.1); border: none; color: #cbd5e1; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: background 0.2s ease;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- CUERPO DE LA PASARELA -->
+            <div class="modal-body-content" style="padding: 1.4rem;">
+                
+                <!-- VISTA 1: FORMULARIO Y SELECCIÓN DE MÉTODO DE PAGO -->
+                <div id="pasarela-step-form">
+                    <!-- Resumen del Pago -->
+                    <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 0.9rem 1.2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+                        <div>
+                            <span style="font-size: 0.8rem; color: var(--text-secondary); display: block;">Monto total a procesar:</span>
+                            <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 500;" id="pasarela-resumen-cliente">Cliente: Pendiente</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span id="pasarela-monto-total" style="font-size: 1.45rem; font-weight: 900; color: var(--accent);">$0 COP</span>
+                        </div>
+                    </div>
+
+                    <!-- Métodos de Pago Disponibles -->
+                    <label style="font-size: 0.86rem; font-weight: 700; color: var(--text-main); display: block; margin-bottom: 0.6rem;">
+                        Selecciona tu medio de pago:
+                    </label>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-bottom: 1.2rem;">
+                        <button type="button" class="payment-method-card active" data-method="pse" style="flex-direction: column; text-align: center; justify-content: center; padding: 0.75rem 0.5rem;">
+                            <i class="fa-solid fa-building-columns" style="font-size: 1.3rem; color: var(--accent);"></i>
+                            <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-main); margin-top: 0.35rem;">PSE</span>
+                            <small style="font-size: 0.68rem; color: var(--text-secondary);">Débito bancario</small>
+                        </button>
+
+                        <button type="button" class="payment-method-card" data-method="card" style="flex-direction: column; text-align: center; justify-content: center; padding: 0.75rem 0.5rem;">
+                            <i class="fa-solid fa-credit-card" style="font-size: 1.3rem; color: #6366f1;"></i>
+                            <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-main); margin-top: 0.35rem;">Tarjeta</span>
+                            <small style="font-size: 0.68rem; color: var(--text-secondary);">Crédito / Débito</small>
+                        </button>
+
+                        <button type="button" class="payment-method-card" data-method="wallet" style="flex-direction: column; text-align: center; justify-content: center; padding: 0.75rem 0.5rem;">
+                            <i class="fa-solid fa-mobile-screen-button" style="font-size: 1.3rem; color: #ec4899;"></i>
+                            <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-main); margin-top: 0.35rem;">Billetera</span>
+                            <small style="font-size: 0.68rem; color: var(--text-secondary);">Nequi / Daviplata</small>
+                        </button>
+                    </div>
+
+                    <!-- PANELES DE CAMPOS SEGÚN EL MÉTODO -->
+                    <!-- PANEL 1: PSE -->
+                    <div id="method-pse-panel" style="display: flex; flex-direction: column; gap: 0.8rem; margin-bottom: 1.2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="pse-banco" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Selecciona tu entidad bancaria: *
+                            </label>
+                            <select id="pse-banco" class="form-control" style="font-size: 0.9rem; width: 100%;">
+                                <option value="Bancolombia">Bancolombia</option>
+                                <option value="Nequi">Nequi (vía PSE)</option>
+                                <option value="Davivienda">Davivienda</option>
+                                <option value="Banco de Bogota">Banco de Bogotá</option>
+                                <option value="BBVA Colombia">BBVA Colombia</option>
+                                <option value="Banco Caja Social">Banco Caja Social</option>
+                                <option value="Scotiabank Colpatria">Scotiabank Colpatria</option>
+                                <option value="Banco Falabella">Banco Falabella</option>
+                                <option value="Banco de Occidente">Banco de Occidente</option>
+                                <option value="Lulo Bank">Lulo Bank</option>
+                                <option value="Nu Colombia">Nu Colombia</option>
+                            </select>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="pse-tipo-persona" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                    Tipo de Persona:
+                                </label>
+                                <select id="pse-tipo-persona" class="form-control" style="font-size: 0.88rem; width: 100%;">
+                                    <option value="natural">Persona Natural</option>
+                                    <option value="juridica">Persona Jurídica</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="pse-tipo-doc" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                    Tipo de Documento:
+                                </label>
+                                <select id="pse-tipo-doc" class="form-control" style="font-size: 0.88rem; width: 100%;">
+                                    <option value="CC">Cédula de Ciudadanía (CC)</option>
+                                    <option value="CE">Cédula de Extranjería (CE)</option>
+                                    <option value="NIT">NIT</option>
+                                    <option value="PP">Pasaporte</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="pse-email" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Correo registrado en PSE: *
+                            </label>
+                            <input type="email" id="pse-email" class="form-control" placeholder="tuemail@banco.com" style="font-size: 0.9rem; width: 100%;">
+                        </div>
+                    </div>
+
+                    <!-- PANEL 2: TARJETA DE CRÉDITO/DÉBITO -->
+                    <div id="method-card-panel" style="display: none; flex-direction: column; gap: 0.8rem; margin-bottom: 1.2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="card-numero" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Número de la Tarjeta: *
+                            </label>
+                            <div style="position: relative;">
+                                <input type="text" id="card-numero" class="form-control" placeholder="4500 0000 0000 0000" maxlength="19" inputmode="numeric" style="font-size: 0.9rem; width: 100%; padding-right: 2.5rem;">
+                                <i class="fa-solid fa-credit-card" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="card-nombre" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Nombre impreso en la Tarjeta: *
+                            </label>
+                            <input type="text" id="card-nombre" class="form-control" placeholder="Como figura en la tarjeta" style="font-size: 0.9rem; width: 100%;">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="card-expira" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                    Vence (MM/AA): *
+                                </label>
+                                <input type="text" id="card-expira" class="form-control" placeholder="12/28" maxlength="5" style="font-size: 0.88rem; width: 100%;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="card-cvv" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                    CVV (3 dígitos): *
+                                </label>
+                                <input type="password" id="card-cvv" class="form-control" placeholder="•••" maxlength="4" inputmode="numeric" style="font-size: 0.88rem; width: 100%;">
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="card-cuotas" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                    Cuotas:
+                                </label>
+                                <select id="card-cuotas" class="form-control" style="font-size: 0.88rem; width: 100%;">
+                                    <option value="1">1 cuota</option>
+                                    <option value="3">3 cuotas</option>
+                                    <option value="6">6 cuotas</option>
+                                    <option value="12">12 cuotas</option>
+                                    <option value="24">24 cuotas</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL 3: BILLETERA (NEQUI / DAVIPLATA) -->
+                    <div id="method-wallet-panel" style="display: none; flex-direction: column; gap: 0.8rem; margin-bottom: 1.2rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="wallet-app" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Selecciona tu Billetera Móvil:
+                            </label>
+                            <select id="wallet-app" class="form-control" style="font-size: 0.9rem; width: 100%;">
+                                <option value="Nequi">Nequi Colombia</option>
+                                <option value="Daviplata">Daviplata</option>
+                                <option value="Dale">Dale! (Grupo Aval)</option>
+                                <option value="Movii">Movii</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="wallet-telefono" style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); display: block; margin-bottom: 0.3rem;">
+                                Número de Celular vinculado: *
+                            </label>
+                            <input type="tel" id="wallet-telefono" class="form-control" placeholder="Ej. 3001234567" maxlength="15" inputmode="numeric" style="font-size: 0.9rem; width: 100%;">
+                        </div>
+
+                        <div style="background: rgba(236, 72, 153, 0.08); border: 1px solid rgba(236, 72, 153, 0.25); border-radius: 8px; padding: 0.75rem; font-size: 0.8rem; color: #be185d;">
+                            <i class="fa-solid fa-circle-info"></i> Al procesar el pago recibirás una notificación push en tu celular para aprobar la transacción desde tu app.
+                        </div>
+                    </div>
+
+                    <!-- BOTÓN PARA CONFIRMAR Y PROCESAR -->
+                    <button id="btn-procesar-pago-pasarela" class="btn-hero-primary" style="width: 100%; justify-content: center; padding: 0.95rem; font-size: 1rem; border-radius: 12px; background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+                        <i class="fa-solid fa-lock"></i> Pagar con Pasarela Segura
+                    </button>
+
+                    <p style="text-align: center; margin: 0.8rem 0 0 0; font-size: 0.73rem; color: var(--text-muted);">
+                        <i class="fa-solid fa-shield"></i> Tus transacciones están encriptadas con protocolos bancarios de alta fidelidad.
+                    </p>
+                </div>
+
+                <!-- VISTA 2: PROCESAMIENTO / CARGA SIMULADA -->
+                <div id="pasarela-step-loading" style="display: none; text-align: center; padding: 2.5rem 1rem;">
+                    <div style="display: inline-block; width: 55px; height: 55px; border: 4px solid rgba(2, 132, 199, 0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 1.2rem;"></div>
+                    <h4 style="color: var(--text-main); font-size: 1.15rem; font-weight: 800; margin-bottom: 0.4rem;">Procesando Transacción Segura...</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem; margin: 0 0 1rem 0;">Conectando con la red bancaria y verificando fondos...</p>
+                    <span style="font-size: 0.78rem; color: var(--text-muted); background: #f1f5f9; padding: 0.3rem 0.8rem; border-radius: 20px;">Por favor, no recargues ni cierres esta ventana</span>
+                </div>
+
+                <!-- VISTA 3: PAGO APROBADO CON ÉXITO -->
+                <div id="pasarela-step-success" style="display: none; text-align: center; padding: 1.5rem 1rem;">
+                    <div style="width: 65px; height: 65px; background: rgba(16, 185, 129, 0.15); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #10b981; font-size: 2rem; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 style="color: var(--text-main); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.35rem;">¡Pago Aprobado Exitosamente!</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.2rem;">Tu orden ha sido confirmada y registrada en nuestro sistema de pedidos.</p>
+
+                    <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem 1.2rem; text-align: left; margin-bottom: 1.5rem; font-size: 0.85rem; line-height: 1.6;">
+                        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color); padding-bottom: 0.4rem; margin-bottom: 0.4rem;">
+                            <span style="color: var(--text-secondary);">Referencia de Pago:</span>
+                            <strong style="color: var(--accent);" id="pasarela-ref-code">REF-PYS-000000</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                            <span style="color: var(--text-secondary);">Medio de Pago:</span>
+                            <span style="color: var(--text-main); font-weight: 600;" id="pasarela-metodo-utilizado">PSE</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.2rem;">
+                            <span style="color: var(--text-secondary);">Titular:</span>
+                            <span style="color: var(--text-main); font-weight: 600;" id="pasarela-titular-nombre">Cliente</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; border-top: 1px dashed var(--border-color); padding-top: 0.4rem; margin-top: 0.4rem;">
+                            <span style="color: var(--text-main); font-weight: 700;">Total Cancelado:</span>
+                            <strong style="color: #10b981; font-size: 1.05rem;" id="pasarela-total-cancelado">$0 COP</strong>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+                        <button id="btn-pasarela-ver-comprobante" class="btn-hero-primary" style="justify-content: center;">
+                            <i class="fa-solid fa-file-invoice"></i> Ver Comprobante u Orden Generada
+                        </button>
+                        <a href="index.html" class="btn-hero-secondary" style="justify-content: center; display: inline-flex; align-items: center; gap: 0.5rem;">
+                            <i class="fa-solid fa-house"></i> Volver a la Tienda Principal
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573173247083?text=Hola%20Prendas%20%26%20Stylos,%20tengo%20una%20duda%20sobre%20mi%20carrito%20de%20compras" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-float" 
+       title="Chatea con nosotros en WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Columna 1: Marca & Compromiso de Calidad -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">En Prendas & Stylos estamos comprometidos a brindar soluciones de calidad en estampado y personalización de prendas para nuestros clientes.</p>
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navega -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navega</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="cotizador.html">Personalizar</a></li>
+                        <li><a href="galeria.html">Tienda</a></li>
+                        <li><a href="blog.html">Blog & Cuidado</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contactanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Servicios -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Servicios</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
+                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
+                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
+                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
+                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contáctanos -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contactanos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT DEL NAVEGADOR Y CARRITO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="JS/menu_catalogo.js"></script>
+    <script src="JS/pdf_generator.js"></script>
+    <script src="JS/cart.js"></script>
+</body>
+</html>

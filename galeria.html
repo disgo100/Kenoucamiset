@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendas & Stylos - Galería de Colección</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="CSS styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item active"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ENCABEZADO DE LA GALERÍA -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag">LOOKBOOK & URBAN STYLE 2026</span>
+            <h2 class="hero-title">GALERÍA DE COLECCIÓN</h2>
+            <p class="hero-description">Explora nuestras fotos exclusivas, acabados en DTF, vinilo textil y combinaciones de moda urbana cargadas en el inventario.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE LA GALERÍA CON FILTROS Y GRID -->
+    <main class="catalog-section">
+        
+        <!-- BARRA DE FILTROS DE CATEGORÍA INTERACTIVA -->
+        <div class="catalog-filters-bar" id="catalog-filters-bar">
+            <button class="catalog-filter-btn active" data-category="todos">
+                <i class="fa-solid fa-border-all"></i> Todas las Prendas
+            </button>
+            <button class="catalog-filter-btn" data-category="Camisetas">
+                <i class="fa-solid fa-shirt"></i> Camisetas
+            </button>
+            <button class="catalog-filter-btn" data-category="Shorts">
+                <i class="fa-solid fa-scissors"></i> Shorts
+            </button>
+            <button class="catalog-filter-btn" data-category="Gorras">
+                <i class="fa-solid fa-hat-cowboy"></i> Gorras
+            </button>
+            <button class="catalog-filter-btn" data-category="Hoodies">
+                <i class="fa-solid fa-vest"></i> Hoodies
+            </button>
+            <button class="catalog-filter-btn" data-category="Pantalones">
+                <i class="fa-solid fa-socks"></i> Pantalones
+            </button>
+            <button class="catalog-filter-btn btn-open-size-guide" style="border-color: rgba(2, 132, 199, 0.4); color: var(--accent); background: #f0f9ff;">
+                <i class="fa-solid fa-ruler-combined"></i> Guía de Tallas & Medidas
+            </button>
+        </div>
+
+        <!-- GRILLA DINÁMICA DE PRENDAS (ALIMENTADA DESDE LOCALSTORAGE/ADMIN) -->
+        <div class="catalog-grid" id="catalog-grid-container">
+            <!-- Carga las prendas guardadas por el Administrador a través de JS/catalogo.js -->
+        </div>
+
+    </main>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573173247083?text=Hola%20Prendas%20%26%20Stylos,%20quiero%20más%20información%20sobre%20la%20galería" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-float" 
+       title="Chatea con nosotros en WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Columna 1: Marca & Compromiso de Calidad -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">En Prendas & Stylos estamos comprometidos a brindar soluciones de calidad en estampado y personalización de prendas para nuestros clientes.</p>
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navega -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navega</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="cotizador.html">Personalizar</a></li>
+                        <li><a href="galeria.html">Tienda</a></li>
+                        <li><a href="blog.html">Blog & Cuidado</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contactanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Servicios -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Servicios</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
+                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
+                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
+                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
+                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contáctanos -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contactanos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT DEL CATÁLOGO Y NAVEGACIÓN HAMBURGUESA -->
+    <script src="JS/catalogo.js"></script>
+    <script src="JS/menu_catalogo.js"></script>
+</body>
+</html>
+```

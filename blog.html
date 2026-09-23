@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendas & Stylos - Blog & Cuidado de Prendas</title>
+    <!-- Estilos CSS Globales -->
+    <link rel="stylesheet" href="CSS styles/styles.css">
+    <!-- Iconos FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
+    <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
+        <div class="drawer-header">
+            <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <ul class="drawer-links">
+            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
+            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
+            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
+            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
+            <li><a href="blog.html" class="drawer-item active"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
+            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
+            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
+            <li class="drawer-admin-divider">
+                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
+    <header class="main-header">
+        <div class="header-container">
+            
+            <!-- LOGO DESTACADO E IMPACTANTE -->
+            <div class="logo-brand">
+                <a href="index.html">
+                    <h1>PRENDAS <span>& STYLOS</span></h1>
+                </a>
+            </div>
+
+            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+            <div class="header-actions">
+                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
+
+                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
+                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ENCABEZADO HERO DEL BLOG -->
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
+        <div class="hero-content">
+            <span class="hero-tag">GUÍAS TÉCNICAS & TENDENCIAS 2026</span>
+            <h2 class="hero-title">BLOG & CUIDADO DE PRENDAS</h2>
+            <p class="hero-description">Consejos de lavado, conservación de estampados DTF y vinilo textil, tendencias de moda urbana y guías de uso para mantener tus prendas impecables como el primer día.</p>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL BLOG -->
+    <main class="catalog-section" style="max-width: 1300px; margin-top: 2rem;">
+        
+        <!-- SECCIÓN DE YOUTUBE: VIDEOTUTORIALES DE CUIDADO DE PRENDAS -->
+        <section class="youtube-section" id="youtube-tutorials-section">
+            <div class="youtube-header">
+                <div class="youtube-badge">
+                    <i class="fa-brands fa-youtube"></i> VIDEOTUTORIALES OFICIALES
+                </div>
+                <h2 class="youtube-title">Cuidado de Prendas en <span>YouTube</span></h2>
+                <p class="youtube-subtitle">Aprende técnicas profesionales de lavado para estampados DTF, planchado seguro de vinilo textil y trucos para mantener tus prendas urbanas impecables.</p>
+            </div>
+
+            <!-- Grilla de Videos Interactivos cargados dinámicamente -->
+            <div class="youtube-grid" id="youtube-grid-container">
+                <!-- Cargado dinámicamente desde JS/blog.js -->
+            </div>
+
+            <!-- Banner de Suscripción a YouTube -->
+            <div class="youtube-sub-banner">
+                <div class="youtube-sub-content">
+                    <div class="youtube-icon-large">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="youtube-sub-text">
+                        <h4>Canal Oficial de Prendas & Stylos</h4>
+                        <p>Publicamos nuevos trucos de estampado, conservación textil y tendencias streetwear cada semana.</p>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="btn-youtube-subscribe">
+                    <i class="fa-brands fa-youtube"></i> Suscribirse al Canal
+                </a>
+            </div>
+        </section>
+
+        <!-- ENCABEZADO DE ARTÍCULOS Y GUÍAS ESCRITAS -->
+        <div class="section-header-center" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+            <span class="hero-tag" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-book-open"></i> LECTURA & CONSEJOS</span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem;">Guías Técnicas y Tendencias</h2>
+            <p style="color: #999; font-size: 0.95rem;">Selecciona una categoría para filtrar las guías de cuidado y recomendaciones</p>
+        </div>
+
+        <!-- BARRA DE FILTROS DE CATEGORÍAS (SIN BUSCADOR) -->
+        <div class="catalog-filters-bar" id="blog-filters-bar">
+            <button class="catalog-filter-btn active blog-cat-btn" data-category="todos">
+                <i class="fa-solid fa-border-all"></i> Todos los Artículos
+            </button>
+            <button class="catalog-filter-btn blog-cat-btn" data-category="dtf">
+                <i class="fa-solid fa-print"></i> Cuidado DTF
+            </button>
+            <button class="catalog-filter-btn blog-cat-btn" data-category="vinilo">
+                <i class="fa-solid fa-shirt"></i> Vinilo Textil
+            </button>
+            <button class="catalog-filter-btn blog-cat-btn" data-category="tendencias">
+                <i class="fa-solid fa-fire"></i> Tendencias Urbanas
+            </button>
+        </div>
+
+        <!-- GRILLA DE ARTÍCULOS DE BLOG -->
+        <div class="catalog-grid" id="blog-grid-container">
+            <!-- Cargado dinámicamente desde js/blog.js -->
+        </div>
+
+    </main>
+
+    <!-- MODAL DE REPRODUCCIÓN DE VIDEO DE YOUTUBE -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content" style="max-width: 760px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #282828; padding-bottom: 0.8rem;">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span class="youtube-badge" style="margin-bottom: 0; padding: 0.25rem 0.8rem; font-size: 0.75rem;">
+                        <i class="fa-brands fa-youtube"></i> TUTORIAL EN VIDEO
+                    </span>
+                    <span id="modal-video-channel" style="color: #888; font-size: 0.82rem; font-weight: 600;">Prendas & Stylos TV</span>
+                </div>
+                <button id="close-video-modal-btn" style="background: transparent; border: none; color: #fff; font-size: 1.4rem; cursor: pointer;" aria-label="Cerrar Video">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="modal-video-player-container" class="video-player-wrapper">
+                <!-- Iframe dinámico insertado por JavaScript -->
+            </div>
+
+            <div id="modal-video-details">
+                <h3 id="modal-video-title" style="font-size: 1.25rem; color: #fff; margin-bottom: 0.5rem; line-height: 1.35;"></h3>
+                <p id="modal-video-desc" style="color: #aaa; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.2rem;"></p>
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #222; padding-top: 1rem;">
+                    <span id="modal-video-duration" style="color: #888; font-size: 0.85rem;"><i class="fa-regular fa-clock"></i> </span>
+                    <a id="modal-video-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="background: #ff0000; border-color: #ff0000; font-size: 0.88rem; padding: 0.55rem 1.2rem; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 700;">
+                        <i class="fa-brands fa-youtube"></i> Abrir en YouTube
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE LECTURA DE ARTÍCULO / GUÍA -->
+    <div id="article-modal" class="modal">
+        <div class="modal-content" style="max-width: 700px; max-height: 85vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.8rem;">
+                <span id="modal-article-tag" class="hero-tag" style="margin-bottom: 0;">Cuidado DTF</span>
+                <button id="close-article-modal-btn" style="background: transparent; border: none; color: #fff; font-size: 1.4rem; cursor: pointer;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="modal-article-content">
+                <!-- Contenido dinámico del artículo -->
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/573173247083?text=Hola%20Prendas%20%26%20Stylos,%20tengo%20una%20duda%20sobre%20el%20cuidado%20de%20mis%20prendas" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="whatsapp-float" 
+       title="Chatea con nosotros en WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Columna 1: Marca & Compromiso de Calidad -->
+                <div class="footer-col footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-text">PRENDAS <span>& STYLOS</span></span>
+                    </div>
+                    <p class="footer-tagline">Tienda On Line, estampado y personalización de prendas.</p>
+                    <p class="footer-desc">En Prendas & Stylos estamos comprometidos a brindar soluciones de calidad en estampado y personalización de prendas para nuestros clientes.</p>
+                    <div class="footer-social-links">
+                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="https://wa.me/573173247083" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Navega -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Navega</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="cotizador.html">Personalizar</a></li>
+                        <li><a href="galeria.html">Tienda</a></li>
+                        <li><a href="blog.html">Blog & Cuidado</a></li>
+                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
+                        <li><a href="contacto.html">Contactanos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Servicios -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Servicios</h4>
+                    <ul class="footer-links-list">
+                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
+                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
+                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
+                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
+                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Contáctanos -->
+                <div class="footer-col">
+                    <h4 class="footer-col-title">Contactanos</h4>
+                    <ul class="footer-contact-list">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                Taller & Showroom:<br>
+                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                Celular / WhatsApp:<br>
+                                <strong>+57 317 324 7083</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                Correo de Atención:<br>
+                                <strong>atencion@prendasystylos.com</strong>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <div>
+                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Prendas & Stylos. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT DEL NAVEGADOR Y DEL BLOG -->
+    <script src="JS/menu_catalogo.js"></script>
+    <script src="JS/blog.js"></script>
+</body>
+</html>
