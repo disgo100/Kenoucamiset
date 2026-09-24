@@ -750,6 +750,12 @@ img, video, svg {
     color: #059669;
 }
 
+.product-badge-status.status-warning {
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    color: #d97706;
+}
+
 .product-badge-status.status-unavailable {
     background: rgba(239, 68, 68, 0.15);
     border: 1px solid rgba(239, 68, 68, 0.3);

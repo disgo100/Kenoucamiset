@@ -567,7 +567,7 @@ function renderizarVistaPreviaProductos() {
             <div class="product-preview-body">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <span class="product-preview-badge">${item.categoria}</span>
-                    <span class="badge-status ${item.estado === "Disponible" ? "badge-success" : "badge-danger"}">${item.estado}</span>
+                    <span class="badge-status ${item.estado === "Disponible" ? "badge-success" : item.estado === "Últimas Unidades" ? "badge-warning" : "badge-danger"}">${item.estado}</span>
                 </div>
                 <h4 class="product-preview-title">${item.nombre}</h4>
                 <div class="product-preview-meta">
@@ -599,12 +599,16 @@ function renderizarTablaProductos() {
 
     let badgeClass = "badge-success";
     if (
-      item.estado === "Agotado" ||
+      item.estado === "Stock no disponible" ||
+      item.estado === "Agotado"
+    )
+      badgeClass = "badge-danger";
+    else if (
       item.estado === "Últimas Unidades" ||
-      item.stock === 0
+      item.stock === 0 ||
+      item.stock <= 10
     )
       badgeClass = "badge-warning";
-    else if (item.stock <= 10) badgeClass = "badge-warning";
 
     tr.innerHTML = `
             <td style="font-weight: 800; color: var(--text-main);">${item.nombre}</td>
@@ -1075,12 +1079,16 @@ function renderizarModalInventario() {
 
     let badgeClass = "badge-success";
     if (
-      item.estado === "Agotado" ||
+      item.estado === "Stock no disponible" ||
+      item.estado === "Agotado"
+    )
+      badgeClass = "badge-danger";
+    else if (
       item.estado === "Últimas Unidades" ||
-      item.stock === 0
+      item.stock === 0 ||
+      item.stock <= 10
     )
       badgeClass = "badge-warning";
-    else if (item.stock <= 10) badgeClass = "badge-warning";
 
     tr.innerHTML = `
             <td style="font-weight: 800; color: var(--accent);">${item.id}</td>

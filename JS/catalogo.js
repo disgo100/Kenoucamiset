@@ -125,7 +125,15 @@ function renderizarCatalogo(categoria = "todos") {
   // Filtrar prendas activas y por categoría seleccionada
   const productosFiltrados = activeProducts.filter((p) => {
     const estado = (p.estado || "Disponible").toLowerCase();
-    if (estado !== "disponible" && estado !== "activo" && estado !== "últimas unidades" && estado !== "ultimas unidades" && estado !== "agotado") return false;
+    if (
+      estado !== "disponible" &&
+      estado !== "activo" &&
+      estado !== "últimas unidades" &&
+      estado !== "ultimas unidades" &&
+      estado !== "agotado" &&
+      estado !== "stock no disponible"
+    )
+      return false;
 
     if (categoria === "todos") return true;
     const catPrenda = (p.categoria || p.material || "").toLowerCase();
@@ -158,8 +166,24 @@ function renderizarCatalogo(categoria = "todos") {
     const categoriaNombre = p.categoria || p.material || "Moda Urbana";
     const precio = Number(p.precio || p.price || 0);
     const stock = p.stock !== undefined ? p.stock : 20;
-    const esUltimas = stock <= 0 || (p.estado || "").toLowerCase() === "agotado" || (p.estado || "").toLowerCase() === "últimas unidades" || (p.estado || "").toLowerCase() === "ultimas unidades";
-    const stockTexto = esUltimas ? "Últimas Unidades" : `Stock: ${stock}`;
+    const esNoDisponible =
+      (p.estado || "").toLowerCase() === "stock no disponible" ||
+      (p.estado || "").toLowerCase() === "agotado";
+    const esUltimas =
+      !esNoDisponible &&
+      (stock <= 0 ||
+        (p.estado || "").toLowerCase() === "últimas unidades" ||
+        (p.estado || "").toLowerCase() === "ultimas unidades");
+    const stockTexto = esNoDisponible
+      ? "Stock no disponible"
+      : esUltimas
+        ? "Últimas Unidades"
+        : `Stock: ${stock}`;
+    const badgeStatusClass = esNoDisponible
+      ? "status-unavailable"
+      : esUltimas
+        ? "status-warning"
+        : "status-available";
 
     card.innerHTML = `
             <div class="product-image-container" onclick="abrirModalZoomProducto('${p.id}')" title="Haz clic para ver y ampliar la imagen">
@@ -170,7 +194,7 @@ function renderizarCatalogo(categoria = "todos") {
                      onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500';">
                 <div class="product-card-badges">
                     <span class="product-badge-category">${categoriaNombre}</span>
-                    <span class="product-badge-status ${esUltimas ? "status-warning" : "status-available"}">${stockTexto}</span>
+                    <span class="product-badge-status ${badgeStatusClass}">${stockTexto}</span>
                 </div>
                 <div class="product-zoom-hint">
                     <span class="product-zoom-hint-badge">
@@ -183,9 +207,15 @@ function renderizarCatalogo(categoria = "todos") {
                 <div class="product-price-row">
                     <span class="product-price">$${precio.toLocaleString("es-CO")} <span style="font-size: 0.8rem; color: #888; font-weight: 600;">COP</span></span>
                 </div>
-                <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('${p.id}')">
-                    <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
-                </button>
+                ${
+                  esNoDisponible
+                    ? `<button class="btn-add-cart" style="opacity: 0.65; cursor: not-allowed; background: #64748b;" disabled>
+                         <i class="fa-solid fa-ban"></i> No disponible
+                       </button>`
+                    : `<button class="btn-add-cart" onclick="event.stopPropagation(); addToCart('${p.id}')">
+                         <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                       </button>`
+                }
             </div> 
         `;
     grid.appendChild(card);
@@ -210,6 +240,12 @@ window.addToCart = function (productId) {
   const activeProducts = obtenerProductosCatalogo();
   const product = activeProducts.find((p) => p.id == productId);
   if (!product) return;
+
+  const estado = (product.estado || "").toLowerCase();
+  if (estado === "stock no disponible" || estado === "agotado") {
+    alert("⚠️ Esta prenda no se encuentra disponible actualmente.");
+    return;
+  }
 
   let cart = JSON.parse(localStorage.getItem("prendas_cart")) || [];
   const existingIndex = cart.findIndex((item) => item.id == product.id);
