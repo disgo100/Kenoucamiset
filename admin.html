@@ -1,474 +1,600 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kenou Camisetas - Panel de Administración</title>
     <!-- Favicon con Logo Oficial -->
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/jpeg" href="logo.jpg" />
     <!-- Estilos CSS Globales -->
-    <link rel="stylesheet" href="CSS styles/styles.css">
+    <link rel="stylesheet" href="CSS styles/styles.css" />
     <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- Librería jsPDF para generación de documentos y reportes PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
+      .admin-grid-layout {
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 2.5rem;
+        align-items: start;
+        width: 100%;
+      }
+      @media screen and (max-width: 1024px) {
         .admin-grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 2.5rem;
-            align-items: start;
-            width: 100%;
+          grid-template-columns: 1fr;
+          gap: 1.8rem;
         }
-        @media screen and (max-width: 1024px) {
-            .admin-grid-layout {
-                grid-template-columns: 1fr;
-                gap: 1.8rem;
-            }
-            .contain-card-summary {
-                position: static;
-            }
-        }
-
-        .contain-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 2.2rem;
-            box-shadow: var(--shadow-md);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .contain-card:hover {
-            border-color: var(--card-hover-border);
-            box-shadow: var(--shadow-lg);
-        }
-
         .contain-card-summary {
-            background: #ffffff;
-            border: 1px solid rgba(2, 132, 199, 0.3);
-            border-radius: 16px;
-            padding: 2.2rem;
-            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
-            position: sticky;
-            top: 90px;
+          position: static;
         }
+      }
 
-        .auth-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-        }
+      .contain-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2.2rem;
+        box-shadow: var(--shadow-md);
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
 
-        .auth-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 2.5rem 2.2rem;
-            width: 100%;
-            max-width: 480px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
-            text-align: center;
-        }
+      .contain-card:hover {
+        border-color: var(--card-hover-border);
+        box-shadow: var(--shadow-lg);
+      }
 
-        .form-control-enhanced {
-            width: 100%;
-            padding: 0.85rem 1.1rem;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            transition: all 0.25s ease;
-            box-sizing: border-box;
-        }
+      .contain-card-summary {
+        background: #ffffff;
+        border: 1px solid rgba(2, 132, 199, 0.3);
+        border-radius: 16px;
+        padding: 2.2rem;
+        box-shadow: 0 8px 25px rgba(2, 132, 199, 0.08);
+        position: sticky;
+        top: 90px;
+      }
 
-        .form-control-enhanced:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-            background: #ffffff;
-        }
+      .auth-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(10px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
 
-        .admin-tabs {
-            display: flex;
-            gap: 0.8rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
+      .auth-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+        padding: 2.5rem 2.2rem;
+        width: 100%;
+        max-width: 480px;
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+        text-align: center;
+      }
 
-        .tab-btn {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 0.65rem 1.2rem;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.25s ease;
-        }
+      .form-control-enhanced {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        color: var(--text-main);
+        font-size: 0.95rem;
+        transition: all 0.25s ease;
+        box-sizing: border-box;
+      }
 
-        .tab-btn:hover, .tab-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #ffffff;
-        }
+      .form-control-enhanced:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+        background: #ffffff;
+      }
 
-        .products-preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1.2rem;
-            margin-top: 1.5rem;
-        }
+      .admin-tabs {
+        display: flex;
+        gap: 0.8rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
 
-        .product-preview-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.25s ease;
-            box-shadow: var(--shadow-sm);
-        }
+      .tab-btn {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 0.65rem 1.2rem;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.25s ease;
+      }
 
-        .product-preview-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
+      .tab-btn:hover,
+      .tab-btn.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
+      }
 
-        .product-preview-img-wrapper {
-            width: 100%;
-            height: 180px;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
+      .products-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+      }
 
-        .product-preview-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+      .product-preview-card {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.25s ease;
+        box-shadow: var(--shadow-sm);
+      }
 
-        .product-preview-body {
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-            flex: 1;
-        }
+      .product-preview-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
 
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-top: 1rem;
-            background: #ffffff;
-        }
+      .product-preview-img-wrapper {
+        width: 100%;
+        height: 180px;
+        background: #f1f5f9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+      }
 
-        .custom-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
+      .product-preview-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
 
-        .custom-table th {
-            background: #f8fafc;
-            color: var(--text-muted);
-            padding: 0.9rem 1rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-size: 0.78rem;
-            border-bottom: 1px solid var(--border-color);
-        }
+      .product-preview-body {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        flex: 1;
+      }
 
-        .custom-table td {
-            padding: 0.9rem 1rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            vertical-align: middle;
-        }
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        margin-top: 1rem;
+        background: #ffffff;
+      }
 
-        .badge-status {
-            display: inline-block;
-            padding: 0.25rem 0.65rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
+      .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.9rem;
+      }
 
-        .badge-success { background: rgba(76, 209, 55, 0.15); color: #4cd137; border: 1px solid rgba(76, 209, 55, 0.3); }
-        .badge-warning { background: rgba(251, 197, 49, 0.15); color: #fbc531; border: 1px solid rgba(251, 197, 49, 0.3); }
-        .badge-danger { background: rgba(255, 51, 102, 0.15); color: var(--accent); border: 1px solid rgba(255, 51, 102, 0.3); }
-        .badge-info { background: rgba(0, 242, 254, 0.15); color: #00f2fe; border: 1px solid rgba(0, 242, 254, 0.3); }
-        .badge-purple { background: rgba(156, 39, 176, 0.15); color: #e040fb; border: 1px solid rgba(156, 39, 176, 0.3); }
+      .custom-table th {
+        background: #f8fafc;
+        color: var(--text-muted);
+        padding: 0.9rem 1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        border-bottom: 1px solid var(--border-color);
+      }
 
-        .modal-custom {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            z-index: 11000;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
+      .custom-table td {
+        padding: 0.9rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        vertical-align: middle;
+      }
 
-        .modal-custom-content {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 620px;
-            padding: 2rem;
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-            max-height: 90vh;
-            overflow-y: auto;
-            color: var(--text-main);
-        }
+      .badge-status {
+        display: inline-block;
+        padding: 0.25rem 0.65rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
 
-        .image-upload-box {
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            padding: 1.2rem;
-            text-align: center;
-            background: #f8fafc;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
+      .badge-success {
+        background: rgba(76, 209, 55, 0.15);
+        color: #4cd137;
+        border: 1px solid rgba(76, 209, 55, 0.3);
+      }
+      .badge-warning {
+        background: rgba(251, 197, 49, 0.15);
+        color: #fbc531;
+        border: 1px solid rgba(251, 197, 49, 0.3);
+      }
+      .badge-danger {
+        background: rgba(255, 51, 102, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(255, 51, 102, 0.3);
+      }
+      .badge-info {
+        background: rgba(0, 242, 254, 0.15);
+        color: #00f2fe;
+        border: 1px solid rgba(0, 242, 254, 0.3);
+      }
+      .badge-purple {
+        background: rgba(156, 39, 176, 0.15);
+        color: #e040fb;
+        border: 1px solid rgba(156, 39, 176, 0.3);
+      }
 
-        .image-upload-box:hover {
-            border-color: var(--accent);
-            background: var(--accent-soft);
-        }
+      .modal-custom {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(6px);
+        z-index: 11000;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
 
-        .image-preview-thumb {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 1px solid var(--accent);
-            margin-top: 0.5rem;
-        }
+      .modal-custom-content {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        width: 100%;
+        max-width: 620px;
+        padding: 2rem;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+        max-height: 90vh;
+        overflow-y: auto;
+        color: var(--text-main);
+      }
 
-        /* Botones de Soporte */
-        .btn-support-action {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-radius: 10px;
-            font-weight: 800;
-            font-size: 0.88rem;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            width: 100%;
-            box-sizing: border-box;
-        }
+      .image-upload-box {
+        border: 2px dashed var(--border-color);
+        border-radius: 12px;
+        padding: 1.2rem;
+        text-align: center;
+        background: #f8fafc;
+        cursor: pointer;
+        transition: all 0.25s ease;
+      }
 
-        .btn-support-email {
-            background: var(--accent-soft);
-            color: var(--accent);
-            border: 1px solid rgba(2, 132, 199, 0.3);
-        }
+      .image-upload-box:hover {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+      }
 
-        .btn-support-email:hover {
-            background: var(--accent);
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-        }
+      .image-preview-thumb {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--accent);
+        margin-top: 0.5rem;
+      }
 
-        .btn-support-phone {
-            background: rgba(76, 209, 55, 0.15);
-            color: #4cd137;
-            border: 1px solid #4cd137;
-        }
+      /* Botones de Soporte */
+      .btn-support-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-radius: 10px;
+        font-weight: 800;
+        font-size: 0.88rem;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        width: 100%;
+        box-sizing: border-box;
+      }
 
-        .btn-support-phone:hover {
-            background: #4cd137;
-            color: #000;
-            box-shadow: 0 0 15px rgba(76, 209, 55, 0.4);
-        }
+      .btn-support-email {
+        background: var(--accent-soft);
+        color: var(--accent);
+        border: 1px solid rgba(2, 132, 199, 0.3);
+      }
 
-        /* BADGES Y FILTROS DEL PANEL */
-        .badge-tab-count {
-            background: var(--accent);
-            color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 800;
-            padding: 0.15rem 0.55rem;
-            border-radius: 12px;
-            margin-left: 0.35rem;
-        }
+      .btn-support-email:hover {
+        background: var(--accent);
+        color: #ffffff;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+      }
 
-        .orders-filter-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.2rem;
-            padding: 0.8rem 1rem;
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-        }
+      .btn-support-phone {
+        background: rgba(76, 209, 55, 0.15);
+        color: #4cd137;
+        border: 1px solid #4cd137;
+      }
 
-        .filter-btn-group {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
+      .btn-support-phone:hover {
+        background: #4cd137;
+        color: #000;
+        box-shadow: 0 0 15px rgba(76, 209, 55, 0.4);
+      }
 
-        .filter-chip {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+      /* BADGES Y FILTROS DEL PANEL */
+      .badge-tab-count {
+        background: var(--accent);
+        color: #ffffff;
+        font-size: 0.72rem;
+        font-weight: 800;
+        padding: 0.15rem 0.55rem;
+        border-radius: 12px;
+        margin-left: 0.35rem;
+      }
 
-        .filter-chip.active, .filter-chip:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #ffffff;
-        }
+      .orders-filter-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.2rem;
+        padding: 0.8rem 1rem;
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+      }
 
-        .search-box-orders {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 0.4rem 0.85rem;
-            min-width: 240px;
-        }
+      .filter-btn-group {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
 
-        .search-box-orders input {
-            border: none;
-            outline: none;
-            font-size: 0.82rem;
-            width: 100%;
-            background: transparent;
-            color: var(--text-main);
-        }
+      .filter-chip {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
 
-        .modal-large-content {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            width: 100%;
-            max-width: 880px;
-            padding: 2rem;
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
-            max-height: 90vh;
-            overflow-y: auto;
-            color: var(--text-main);
-        }
+      .filter-chip.active,
+      .filter-chip:hover {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
+      }
 
-        .inventory-kpi-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
+      .search-box-orders {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 0.4rem 0.85rem;
+        min-width: 240px;
+      }
 
-        .inventory-kpi-mini {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 0.8rem;
-            text-align: center;
-        }
+      .search-box-orders input {
+        border: none;
+        outline: none;
+        font-size: 0.82rem;
+        width: 100%;
+        background: transparent;
+        color: var(--text-main);
+      }
 
-        .inventory-kpi-mini .mini-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 700;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
+      .modal-large-content {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        width: 100%;
+        max-width: 880px;
+        padding: 2rem;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+        max-height: 90vh;
+        overflow-y: auto;
+        color: var(--text-main);
+      }
 
-        .inventory-kpi-mini .mini-val {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: var(--text-main);
-        }
+      .inventory-kpi-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .inventory-kpi-mini {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 0.8rem;
+        text-align: center;
+      }
+
+      .inventory-kpi-mini .mini-label {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+
+      .inventory-kpi-mini .mini-val {
+        font-size: 1.15rem;
+        font-weight: 900;
+        color: var(--text-main);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- OVERLAY DE AUTENTICACIÓN -->
     <div id="auth-modal-overlay" class="auth-overlay">
-        <div class="auth-card">
-            <div style="margin-bottom: 1.3rem;">
-                <div style="width: 60px; height: 60px; background: rgba(255, 51, 102, 0.15); border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto; color: var(--accent); font-size: 1.6rem;">
-                    <i class="fa-solid fa-lock" id="auth-icon-lock"></i>
-                </div>
-                <h3 style="color: var(--text-main); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.3rem;">Acceso Administrativo</h3>
-                <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0;">Ingrese sus credenciales para gestionar Kenou Camisetas</p>
-            </div>
-
-            <div id="auth-alert-box" style="display: none; padding: 1rem; border-radius: 12px; margin-bottom: 1.2rem; font-size: 0.88rem; text-align: left; line-height: 1.45;"></div>
-
-            <form id="auth-login-form" style="display: flex; flex-direction: column; gap: 1.1rem;">
-                <div style="text-align: left;">
-                    <label for="auth-user" style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
-                        <i class="fa-solid fa-user" style="color: var(--accent);"></i> Usuario Administrador:
-                    </label>
-                    <input type="text" id="auth-user" class="form-control-enhanced" placeholder="Ej. admin" required autocomplete="username">
-                </div>
-
-                <div style="text-align: left;">
-                    <label for="auth-password" style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.35rem;">
-                        <i class="fa-solid fa-key" style="color: #fbc531;"></i> Contraseña de Acceso:
-                    </label>
-                    <div style="position: relative; display: flex; align-items: center;">
-                        <input type="password" id="auth-password" class="form-control-enhanced" placeholder="••••••••" required autocomplete="current-password" style="padding-right: 2.8rem;">
-                        <button type="button" id="btn-toggle-password" style="position: absolute; right: 0.75rem; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.4rem; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; transition: color 0.2s;" title="Mostrar u ocultar contraseña" aria-label="Mostrar u ocultar contraseña">
-                            <i class="fa-solid fa-eye" id="icon-toggle-password"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" id="btn-auth-submit" class="btn-hero-primary" style="justify-content: center; margin-top: 0.4rem; width: 100%;">
-                    <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión en el Panel
-                </button>
-            </form>
+      <div class="auth-card">
+        <div style="margin-bottom: 1.3rem">
+          <div
+            style="
+              width: 60px;
+              height: 60px;
+              background: rgba(255, 51, 102, 0.15);
+              border: 1px solid var(--accent);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 1rem auto;
+              color: var(--accent);
+              font-size: 1.6rem;
+            "
+          >
+            <i class="fa-solid fa-lock" id="auth-icon-lock"></i>
+          </div>
+          <h3
+            style="
+              color: var(--text-main);
+              font-size: 1.4rem;
+              font-weight: 800;
+              margin-bottom: 0.3rem;
+            "
+          >
+            Acceso Administrativo
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0">
+            Ingrese sus credenciales para gestionar Kenou Camisetas
+          </p>
         </div>
+
+        <div
+          id="auth-alert-box"
+          style="
+            display: none;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.2rem;
+            font-size: 0.88rem;
+            text-align: left;
+            line-height: 1.45;
+          "
+        ></div>
+
+        <form
+          id="auth-login-form"
+          style="display: flex; flex-direction: column; gap: 1.1rem"
+        >
+          <div style="text-align: left">
+            <label
+              for="auth-user"
+              style="
+                color: var(--text-secondary);
+                font-size: 0.82rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.35rem;
+              "
+            >
+              <i class="fa-solid fa-user" style="color: var(--accent)"></i>
+              Usuario Administrador:
+            </label>
+            <input
+              type="text"
+              id="auth-user"
+              class="form-control-enhanced"
+              placeholder="Ej. admin"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <div style="text-align: left">
+            <label
+              for="auth-password"
+              style="
+                color: var(--text-secondary);
+                font-size: 0.82rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.35rem;
+              "
+            >
+              <i class="fa-solid fa-key" style="color: #fbc531"></i> Contraseña
+              de Acceso:
+            </label>
+            <div style="position: relative; display: flex; align-items: center">
+              <input
+                type="password"
+                id="auth-password"
+                class="form-control-enhanced"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+                style="padding-right: 2.8rem"
+              />
+              <button
+                type="button"
+                id="btn-toggle-password"
+                style="
+                  position: absolute;
+                  right: 0.75rem;
+                  background: none;
+                  border: none;
+                  color: var(--text-muted);
+                  cursor: pointer;
+                  padding: 0.4rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.05rem;
+                  transition: color 0.2s;
+                "
+                title="Mostrar u ocultar contraseña"
+                aria-label="Mostrar u ocultar contraseña"
+              >
+                <i class="fa-solid fa-eye" id="icon-toggle-password"></i>
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            id="btn-auth-submit"
+            class="btn-hero-primary"
+            style="justify-content: center; margin-top: 0.4rem; width: 100%"
+          >
+            <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión en el
+            Panel
+          </button>
+        </form>
+      </div>
     </div>
 
     <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
@@ -476,525 +602,1138 @@
 
     <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
     <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
-        <div class="drawer-header">
-            <div class="drawer-brand">
-                <img src="logo.jpg" alt="Logo Kenou Camisetas" class="drawer-logo-img">
-                <span class="drawer-title">KENOU <span>CAMISETAS</span></span>
-            </div>
-            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <a href="index.html" title="Inicio - Kenou Camisetas">
+            <img
+              src="logo.jpg"
+              alt="Logo Kenou Camisetas"
+              class="drawer-logo-img"
+            />
+          </a>
         </div>
+        <button
+          class="close-drawer-btn"
+          id="close-drawer-btn"
+          aria-label="Cerrar Menú"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
 
-        <ul class="drawer-links">
-            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
-            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
-            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
-            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
-            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
-            <li><a href="nosotros.html" class="drawer-item"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
-            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
-            <li class="drawer-admin-divider">
-                <a href="admin.html" class="drawer-item btn-admin-drawer active"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
-            </li>
-        </ul>
+      <ul class="drawer-links">
+        <li>
+          <a href="index.html" class="drawer-item"
+            ><i class="fa-solid fa-house"></i> Principal</a
+          >
+        </li>
+        <li>
+          <a href="galeria.html" class="drawer-item"
+            ><i class="fa-solid fa-images"></i> Galería de Colección</a
+          >
+        </li>
+        <li>
+          <a href="cotizador.html" class="drawer-item"
+            ><i class="fa-solid fa-calculator"></i> Cotizador Automático</a
+          >
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="drawer-item btn-open-size-guide"
+            ><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas &
+            Medidas</a
+          >
+        </li>
+        <li>
+          <a href="blog.html" class="drawer-item"
+            ><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a
+          >
+        </li>
+        <li>
+          <a href="nosotros.html" class="drawer-item"
+            ><i class="fa-solid fa-users"></i> Sobre Nosotros</a
+          >
+        </li>
+        <li>
+          <a href="contacto.html" class="drawer-item"
+            ><i class="fa-solid fa-envelope"></i> Contacto Directo</a
+          >
+        </li>
+        <li class="drawer-admin-divider">
+          <a href="admin.html" class="drawer-item btn-admin-drawer active"
+            ><i class="fa-solid fa-user-gear"></i> Panel de Administración</a
+          >
+        </li>
+      </ul>
     </nav>
 
     <!-- HEADER Y NAVEGACIÓN -->
     <header class="main-header">
-        <div class="header-container">
-            <div class="logo-brand">
-                <a href="index.html">
-                    <img src="logo.jpg" alt="Logo Kenou Camisetas" class="brand-logo-img">
-                    <h1>KENOU <span>CAMISETAS</span></h1>
-                </a>
-            </div>
-
-            <div class="header-actions">
-                <div id="admin-user-badge" style="display: none; align-items: center; gap: 0.6rem; background: #ecfdf5; padding: 0.4rem 0.85rem; border-radius: 20px; border: 1px solid #a7f3d0;">
-                    <span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4); display: inline-block;"></span>
-                    <span style="color: #065f46; font-size: 0.85rem; font-weight: 700;" id="admin-session-name">🟢 Autenticado como Administrador</span>
-                    <button id="btn-admin-logout" title="Cerrar Sesión de Administrador" style="background: transparent; border: none; color: #dc2626; cursor: pointer; padding: 0.2rem 0.4rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-power-off"></i>
-                    </button>
-                </div>
-
-                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count" class="cart-badge">0</span>
-                </a>
-
-                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
-                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
-                </button>
-            </div>
+      <div class="header-container">
+        <div class="logo-brand">
+          <a href="index.html">
+            <img
+              src="logo.jpg"
+              alt="Logo Kenou Camisetas"
+              class="brand-logo-img"
+            />
+            <h1>KENOU <span>CAMISETAS</span></h1>
+          </a>
         </div>
+
+        <div class="header-actions">
+          <div
+            id="admin-user-badge"
+            style="
+              display: none;
+              align-items: center;
+              gap: 0.6rem;
+              background: #ecfdf5;
+              padding: 0.4rem 0.85rem;
+              border-radius: 20px;
+              border: 1px solid #a7f3d0;
+            "
+          >
+            <span
+              style="
+                width: 8px;
+                height: 8px;
+                background: #10b981;
+                border-radius: 50%;
+                box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+                display: inline-block;
+              "
+            ></span>
+            <span
+              style="color: #065f46; font-size: 0.85rem; font-weight: 700"
+              id="admin-session-name"
+              >🟢 Autenticado como Administrador</span
+            >
+            <button
+              id="btn-admin-logout"
+              title="Cerrar Sesión de Administrador"
+              style="
+                background: transparent;
+                border: none;
+                color: #dc2626;
+                cursor: pointer;
+                padding: 0.2rem 0.4rem;
+                font-size: 0.9rem;
+              "
+            >
+              <i class="fa-solid fa-power-off"></i>
+            </button>
+          </div>
+
+          <a
+            href="carrito.html"
+            class="cart-icon-btn"
+            title="Ver Carrito de Compras"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="cart-badge">0</span>
+          </a>
+
+          <button
+            class="hamburger-btn"
+            id="hamburger-btn"
+            aria-label="Abrir Menú de Navegación"
+          >
+            <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+          </button>
+        </div>
+      </div>
     </header>
 
     <!-- ENCABEZADO HERO -->
-    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
-        <div class="hero-content">
-            <span class="hero-tag">GESTIÓN INTEGRAL Y CATALOGO DUAL</span>
-            <h2 class="hero-title">PANEL DE ADMINISTRACIÓN</h2>
-            <p class="hero-description">Administra el catálogo en tiempo real con carga de imágenes locales, visualización directa de prendas estilo carrito y monitoreo sincronizado de pedidos de la tienda.</p>
-        </div>
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem">
+      <div class="hero-content">
+        <span class="hero-tag">GESTIÓN INTEGRAL Y CATALOGO DUAL</span>
+        <h2 class="hero-title">PANEL DE ADMINISTRACIÓN</h2>
+        <p class="hero-description">
+          Administra el catálogo en tiempo real con carga de imágenes locales,
+          visualización directa de prendas estilo carrito y monitoreo
+          sincronizado de pedidos de la tienda.
+        </p>
+      </div>
     </section>
 
     <!-- CONTENEDOR PRINCIPAL -->
-    <main style="max-width: 1350px; margin: 2rem auto; padding: 0 1.5rem;">
-        <div class="admin-grid-layout">
-            
-            <section class="contain-card">
-                <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="tab-productos">
-                        <i class="fa-solid fa-shirt"></i> Gestión de Productos & Catálogo
-                    </button>
-                    <button class="tab-btn" data-tab="tab-pedidos">
-                        <i class="fa-solid fa-receipt"></i> Pedidos Recibidos (Tiempo Real)
-                        <span class="badge-tab-count" id="badge-pedidos-count">0</span>
-                    </button>
-                </div>
+    <main style="max-width: 1350px; margin: 2rem auto; padding: 0 1.5rem">
+      <div class="admin-grid-layout">
+        <section class="contain-card">
+          <div class="admin-tabs">
+            <button class="tab-btn active" data-tab="tab-productos">
+              <i class="fa-solid fa-shirt"></i> Gestión de Productos & Catálogo
+            </button>
+            <button class="tab-btn" data-tab="tab-pedidos">
+              <i class="fa-solid fa-receipt"></i> Pedidos Recibidos (Tiempo
+              Real)
+              <span class="badge-tab-count" id="badge-pedidos-count">0</span>
+            </button>
+          </div>
 
-                <!-- PESTAÑA 1: PRODUCTOS -->
-                <div id="tab-productos" class="tab-content">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
-                        <div>
-                            <h3 style="color: var(--text-main); font-weight: 800; font-size: 1.25rem; margin: 0;">
-                                Previsualización de Productos en Catálogo
-                            </h3>
-                            <span style="color: var(--text-muted); font-size: 0.82rem;">Sincronizado con el catálogo principal.</span>
-                        </div>
-                        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
-                            <a href="index.html" class="btn-hero-secondary" target="_blank" style="padding: 0.6rem 1rem; font-size: 0.88rem; text-decoration: none;">
-                                <i class="fa-solid fa-eye"></i> Ver Catálogo Público
-                            </a>
-                            <button id="btn-nuevo-producto" class="btn-hero-primary" style="padding: 0.6rem 1rem; font-size: 0.88rem;">
-                                <i class="fa-solid fa-plus"></i> Cargar Nueva Prenda
-                            </button>
-                        </div>
-                    </div>
+          <!-- PESTAÑA 1: PRODUCTOS -->
+          <div id="tab-productos" class="tab-content">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.2rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+              "
+            >
+              <div>
+                <h3
+                  style="
+                    color: var(--text-main);
+                    font-weight: 800;
+                    font-size: 1.25rem;
+                    margin: 0;
+                  "
+                >
+                  Previsualización de Productos en Catálogo
+                </h3>
+                <span style="color: var(--text-muted); font-size: 0.82rem"
+                  >Sincronizado con el catálogo principal.</span
+                >
+              </div>
+              <div style="display: flex; gap: 0.8rem; flex-wrap: wrap">
+                <a
+                  href="galeria.html"
+                  class="btn-hero-secondary"
+                  target="_blank"
+                  style="
+                    padding: 0.6rem 1rem;
+                    font-size: 0.88rem;
+                    text-decoration: none;
+                  "
+                >
+                  <i class="fa-solid fa-eye"></i> Ver Catálogo Público
+                </a>
+                <button
+                  id="btn-nuevo-producto"
+                  class="btn-hero-primary"
+                  style="padding: 0.6rem 1rem; font-size: 0.88rem"
+                >
+                  <i class="fa-solid fa-plus"></i> Cargar Nueva Prenda
+                </button>
+              </div>
+            </div>
 
-                    <!-- GRID TARJETAS ESTILO CARRITO -->
-                    <div id="products-preview-container" class="products-preview-grid"></div>
+            <!-- GRID TARJETAS ESTILO CARRITO -->
+            <div
+              id="products-preview-container"
+              class="products-preview-grid"
+            ></div>
 
-                    <!-- TABLA DENSE DE INVENTARIO -->
-                    <div style="margin-top: 2rem; border-top: 1px dashed var(--border-color); padding-top: 1.2rem;">
-                        <h4 style="color: var(--text-main); font-size: 1rem; font-weight: 800; margin-bottom: 0.8rem;">
-                            <i class="fa-solid fa-list-check" style="color: var(--accent);"></i> Tabla de Control de Inventario
-                        </h4>
-                        <div class="table-responsive">
-                            <table class="custom-table">
-                                <thead>
-                                    <tr>
-                                        <th>Prenda</th>
-                                        <th>Tipo / Variedad</th>
-                                        <th>Precio</th>
-                                        <th>Cantidad (Stock)</th>
-                                        <th>Estado</th>
-                                        <th style="text-align: right;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body-productos"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <!-- TABLA DENSE DE INVENTARIO -->
+            <div
+              style="
+                margin-top: 2rem;
+                border-top: 1px dashed var(--border-color);
+                padding-top: 1.2rem;
+              "
+            >
+              <h4
+                style="
+                  color: var(--text-main);
+                  font-size: 1rem;
+                  font-weight: 800;
+                  margin-bottom: 0.8rem;
+                "
+              >
+                <i
+                  class="fa-solid fa-list-check"
+                  style="color: var(--accent)"
+                ></i>
+                Tabla de Control de Inventario
+              </h4>
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Prenda</th>
+                      <th>Tipo / Variedad</th>
+                      <th>Precio</th>
+                      <th>Cantidad (Stock)</th>
+                      <th>Estado</th>
+                      <th style="text-align: right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body-productos"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-                <!-- PESTAÑA 2: PEDIDOS EN TIEMPO REAL -->
-                <div id="tab-pedidos" class="tab-content" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.8rem;">
-                        <div>
-                            <h3 style="color: var(--text-main); font-weight: 800; font-size: 1.25rem; margin: 0;">
-                                <i class="fa-solid fa-bell" style="color: var(--accent);"></i> Monitor de Pedidos Sincronizados
-                            </h3>
-                            <span style="color: var(--text-muted); font-size: 0.82rem;">Órdenes recibidas desde el Carrito de Compras y el Cotizador en tiempo real.</span>
-                        </div>
-                        <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
-                            <button id="btn-exportar-pedidos-pdf" class="btn-hero-primary" style="padding: 0.55rem 0.95rem; font-size: 0.85rem;">
-                                <i class="fa-solid fa-file-pdf"></i> Exportar a PDF
-                            </button>
-                            <button id="btn-exportar-pedidos" class="btn-hero-secondary" style="padding: 0.55rem 0.95rem; font-size: 0.85rem;">
-                                <i class="fa-solid fa-file-csv"></i> Exportar a CSV
-                            </button>
-                        </div>
-                    </div>
+          <!-- PESTAÑA 2: PEDIDOS EN TIEMPO REAL -->
+          <div id="tab-pedidos" class="tab-content" style="display: none">
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1.2rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+              "
+            >
+              <div>
+                <h3
+                  style="
+                    color: var(--text-main);
+                    font-weight: 800;
+                    font-size: 1.25rem;
+                    margin: 0;
+                  "
+                >
+                  <i class="fa-solid fa-bell" style="color: var(--accent)"></i>
+                  Monitor de Pedidos Sincronizados
+                </h3>
+                <span style="color: var(--text-muted); font-size: 0.82rem"
+                  >Órdenes recibidas desde el Carrito de Compras y el Cotizador
+                  en tiempo real.</span
+                >
+              </div>
+              <div style="display: flex; gap: 0.6rem; flex-wrap: wrap">
+                <button
+                  id="btn-exportar-pedidos-pdf"
+                  class="btn-hero-primary"
+                  style="padding: 0.55rem 0.95rem; font-size: 0.85rem"
+                >
+                  <i class="fa-solid fa-file-pdf"></i> Exportar a PDF
+                </button>
+                <button
+                  id="btn-exportar-pedidos"
+                  class="btn-hero-secondary"
+                  style="padding: 0.55rem 0.95rem; font-size: 0.85rem"
+                >
+                  <i class="fa-solid fa-file-csv"></i> Exportar a CSV
+                </button>
+              </div>
+            </div>
 
-                    <!-- BARRA DE FILTROS Y BÚSQUEDA DE PEDIDOS -->
-                    <div class="orders-filter-bar">
-                        <div class="filter-btn-group" id="pedidos-filter-chips">
-                            <button class="filter-chip active" data-filter="todos">Todos (<span id="count-chip-todos">0</span>)</button>
-                            <button class="filter-chip" data-filter="Cotización">Cotización (<span id="count-chip-cotizacion">0</span>)</button>
-                            <button class="filter-chip" data-filter="En proceso">En proceso (<span id="count-chip-proceso">0</span>)</button>
-                            <button class="filter-chip" data-filter="Vendido">Vendido (<span id="count-chip-vendido">0</span>)</button>
-                            <button class="filter-chip" data-filter="Entregado">Entregado / Finalizado (<span id="count-chip-entregado">0</span>)</button>
-                        </div>
-                        <div class="search-box-orders">
-                            <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted); font-size: 0.85rem;"></i>
-                            <input type="text" id="input-buscar-pedidos" placeholder="Buscar por cliente u orden...">
-                        </div>
-                    </div>
+            <!-- BARRA DE FILTROS Y BÚSQUEDA DE PEDIDOS -->
+            <div class="orders-filter-bar">
+              <div class="filter-btn-group" id="pedidos-filter-chips">
+                <button class="filter-chip active" data-filter="todos">
+                  Todos (<span id="count-chip-todos">0</span>)
+                </button>
+                <button class="filter-chip" data-filter="Cotización">
+                  Cotización (<span id="count-chip-cotizacion">0</span>)
+                </button>
+                <button class="filter-chip" data-filter="En proceso">
+                  En proceso (<span id="count-chip-proceso">0</span>)
+                </button>
+                <button class="filter-chip" data-filter="Vendido">
+                  Vendido (<span id="count-chip-vendido">0</span>)
+                </button>
+                <button class="filter-chip" data-filter="Entregado">
+                  Entregado / Finalizado (<span id="count-chip-entregado"
+                    >0</span
+                  >)
+                </button>
+              </div>
+              <div class="search-box-orders">
+                <i
+                  class="fa-solid fa-magnifying-glass"
+                  style="color: var(--text-muted); font-size: 0.85rem"
+                ></i>
+                <input
+                  type="text"
+                  id="input-buscar-pedidos"
+                  placeholder="Buscar por cliente u orden..."
+                />
+              </div>
+            </div>
 
-                    <div class="table-responsive">
-                        <table class="custom-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden #</th>
-                                    <th>Cliente</th>
-                                    <th>Contacto</th>
-                                    <th>Detalle</th>
-                                    <th>Total COP</th>
-                                    <th>Estado de Orden</th>
-                                    <th style="text-align: right;">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-body-pedidos"></tbody>
-                        </table>
-                    </div>
-                </div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Orden #</th>
+                    <th>Cliente</th>
+                    <th>Contacto</th>
+                    <th>Detalle</th>
+                    <th>Total COP</th>
+                    <th>Estado de Orden</th>
+                    <th style="text-align: right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="table-body-pedidos"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
 
-            </section>
+        <!-- COLUMNA STICKY DE MÉTRICAS -->
+        <section class="contain-card-summary">
+          <div
+            style="
+              border-bottom: 1px dashed var(--border-color);
+              padding-bottom: 1rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            <h3
+              style="
+                font-size: 1.3rem;
+                color: var(--text-main);
+                font-weight: 800;
+                margin-bottom: 0.2rem;
+              "
+            >
+              <i
+                class="fa-solid fa-chart-line"
+                style="color: var(--accent)"
+              ></i>
+              Resumen de Operación
+            </h3>
+            <span style="color: var(--text-muted); font-size: 0.82rem"
+              >Métricas clave sincronizadas</span
+            >
+          </div>
 
-            <!-- COLUMNA STICKY DE MÉTRICAS -->
-            <section class="contain-card-summary">
-                <div style="border-bottom: 1px dashed var(--border-color); padding-bottom: 1rem; margin-bottom: 1.5rem;">
-                    <h3 style="font-size: 1.3rem; color: var(--text-main); font-weight: 800; margin-bottom: 0.2rem;">
-                        <i class="fa-solid fa-chart-line" style="color: var(--accent);"></i> Resumen de Operación
-                    </h3>
-                    <span style="color: var(--text-muted); font-size: 0.82rem;">Métricas clave sincronizadas</span>
-                </div>
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-title"
+                ><i class="fa-solid fa-sack-dollar" style="color: #4cd137"></i>
+                Ventas Totales</span
+              >
+              <span class="kpi-value" id="kpi-ventas">$0</span>
+            </div>
 
-                <div class="kpi-grid">
-                    <div class="kpi-card">
-                        <span class="kpi-title"><i class="fa-solid fa-sack-dollar" style="color: #4cd137;"></i> Ventas Totales</span>
-                        <span class="kpi-value" id="kpi-ventas">$0</span>
-                    </div>
+            <div class="kpi-card">
+              <span class="kpi-title"
+                ><i class="fa-solid fa-cart-flatbed" style="color: #fbc531"></i>
+                Total Órdenes</span
+              >
+              <span class="kpi-value" id="kpi-pedidos">0 Órdenes</span>
+            </div>
 
-                    <div class="kpi-card">
-                        <span class="kpi-title"><i class="fa-solid fa-cart-flatbed" style="color: #fbc531;"></i> Total Órdenes</span>
-                        <span class="kpi-value" id="kpi-pedidos">0 Órdenes</span>
-                    </div>
+            <div class="kpi-card">
+              <span class="kpi-title"
+                ><i class="fa-solid fa-shirt" style="color: #00f2fe"></i>
+                Prendas Activas</span
+              >
+              <span class="kpi-value" id="kpi-items">0 Prendas</span>
+            </div>
 
-                    <div class="kpi-card">
-                        <span class="kpi-title"><i class="fa-solid fa-shirt" style="color: #00f2fe;"></i> Prendas Activas</span>
-                        <span class="kpi-value" id="kpi-items">0 Prendas</span>
-                    </div>
+            <div class="kpi-card">
+              <span class="kpi-title"
+                ><i
+                  class="fa-solid fa-boxes-packing"
+                  style="color: var(--accent)"
+                ></i>
+                Stock Bajo</span
+              >
+              <span
+                class="kpi-value"
+                id="kpi-stock-bajo"
+                style="color: var(--accent)"
+                >0 Alertas</span
+              >
+            </div>
+          </div>
 
-                    <div class="kpi-card">
-                        <span class="kpi-title"><i class="fa-solid fa-boxes-packing" style="color: var(--accent);"></i> Stock Bajo</span>
-                        <span class="kpi-value" id="kpi-stock-bajo" style="color: var(--accent);">0 Alertas</span>
-                    </div>
-                </div>
+          <div
+            style="
+              border-top: 1px dashed var(--border-color);
+              padding-top: 1.2rem;
+              display: flex;
+              flex-direction: column;
+              gap: 0.8rem;
+            "
+          >
+            <button
+              id="btn-ver-inventario-metricas"
+              class="btn-hero-primary"
+              style="justify-content: center; width: 100%"
+            >
+              <i class="fa-solid fa-boxes-stacked"></i> Ver Ventana de
+              Inventario & Métricas
+            </button>
 
-                <div style="border-top: 1px dashed var(--border-color); padding-top: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem;">
-                    <button id="btn-ver-inventario-metricas" class="btn-hero-primary" style="justify-content: center; width: 100%;">
-                        <i class="fa-solid fa-boxes-stacked"></i> Ver Ventana de Inventario & Métricas
-                    </button>
-
-                    <button id="btn-quick-clear-orders" class="btn-hero-secondary" style="justify-content: center; width: 100%;">
-                        <i class="fa-solid fa-trash-can"></i> Vaciar Historial de Pedidos
-                    </button>
-                </div>
-            </section>
-
-        </div>
+            <button
+              id="btn-quick-clear-orders"
+              class="btn-hero-secondary"
+              style="justify-content: center; width: 100%"
+            >
+              <i class="fa-solid fa-trash-can"></i> Vaciar Historial de Pedidos
+            </button>
+          </div>
+        </section>
+      </div>
     </main>
 
     <!-- MODAL DE CARGA DE PRODUCTO CON IMAGEN LOCAL Y TIPO DE PRENDA -->
     <div id="modal-producto" class="modal-custom">
-        <div class="modal-custom-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; margin-bottom: 1.2rem;">
-                <h3 style="color: var(--text-main); margin: 0; font-size: 1.2rem;" id="modal-prod-title">
-                    <i class="fa-solid fa-shirt" style="color: var(--accent);"></i> Cargar / Editar Prenda
-                </h3>
-                <button id="btn-close-modal-prod" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer;">
-                    <i class="fa-solid fa-xmark"></i>
+      <div class="modal-custom-content">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+          "
+        >
+          <h3
+            style="color: var(--text-main); margin: 0; font-size: 1.2rem"
+            id="modal-prod-title"
+          >
+            <i class="fa-solid fa-shirt" style="color: var(--accent)"></i>
+            Cargar / Editar Prenda
+          </h3>
+          <button
+            id="btn-close-modal-prod"
+            style="
+              background: transparent;
+              border: none;
+              color: var(--text-secondary);
+              font-size: 1.4rem;
+              cursor: pointer;
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <form
+          id="form-producto-modal"
+          style="display: flex; flex-direction: column; gap: 1rem"
+        >
+          <input type="hidden" id="prod-id-edit" />
+          <input type="hidden" id="prod-imagen-base64" />
+
+          <!-- IMAGEN LOCAL (JPEG, PNG, JPG) -->
+          <div>
+            <label
+              style="
+                color: var(--text-secondary);
+                font-size: 0.82rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.4rem;
+              "
+            >
+              <i class="fa-solid fa-image" style="color: var(--accent)"></i>
+              Imagen de la Prenda (JPEG, PNG, JPG): *
+            </label>
+            <div class="image-upload-box" id="upload-box-trigger">
+              <i
+                class="fa-solid fa-cloud-arrow-up"
+                style="
+                  font-size: 1.8rem;
+                  color: var(--accent);
+                  margin-bottom: 0.4rem;
+                  display: block;
+                "
+              ></i>
+              <span
+                style="
+                  color: var(--text-main);
+                  font-size: 0.88rem;
+                  font-weight: 700;
+                  display: block;
+                "
+                >Haz clic para seleccionar la imagen local</span
+              >
+              <span style="color: var(--text-muted); font-size: 0.78rem"
+                >Archivos soportados: .jpg, .jpeg, .png</span
+              >
+              <input
+                type="file"
+                id="prod-file-input"
+                accept="image/jpeg, image/png, image/jpg"
+                style="display: none"
+              />
+            </div>
+            <div
+              id="image-preview-wrapper"
+              style="
+                display: none;
+                align-items: center;
+                gap: 1rem;
+                margin-top: 0.8rem;
+                background: #f8fafc;
+                padding: 0.6rem 1rem;
+                border-radius: 10px;
+                border: 1px solid var(--border-color);
+              "
+            >
+              <img
+                id="image-preview-el"
+                class="image-preview-thumb"
+                src=""
+                alt="Vista previa"
+              />
+              <div>
+                <span
+                  style="
+                    color: #16a34a;
+                    font-size: 0.82rem;
+                    font-weight: 700;
+                    display: block;
+                  "
+                  >✓ Imagen cargada con éxito</span
+                >
+                <button
+                  type="button"
+                  id="btn-remove-image"
+                  style="
+                    background: transparent;
+                    border: none;
+                    color: #dc2626;
+                    font-size: 0.78rem;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fa-solid fa-trash"></i> Quitar imagen
                 </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIPO DE PRENDA -->
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
+          >
+            <div>
+              <label
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.82rem;
+                  font-weight: 700;
+                  display: block;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                <i class="fa-solid fa-list" style="color: #fbc531"></i> Tipo /
+                Variedad de Prenda: *
+              </label>
+              <select id="prod-categoria" class="form-control-enhanced">
+                <option value="Camisetas">Camisetas</option>
+                <option value="Shorts">Shorts</option>
+                <option value="Gorras">
+                  Gorras (En construcción - Próximamente)
+                </option>
+                <option value="Busos">Busos</option>
+                <option value="Pantalones">
+                  Joggers (En construcción - Próximamente)
+                </option>
+                <option value="Accesorios">Accesorios</option>
+              </select>
             </div>
 
-            <form id="form-producto-modal" style="display: flex; flex-direction: column; gap: 1rem;">
-                <input type="hidden" id="prod-id-edit">
-                <input type="hidden" id="prod-imagen-base64">
+            <div>
+              <label
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.82rem;
+                  font-weight: 700;
+                  display: block;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                <i class="fa-solid fa-tag" style="color: var(--accent)"></i>
+                Nombre de la Prenda: *
+              </label>
+              <input
+                type="text"
+                id="prod-nombre"
+                class="form-control-enhanced"
+                placeholder="Ej. Gorra Trucker Street"
+                required
+              />
+            </div>
+          </div>
 
-                <!-- IMAGEN LOCAL (JPEG, PNG, JPG) -->
-                <div>
-                    <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">
-                        <i class="fa-solid fa-image" style="color: var(--accent);"></i> Imagen de la Prenda (JPEG, PNG, JPG): *
-                    </label>
-                    <div class="image-upload-box" id="upload-box-trigger">
-                        <i class="fa-solid fa-cloud-arrow-up" style="font-size: 1.8rem; color: var(--accent); margin-bottom: 0.4rem; display: block;"></i>
-                        <span style="color: var(--text-main); font-size: 0.88rem; font-weight: 700; display: block;">Haz clic para seleccionar la imagen local</span>
-                        <span style="color: var(--text-muted); font-size: 0.78rem;">Archivos soportados: .jpg, .jpeg, .png</span>
-                        <input type="file" id="prod-file-input" accept="image/jpeg, image/png, image/jpg" style="display: none;">
-                    </div>
-                    <div id="image-preview-wrapper" style="display: none; align-items: center; gap: 1rem; margin-top: 0.8rem; background: #f8fafc; padding: 0.6rem 1rem; border-radius: 10px; border: 1px solid var(--border-color);">
-                        <img id="image-preview-el" class="image-preview-thumb" src="" alt="Vista previa">
-                        <div>
-                            <span style="color: #16a34a; font-size: 0.82rem; font-weight: 700; display: block;">✓ Imagen cargada con éxito</span>
-                            <button type="button" id="btn-remove-image" style="background: transparent; border: none; color: #dc2626; font-size: 0.78rem; cursor: pointer;">
-                                <i class="fa-solid fa-trash"></i> Quitar imagen
-                            </button>
-                        </div>
-                    </div>
-                </div>
+          <!-- PRECIO Y CANTIDAD (STOCK) -->
+          <div
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
+          >
+            <div>
+              <label
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.82rem;
+                  font-weight: 700;
+                  display: block;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                <i class="fa-solid fa-dollar-sign" style="color: #16a34a"></i>
+                Precio por Unidad (COP): *
+              </label>
+              <input
+                type="number"
+                id="prod-precio"
+                class="form-control-enhanced"
+                placeholder="35000"
+                min="0"
+                required
+              />
+            </div>
 
-                <!-- TIPO DE PRENDA -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-                    <div>
-                        <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.3rem;">
-                            <i class="fa-solid fa-list" style="color: #fbc531;"></i> Tipo / Variedad de Prenda: *
-                        </label>
-                        <select id="prod-categoria" class="form-control-enhanced">
-                            <option value="Camisetas">Camisetas</option>
-                            <option value="Shorts">Shorts</option>
-                            <option value="Gorras">Gorras</option>
-                            <option value="Hoodies">Hoodies & Busos</option>
-                            <option value="Pantalones">Pantalones / Joggers</option>
-                            <option value="Accesorios">Accesorios</option>
-                        </select>
-                    </div>
+            <div>
+              <label
+                style="
+                  color: var(--text-secondary);
+                  font-size: 0.82rem;
+                  font-weight: 700;
+                  display: block;
+                  margin-bottom: 0.3rem;
+                "
+              >
+                <i class="fa-solid fa-cubes" style="color: var(--accent)"></i>
+                Cantidad de Prendas (Stock): *
+              </label>
+              <input
+                type="number"
+                id="prod-stock"
+                class="form-control-enhanced"
+                placeholder="20"
+                min="0"
+                required
+              />
+            </div>
+          </div>
 
-                    <div>
-                        <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.3rem;">
-                            <i class="fa-solid fa-tag" style="color: var(--accent);"></i> Nombre de la Prenda: *
-                        </label>
-                        <input type="text" id="prod-nombre" class="form-control-enhanced" placeholder="Ej. Gorra Trucker Street" required>
-                    </div>
-                </div>
+          <div>
+            <label
+              style="
+                color: var(--text-secondary);
+                font-size: 0.82rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.3rem;
+              "
+              >Estado: *</label
+            >
+            <select id="prod-estado" class="form-control-enhanced">
+              <option value="Disponible">Disponible</option>
+              <option value="Últimas Unidades">Últimas Unidades</option>
+            </select>
+          </div>
 
-                <!-- PRECIO Y CANTIDAD (STOCK) -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
-                    <div>
-                        <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.3rem;">
-                            <i class="fa-solid fa-dollar-sign" style="color: #16a34a;"></i> Precio por Unidad (COP): *
-                        </label>
-                        <input type="number" id="prod-precio" class="form-control-enhanced" placeholder="35000" min="0" required>
-                    </div>
-
-                    <div>
-                        <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.3rem;">
-                            <i class="fa-solid fa-cubes" style="color: var(--accent);"></i> Cantidad de Prendas (Stock): *
-                        </label>
-                        <input type="number" id="prod-stock" class="form-control-enhanced" placeholder="20" min="0" required>
-                    </div>
-                </div>
-
-                <div>
-                    <label style="color: var(--text-secondary); font-size: 0.82rem; font-weight: 700; display: block; margin-bottom: 0.3rem;">Estado: *</label>
-                    <select id="prod-estado" class="form-control-enhanced">
-                        <option value="Disponible">Disponible</option>
-                        <option value="Agotado">Agotado</option>
-                    </select>
-                </div>
-
-                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                    <button type="submit" class="btn-hero-primary" style="flex: 1; justify-content: center;">
-                        <i class="fa-solid fa-floppy-disk"></i> Guardar y Publicar Prenda
-                    </button>
-                    <button type="button" id="btn-cancel-prod-modal" class="btn-hero-secondary" style="flex: 1;">Cancelar</button>
-                </div>
-            </form>
-        </div>
+          <div style="display: flex; gap: 1rem; margin-top: 1rem">
+            <button
+              type="submit"
+              class="btn-hero-primary"
+              style="flex: 1; justify-content: center"
+            >
+              <i class="fa-solid fa-floppy-disk"></i> Guardar y Publicar Prenda
+            </button>
+            <button
+              type="button"
+              id="btn-cancel-prod-modal"
+              class="btn-hero-secondary"
+              style="flex: 1"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <!-- MODAL VENTANA DE INVENTARIO Y MÉTRICAS SINCRONIZADAS -->
     <div id="modal-inventario-metricas" class="modal-custom">
-        <div class="modal-large-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; margin-bottom: 1.2rem;">
-                <div>
-                    <h3 style="color: var(--text-main); margin: 0; font-size: 1.3rem; font-weight: 800;">
-                        <i class="fa-solid fa-chart-pie" style="color: var(--accent);"></i> Ventana de Inventario & Métricas Sincronizadas
-                    </h3>
-                    <span style="color: var(--text-muted); font-size: 0.82rem;">Reporte integral sincronizado en tiempo real con catálogo y órdenes</span>
-                </div>
-                <button id="btn-close-modal-inventario" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer;">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <!-- KPIs RESUMEN EN VENTANA -->
-            <div class="inventory-kpi-summary">
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-shirt"></i> Total Prendas</span>
-                    <span class="mini-val" id="inv-kpi-prendas">0</span>
-                </div>
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-cubes"></i> Unidades Stock</span>
-                    <span class="mini-val" id="inv-kpi-stock">0 un.</span>
-                </div>
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-vault"></i> Inventario Valorizado</span>
-                    <span class="mini-val" id="inv-kpi-valor" style="color: #16a34a;">$0</span>
-                </div>
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-triangle-exclamation"></i> Stock Bajo</span>
-                    <span class="mini-val" id="inv-kpi-alertas" style="color: #dc2626;">0</span>
-                </div>
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-sack-dollar"></i> Ventas Totales</span>
-                    <span class="mini-val" id="inv-kpi-ventas" style="color: var(--accent);">$0</span>
-                </div>
-                <div class="inventory-kpi-mini">
-                    <span class="mini-label"><i class="fa-solid fa-receipt"></i> Total Órdenes</span>
-                    <span class="mini-val" id="inv-kpi-ordenes">0</span>
-                </div>
-            </div>
-
-            <!-- TABLA DE INVENTARIO VALORIZADO -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
-                <h4 style="color: var(--text-main); font-size: 0.95rem; font-weight: 800; margin: 0;">
-                    <i class="fa-solid fa-boxes-packing" style="color: var(--accent);"></i> Desglose Detallado de Existencias
-                </h4>
-                <span style="font-size: 0.78rem; color: var(--text-muted);">Valores expresados en Pesos Colombianos (COP)</span>
-            </div>
-            <div class="table-responsive" style="max-height: 340px; overflow-y: auto;">
-                <table class="custom-table">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Prenda</th>
-                            <th>Categoría</th>
-                            <th>Precio Unitario</th>
-                            <th>Stock</th>
-                            <th>Valor Total Stock</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body-inventario-modal"></tbody>
-                </table>
-            </div>
-
-            <!-- ACCIONES DEL MODAL -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem; flex-wrap: wrap; gap: 0.8rem;">
-                <span style="font-size: 0.8rem; color: var(--text-muted);" id="inv-timestamp">Sincronizado: --</span>
-                <div style="display: flex; gap: 0.8rem;">
-                    <button id="btn-imprimir-inventario" class="btn-hero-secondary" style="padding: 0.6rem 1rem; font-size: 0.88rem;">
-                        <i class="fa-solid fa-print"></i> Imprimir
-                    </button>
-                    <button id="btn-exportar-inventario-pdf" class="btn-hero-primary" style="padding: 0.6rem 1.2rem; font-size: 0.88rem;">
-                        <i class="fa-solid fa-file-pdf"></i> Exportar Informe en .PDF
-                    </button>
-                </div>
-            </div>
+      <div class="modal-large-content">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+          "
+        >
+          <div>
+            <h3
+              style="
+                color: var(--text-main);
+                margin: 0;
+                font-size: 1.3rem;
+                font-weight: 800;
+              "
+            >
+              <i class="fa-solid fa-chart-pie" style="color: var(--accent)"></i>
+              Ventana de Inventario & Métricas Sincronizadas
+            </h3>
+            <span style="color: var(--text-muted); font-size: 0.82rem"
+              >Reporte integral sincronizado en tiempo real con catálogo y
+              órdenes</span
+            >
+          </div>
+          <button
+            id="btn-close-modal-inventario"
+            style="
+              background: transparent;
+              border: none;
+              color: var(--text-secondary);
+              font-size: 1.4rem;
+              cursor: pointer;
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
+
+        <!-- KPIs RESUMEN EN VENTANA -->
+        <div class="inventory-kpi-summary">
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-shirt"></i> Total Prendas</span
+            >
+            <span class="mini-val" id="inv-kpi-prendas">0</span>
+          </div>
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-cubes"></i> Unidades Stock</span
+            >
+            <span class="mini-val" id="inv-kpi-stock">0 un.</span>
+          </div>
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-vault"></i> Inventario Valorizado</span
+            >
+            <span class="mini-val" id="inv-kpi-valor" style="color: #16a34a"
+              >$0</span
+            >
+          </div>
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-triangle-exclamation"></i> Stock Bajo</span
+            >
+            <span class="mini-val" id="inv-kpi-alertas" style="color: #dc2626"
+              >0</span
+            >
+          </div>
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-sack-dollar"></i> Ventas Totales</span
+            >
+            <span
+              class="mini-val"
+              id="inv-kpi-ventas"
+              style="color: var(--accent)"
+              >$0</span
+            >
+          </div>
+          <div class="inventory-kpi-mini">
+            <span class="mini-label"
+              ><i class="fa-solid fa-receipt"></i> Total Órdenes</span
+            >
+            <span class="mini-val" id="inv-kpi-ordenes">0</span>
+          </div>
+        </div>
+
+        <!-- TABLA DE INVENTARIO VALORIZADO -->
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+          "
+        >
+          <h4
+            style="
+              color: var(--text-main);
+              font-size: 0.95rem;
+              font-weight: 800;
+              margin: 0;
+            "
+          >
+            <i
+              class="fa-solid fa-boxes-packing"
+              style="color: var(--accent)"
+            ></i>
+            Desglose Detallado de Existencias
+          </h4>
+          <span style="font-size: 0.78rem; color: var(--text-muted)"
+            >Valores expresados en Pesos Colombianos (COP)</span
+          >
+        </div>
+        <div
+          class="table-responsive"
+          style="max-height: 340px; overflow-y: auto"
+        >
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Prenda</th>
+                <th>Categoría</th>
+                <th>Precio Unitario</th>
+                <th>Stock</th>
+                <th>Valor Total Stock</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="table-body-inventario-modal"></tbody>
+          </table>
+        </div>
+
+        <!-- ACCIONES DEL MODAL -->
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+          "
+        >
+          <span
+            style="font-size: 0.8rem; color: var(--text-muted)"
+            id="inv-timestamp"
+            >Sincronizado: --</span
+          >
+          <div style="display: flex; gap: 0.8rem">
+            <button
+              id="btn-imprimir-inventario"
+              class="btn-hero-secondary"
+              style="padding: 0.6rem 1rem; font-size: 0.88rem"
+            >
+              <i class="fa-solid fa-print"></i> Imprimir
+            </button>
+            <button
+              id="btn-exportar-inventario-pdf"
+              class="btn-hero-primary"
+              style="padding: 0.6rem 1.2rem; font-size: 0.88rem"
+            >
+              <i class="fa-solid fa-file-pdf"></i> Exportar Informe en .PDF
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- MODAL DETALLE DE PEDIDO RECIBIDO -->
     <div id="modal-detalle-pedido" class="modal-custom">
-        <div class="modal-custom-content">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 0.8rem; margin-bottom: 1.2rem;">
-                <h3 style="color: var(--text-main); margin: 0; font-size: 1.2rem; font-weight: 800;" id="modal-detalle-title">
-                    <i class="fa-solid fa-receipt" style="color: var(--accent);"></i> Detalle de la Orden
-                </h3>
-                <button id="btn-close-modal-detalle" style="background: transparent; border: none; color: var(--text-secondary); font-size: 1.4rem; cursor: pointer;">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div id="modal-detalle-body" style="font-size: 0.9rem; line-height: 1.5;"></div>
-            <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
-                <button type="button" id="btn-cerrar-modal-detalle-btn" class="btn-hero-secondary" style="padding: 0.5rem 1.2rem;">Cerrar</button>
-            </div>
+      <div class="modal-custom-content">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+          "
+        >
+          <h3
+            style="
+              color: var(--text-main);
+              margin: 0;
+              font-size: 1.2rem;
+              font-weight: 800;
+            "
+            id="modal-detalle-title"
+          >
+            <i class="fa-solid fa-receipt" style="color: var(--accent)"></i>
+            Detalle de la Orden
+          </h3>
+          <button
+            id="btn-close-modal-detalle"
+            style="
+              background: transparent;
+              border: none;
+              color: var(--text-secondary);
+              font-size: 1.4rem;
+              cursor: pointer;
+            "
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
+        <div
+          id="modal-detalle-body"
+          style="font-size: 0.9rem; line-height: 1.5"
+        ></div>
+        <div
+          style="
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+          "
+        >
+          <button
+            type="button"
+            id="btn-cerrar-modal-detalle-btn"
+            class="btn-hero-secondary"
+            style="padding: 0.5rem 1.2rem"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
     <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <!-- Columna 1: Marca & Compromiso de Calidad -->
-                <div class="footer-col footer-brand-col">
-                    <div class="footer-logo">
-                        <a href="index.html" class="footer-logo-link">
-                            <img src="logo.jpg" alt="Logo Kenou Camisetas" class="footer-logo-img">
-                            <span class="logo-text">KENOU <span>CAMISETAS</span></span>
-                        </a>
-                    </div>
-                    <p class="footer-tagline">Tienda On Line, estampado y personalización de camisetas y prendas urbanas.</p>
-                    <p class="footer-desc">En Kenou Camisetas estamos comprometidos a brindar soluciones de alta calidad en estampado DTF, vinilo textil y personalización de prendas para nuestros clientes.</p>
-                    <div class="footer-social-links">
-                        <a href="https://www.instagram.com/kenoucamisetas/" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram @kenoucamisetas" aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@kenou.camisetas" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                        <a href="https://wa.me/573053905216" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Columna 2: Navega -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Navega</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="cotizador.html">Personalizar</a></li>
-                        <li><a href="galeria.html">Tienda</a></li>
-                        <li><a href="blog.html">Blog & Cuidado</a></li>
-                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                        <li><a href="contacto.html">Contactanos</a></li>
-                    </ul>
-                </div>
-
-                <!-- Columna 3: Servicios -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Servicios</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="cotizador.html">Estampados DTF en Colombia</a></li>
-                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
-                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
-                        <li><a href="galeria.html">Confección de Hoodies Urbanos</a></li>
-                        <li><a href="galeria.html">Gorras y Accesorios Personalizados</a></li>
-                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
-                    </ul>
-                </div>
-
-                <!-- Columna 4: Contáctanos -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Contactanos</h4>
-                    <ul class="footer-contact-list">
-                        <li>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                Taller & Showroom:<br>
-                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                Celular / WhatsApp:<br>
-                                <strong>+57 305 390 5216</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                Correo de Atención:<br>
-                                <strong>atencion@prendasystylos.com</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <div>
-                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Columna 1: Marca & Compromiso de Calidad -->
+          <div class="footer-col footer-brand-col">
+            <div class="footer-logo">
+              <a href="index.html" class="footer-logo-link">
+                <img
+                  src="logo.jpg"
+                  alt="Logo Kenou Camisetas"
+                  class="footer-logo-img"
+                />
+                <span class="logo-text">KENOU <span>CAMISETAS</span></span>
+              </a>
             </div>
-
-            <div class="footer-bottom-bar">
-                <p>&copy; 2026 Kenou Camisetas. Tienda On Line, estampado y personalización de prendas. Todos los derechos reservados.</p>
+            <p class="footer-tagline">
+              Tienda On Line, estampado y personalización de camisetas y prendas
+              urbanas.
+            </p>
+            <p class="footer-desc">
+              En Kenou Camisetas estamos comprometidos a brindar soluciones de
+              alta calidad en estampado DTF, vinilo textil y personalización de
+              prendas para nuestros clientes.
+            </p>
+            <div class="footer-social-links">
+              <a
+                href="https://www.instagram.com/kenoucamisetas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn instagram"
+                title="Síguenos en Instagram @kenoucamisetas"
+                aria-label="Instagram"
+              >
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn facebook"
+                title="Síguenos en Facebook"
+                aria-label="Facebook"
+              >
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://www.tiktok.com/@kenou.camisetas"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn tiktok"
+                title="Síguenos en TikTok"
+                aria-label="TikTok"
+              >
+                <i class="fa-brands fa-tiktok"></i>
+              </a>
+              <a
+                href="https://wa.me/573053905216"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn whatsapp"
+                title="Escríbenos a WhatsApp"
+                aria-label="WhatsApp"
+              >
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
             </div>
+          </div>
+
+          <!-- Columna 2: Navega -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Navega</h4>
+            <ul class="footer-links-list">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="cotizador.html">Personalizar</a></li>
+              <li><a href="galeria.html">Tienda</a></li>
+              <li><a href="blog.html">Blog & Cuidado</a></li>
+              <li><a href="nosotros.html">Sobre Nosotros</a></li>
+              <li><a href="contacto.html">Contactanos</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 3: Servicios -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Servicios</h4>
+            <ul class="footer-links-list">
+              <li>
+                <a href="cotizador.html">Estampados DTF & Alto Relieve</a>
+              </li>
+              <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+              <li>
+                <a href="galeria.html">Camisetas Oversize Heavy Weight</a>
+              </li>
+              <li><a href="galeria.html">Confección de Busos Urbanos</a></li>
+              <li>
+                <a href="galeria.html"
+                  >Gorras y Accesorios (En construcción - Próximamente)</a
+                >
+              </li>
+              <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 4: Contáctanos -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Contactanos</h4>
+            <ul class="footer-contact-list">
+              <li>
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                  Taller & Showroom:<br />
+                  <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                  Celular / WhatsApp:<br />
+                  <strong>+57 305 390 5216</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                  Correo de Atención:<br />
+                  <strong>camisetasKenou@gmail.com</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                  <a href="privacidad.html" class="footer-sublink"
+                    >Políticas de privacidad</a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="footer-bottom-bar">
+          <p>
+            &copy; 2026 Kenou Camisetas. Tienda On Line, estampado y
+            personalización de prendas. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <!-- LÓGICA JAVASCRIPT: menu_catalogo.js Y admin.js -->
     <script src="JS/menu_catalogo.js"></script>
     <script src="JS/admin.js"></script>
-</body>
+  </body>
 </html>

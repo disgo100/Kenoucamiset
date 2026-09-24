@@ -79,17 +79,17 @@ function inyectarEstilosMenuDrawer() {
             background: #ffffff;
         }
 
-        .drawer-title {
-            font-size: 1.25rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: var(--text-main, #0f172a);
-            display: inline-block;
-            white-space: nowrap;
+        .drawer-logo-img {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(2, 132, 199, 0.4);
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.18);
         }
 
-        .drawer-title span {
-            color: var(--accent, #0284c7);
+        .drawer-title {
+            display: none;
         }
 
         .close-drawer-btn {
@@ -321,8 +321,9 @@ function asegurarEstructuraMenuDrawerHTML() {
         navDrawer.innerHTML = `
             <div class="drawer-header">
                 <div class="drawer-brand">
-                    <img src="logo.jpg" alt="Logo Kenou Camisetas" class="drawer-logo-img">
-                    <span class="drawer-title">KENOU <span>CAMISETAS</span></span>
+                    <a href="index.html" title="Inicio - Kenou Camisetas">
+                        <img src="logo.jpg" alt="Logo Kenou Camisetas" class="drawer-logo-img">
+                    </a>
                 </div>
                 <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
                     <i class="fa-solid fa-xmark"></i>
@@ -522,13 +523,16 @@ function asegurarModalTallasHTML() {
                         <i class="fa-solid fa-tshirt"></i> Camisetas Clásicas
                     </button>
                     <button type="button" class="size-tab-pill" data-tab="tab-size-hoodie">
-                        <i class="fa-solid fa-vest"></i> Hoodies & Busos
+                        <i class="fa-solid fa-vest"></i> Busos
                     </button>
                     <button type="button" class="size-tab-pill" data-tab="tab-size-shorts">
                         <i class="fa-solid fa-scissors"></i> Shorts Deportivos
                     </button>
                     <button type="button" class="size-tab-pill" data-tab="tab-size-gorras">
-                        <i class="fa-solid fa-hat-cowboy"></i> Gorras & Accesorios
+                        <i class="fa-solid fa-hat-cowboy"></i> Gorras (En construcción)
+                    </button>
+                    <button type="button" class="size-tab-pill" data-tab="tab-size-joggers">
+                        <i class="fa-solid fa-socks"></i> Joggers (En construcción)
                     </button>
                 </div>
 
@@ -653,12 +657,12 @@ function asegurarModalTallasHTML() {
                     </div>
                 </div>
 
-                <!-- PANEL 3: HOODIES Y BUSOS -->
+                <!-- PANEL 3: BUSOS URBANOS -->
                 <div class="size-tab-content-panel" id="tab-size-hoodie">
                     <div class="size-desc-box">
                         <i class="fa-solid fa-snowflake"></i>
                         <div>
-                            <strong>Hoodies con Capota Heavy Fleece (280g+):</strong> Confección con felpa térmica interior perchada suave, bolsillo canguro reforzado y capota con doble tela para abrigo y comodidad urbana.
+                            <strong>Busos con Capota Heavy Fleece (280g+):</strong> Confección con felpa térmica interior perchada suave, bolsillo canguro reforzado y capota con doble tela para abrigo y comodidad urbana.
                         </div>
                     </div>
 
@@ -766,7 +770,7 @@ function asegurarModalTallasHTML() {
                     <div class="size-desc-box">
                         <i class="fa-solid fa-hat-wizard"></i>
                         <div>
-                            <strong>Gorras Trucker, Snapback y Dad Caps:</strong> Diseño ergonómico de 5 y 6 paneles con visera semirrígida y broche trasero adaptable.
+                            <strong>Gorras Trucker, Snapback y Dad Caps (En construcción - Próximamente):</strong> Diseño ergonómico de 5 y 6 paneles con visera semirrígida y broche trasero adaptable.
                         </div>
                     </div>
 
@@ -789,6 +793,16 @@ function asegurarModalTallasHTML() {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- PANEL 6: JOGGERS CARGO -->
+                <div class="size-tab-content-panel" id="tab-size-joggers">
+                    <div class="size-desc-box" style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25);">
+                        <i class="fa-solid fa-person-running" style="color: #f59e0b;"></i>
+                        <div>
+                            <strong style="color: #b45309;">Joggers y Pantalones Cargo (En construcción - Próximamente):</strong> Estamos preparando una nueva línea de joggers y pantalones técnicos de confección pesada. Muy pronto disponibles para personalización.
+                        </div>
                     </div>
                 </div>
 

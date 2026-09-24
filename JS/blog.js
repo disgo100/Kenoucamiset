@@ -42,7 +42,7 @@ const VIDEOS_YOUTUBE = [
     },
     {
         id: "vid-3",
-        titulo: "Secretos para Mantener la Ropa Negra y Hoodies sin Decolorarse",
+        titulo: "Secretos para Mantener la Ropa Negra y Busos sin Decolorarse",
         canal: "Kenou Camisetas TV",
         duracion: "06:45",
         thumbnail: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600",
@@ -134,18 +134,18 @@ const ARTICULOS_BLOG = [
             <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">La Silueta Oversize y la Calidad Heavy Weight</h3>
             <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">En 2026, la moda urbana prioriza la estructura del tejido y la durabilidad. Las telas de algodón de alto gramaje no solo caen mejor en el cuerpo, sino que retienen la pigmentación de los tintes por mucho más tiempo.</p>
             
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1.5rem;">En <strong>Kenou Camisetas</strong> confeccionamos hoodies y camisetas pesadas diseñadas para resistir el uso diario de la calle sin perder su forma estructural.</p>
+            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1.5rem;">En <strong>Kenou Camisetas</strong> confeccionamos busos y camisetas pesadas diseñadas para resistir el uso diario de la calle sin perder su forma estructural.</p>
         `
     },
     {
         id: 4,
-        titulo: "Cómo Preservar el Color Negro Intenso en Hoodies y Ropa Oscura",
+        titulo: "Cómo Preservar el Color Negro Intenso en Busos y Ropa Oscura",
         categoria: "dtf",
         categoriaNombre: "Cuidado DTF",
         fecha: "12 Septiembre, 2026",
         lectura: "3 min de lectura",
         imagen: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=600",
-        resumen: "Evita que tus hoodies y joggers negros tomen ese tono grisáceo y desgastado con el paso del tiempo aplicando trucos caseros seguros.",
+        resumen: "Evita que tus busos y joggers negros tomen ese tono grisáceo y desgastado con el paso del tiempo aplicando trucos caseros seguros.",
         contenido: `
             <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">Mantenimiento de Prendas Negras y Oscuras</h3>
             <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">La radiación solar y los detergentes en polvo son los principales enemigos del algodón negro. Sigue estos pasos para fijar el color:</p>

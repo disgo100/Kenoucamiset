@@ -253,7 +253,7 @@ const iconLock = document.getElementById('auth-icon-lock');
             </p>
             <div style="border-top: 1px dashed rgba(255,51,102,0.4); padding-top: 0.8rem; margin-top: 0.8rem;">
                 <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                    <a href="mailto:soporte@prendasystylos.com?subject=Solicitud%20de%20Desbloqueo" class="btn-support-action btn-support-email" target="_blank">
+                    <a href="mailto:camisetasKenou@gmail.com?subject=Solicitud%20de%20Desbloqueo" class="btn-support-action btn-support-email" target="_blank">
                         <i class="fa-solid fa-envelope"></i> Enviar Correo a Soporte
                     </a>
                     <a href="tel:+573053905216" class="btn-support-action btn-support-phone">
@@ -322,9 +322,9 @@ const base64Input = document.getElementById('prod-imagen-base64');
 const PRODUCTOS_INICIALES_CATALOGO = [
 { id: 'PRD-101', nombre: 'Camiseta Oversize Acid Wash', categoria: 'Camisetas', precio: 45000, stock: 25, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500' },
 { id: 'PRD-102', nombre: 'Short Deportivo Streetwear', categoria: 'Shorts', precio: 38000, stock: 18, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500' },
-{ id: 'PRD-103', nombre: 'Gorra Trucker Snapback Black', categoria: 'Gorras', precio: 32000, stock: 30, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500' },
-{ id: 'PRD-104', nombre: 'Hoodie Oversize Heavy Fleece', categoria: 'Hoodies', precio: 85000, stock: 12, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500' },
-{ id: 'PRD-105', nombre: 'Pantallón Jogger Cargo Tech', categoria: 'Pantalones', precio: 68000, stock: 5, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500' }
+{ id: 'PRD-103', nombre: 'Gorra Trucker Snapback Black (En construcción - Próximamente)', categoria: 'Gorras', precio: 32000, stock: 30, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500' },
+{ id: 'PRD-104', nombre: 'Buso Oversize Heavy Fleece', categoria: 'Busos', precio: 85000, stock: 12, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500' },
+{ id: 'PRD-105', nombre: 'Pantalón Jogger Cargo Tech (En construcción - Próximamente)', categoria: 'Pantalones', precio: 68000, stock: 5, estado: 'Últimas Unidades', imagen: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500' }
 ];
 function obtenerProductosAdmin() {
 const prods = localStorage.getItem('prendas_admin_products');
@@ -385,8 +385,8 @@ renderizarTablaProductos();
                 if (categoria === 'Camisetas') imagenBase64 = 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500';
                 else if (categoria === 'Shorts') imagenBase64 = 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500';
                 else if (categoria === 'Gorras') imagenBase64 = 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500';
-                else if (categoria === 'Hoodies') imagenBase64 = 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500';
-                else if (categoria === 'Pantalones') imagenBase64 = 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500';
+                else if (categoria === 'Busos' || categoria === 'Hoodies') imagenBase64 = 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500';
+                else if (categoria === 'Pantalones' || categoria === 'Joggers') imagenBase64 = 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500';
                 else imagenBase64 = 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=500';
             }
 
@@ -463,7 +463,7 @@ function renderizarTablaProductos() {
         const tr = document.createElement('tr');
 
         let badgeClass = 'badge-success';
-        if (item.estado === 'Agotado' || item.stock === 0) badgeClass = 'badge-danger';
+        if (item.estado === 'Agotado' || item.estado === 'Últimas Unidades' || item.stock === 0) badgeClass = 'badge-warning';
         else if (item.stock <= 10) badgeClass = 'badge-warning';
 
         tr.innerHTML = `
@@ -517,7 +517,7 @@ guardarProductosAdmin(prods);
 }
 const PEDIDOS_MOCK_INICIALES = [
 { orden: 'PS-849201', cliente: 'Camilo Gómez', contacto: '3001234567', detalle: '2x Camiseta Oversize + Estampado DTF', total: 128000, estado: 'En proceso' },
-{ orden: 'PS-192840', cliente: 'María López', contacto: '3128889900', detalle: '1x Hoodie Heavy Fleece', total: 85000, estado: 'Cotización' },
+{ orden: 'PS-192840', cliente: 'María López', contacto: '3128889900', detalle: '1x Buso Heavy Fleece', total: 85000, estado: 'Cotización' },
 { orden: 'PS-338291', cliente: 'Diego Lemus', contacto: '3157774411', detalle: '3x Gorra Trucker Snapback', total: 96000, estado: 'Vendido' },
 { orden: 'PS-449102', cliente: 'Laura Restrepo', contacto: '3189990011', detalle: '2x Short Deportivo Streetwear', total: 76000, estado: 'Entregado' },
 { orden: 'PS-551029', cliente: 'Santiago Pérez', contacto: '3012223344', detalle: '1x Jogger Cargo + Estampado Vinilo', total: 83000, estado: 'Finalizado' }
@@ -860,7 +860,7 @@ function renderizarModalInventario() {
         const valorFila = (item.precio || 0) * (item.stock || 0);
 
         let badgeClass = 'badge-success';
-        if (item.estado === 'Agotado' || item.stock === 0) badgeClass = 'badge-danger';
+        if (item.estado === 'Agotado' || item.estado === 'Últimas Unidades' || item.stock === 0) badgeClass = 'badge-warning';
         else if (item.stock <= 10) badgeClass = 'badge-warning';
 
         tr.innerHTML = `

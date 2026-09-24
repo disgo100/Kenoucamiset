@@ -26,7 +26,7 @@ const PRODUCTOS_INICIALES = [
   },
   {
     id: "PRD-103",
-    nombre: "Gorra Trucker Snapback Black",
+    nombre: "Gorra Trucker Snapback Black (En construcción - Próximamente)",
     categoria: "Gorras",
     precio: 32000,
     stock: 30,
@@ -36,8 +36,8 @@ const PRODUCTOS_INICIALES = [
   },
   {
     id: "PRD-104",
-    nombre: "Hoodie Oversize Heavy Fleece",
-    categoria: "Hoodies",
+    nombre: "Buso Oversize Heavy Fleece",
+    categoria: "Busos",
     precio: 85000,
     stock: 12,
     estado: "Disponible",
@@ -45,11 +45,11 @@ const PRODUCTOS_INICIALES = [
   },
   {
     id: "PRD-105",
-    nombre: "Pantallón Jogger Cargo Tech",
+    nombre: "Pantalón Jogger Cargo Tech (En construcción - Próximamente)",
     categoria: "Pantalones",
     precio: 68000,
     stock: 5,
-    estado: "Disponible",
+    estado: "Últimas Unidades",
     imagen:
       "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500",
   },
@@ -108,11 +108,14 @@ function renderizarCatalogo(categoria = "todos") {
   // Filtrar prendas activas y por categoría seleccionada
   const productosFiltrados = activeProducts.filter((p) => {
     const estado = (p.estado || "Disponible").toLowerCase();
-    if (estado !== "disponible" && estado !== "activo") return false;
+    if (estado !== "disponible" && estado !== "activo" && estado !== "últimas unidades" && estado !== "ultimas unidades" && estado !== "agotado") return false;
 
     if (categoria === "todos") return true;
     const catPrenda = (p.categoria || p.material || "").toLowerCase();
-    return catPrenda === categoria.toLowerCase();
+    const catFiltro = categoria.toLowerCase();
+    if (catFiltro === "busos" && (catPrenda === "busos" || catPrenda === "hoodies")) return true;
+    if ((catFiltro === "pantalones" || catFiltro === "joggers") && (catPrenda === "pantalones" || catPrenda === "joggers")) return true;
+    return catPrenda === catFiltro;
   });
 
   if (productosFiltrados.length === 0) {
@@ -138,7 +141,8 @@ function renderizarCatalogo(categoria = "todos") {
     const categoriaNombre = p.categoria || p.material || "Moda Urbana";
     const precio = Number(p.precio || p.price || 0);
     const stock = p.stock !== undefined ? p.stock : 20;
-    const stockTexto = stock > 0 ? `Stock: ${stock}` : "Agotado";
+    const esUltimas = stock <= 0 || (p.estado || "").toLowerCase() === "agotado" || (p.estado || "").toLowerCase() === "últimas unidades" || (p.estado || "").toLowerCase() === "ultimas unidades";
+    const stockTexto = esUltimas ? "Últimas Unidades" : `Stock: ${stock}`;
 
     card.innerHTML = `
             <div class="product-image-container">
@@ -149,7 +153,7 @@ function renderizarCatalogo(categoria = "todos") {
                      onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500';">
                 <div class="product-card-badges">
                     <span class="product-badge-category">${categoriaNombre}</span>
-                    <span class="product-badge-status ${stock > 0 ? "status-available" : "status-unavailable"}">${stockTexto}</span>
+                    <span class="product-badge-status ${esUltimas ? "status-warning" : "status-available"}">${stockTexto}</span>
                 </div>
             </div>
             <div class="product-info"> 
