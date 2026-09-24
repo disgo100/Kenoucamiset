@@ -649,6 +649,7 @@ img, video, svg {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: zoom-in;
 }
 
 .product-image {
@@ -667,6 +668,48 @@ img, video, svg {
 
 .product-card:hover .product-image {
     transform: scale(1.06);
+}
+
+/* Indicador de Ampliar Imagen al hacer hover */
+.product-zoom-hint {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.product-zoom-hint-badge {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(12px) scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-zoom-hint-badge i {
+    color: var(--accent);
+    font-size: 0.95rem;
+}
+
+.product-image-container:hover .product-zoom-hint {
+    opacity: 1;
+}
+
+.product-image-container:hover .product-zoom-hint-badge {
+    transform: translateY(0) scale(1);
 }
 
 /* Etiquetas e Indicadores Superiores */
@@ -2040,5 +2083,305 @@ img, video, svg {
     border-bottom-right-radius: 18px;
     flex-wrap: wrap;
     gap: 0.8rem;
+}
+
+/* ==========================================================================
+   MODAL DE ZOOM EMERGENTE PARA PRENDAS DEL CATÁLOGO (galeria.html / index.html)
+   ========================================================================== */
+.product-zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s ease;
+}
+
+.product-zoom-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-zoom-dialog {
+    background: #ffffff;
+    border-radius: 20px;
+    max-width: 960px;
+    width: 100%;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.85) translateY(20px);
+    opacity: 0;
+    transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.32s ease;
+    overflow: hidden;
+}
+
+.product-zoom-overlay.active .product-zoom-dialog {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Encabezado del modal de zoom */
+.product-zoom-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.6rem;
+    border-bottom: 1px solid var(--border-color);
+    background: #ffffff;
+    gap: 1rem;
+    z-index: 5;
+}
+
+.product-zoom-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 0;
+}
+
+.product-zoom-title {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-zoom-category-tag {
+    background: #f0f9ff;
+    color: var(--accent);
+    border: 1px solid rgba(2, 132, 199, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.product-zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.btn-zoom-action {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: #f8fafc;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.btn-zoom-action:hover {
+    background: #e2e8f0;
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+.btn-zoom-close {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #ef4444;
+}
+
+.btn-zoom-close:hover {
+    background: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
+}
+
+/* Área de Visualización y Lente de Zoom */
+.product-zoom-stage {
+    position: relative;
+    width: 100%;
+    height: 520px;
+    max-height: 58vh;
+    background: #0b1120;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+    user-select: none;
+}
+
+.product-zoom-stage.is-zoomed {
+    cursor: grab;
+}
+
+.product-zoom-stage.is-zoomed:active {
+    cursor: grabbing;
+}
+
+.product-zoom-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.22s ease-out;
+    transform-origin: center center;
+    pointer-events: none;
+}
+
+/* Barra flotante de instrucciones en el zoom */
+.product-zoom-instruction {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.78);
+    backdrop-filter: blur(8px);
+    color: #ffffff;
+    padding: 0.4rem 1rem;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 0.3s;
+}
+
+.product-zoom-scale-indicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    color: #38bdf8;
+    padding: 0.25rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Footer del modal con precio y acciones */
+.product-zoom-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem 1.6rem;
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 1rem;
+    z-index: 5;
+}
+
+.product-zoom-price-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-zoom-price-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.product-zoom-price-val {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+.product-zoom-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-zoom-whatsapp {
+    background: #25d366;
+    color: #ffffff;
+    border: none;
+    padding: 0.65rem 1.15rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    cursor: pointer;
+}
+
+.btn-zoom-whatsapp:hover {
+    background: #1ea952;
+    transform: translateY(-1px);
+    color: #ffffff;
+}
+
+.btn-zoom-add-cart {
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 0.65rem 1.3rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-zoom-add-cart:hover {
+    background: #0284c7;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+    .product-zoom-stage {
+        height: 360px;
+    }
+    .product-zoom-header {
+        padding: 0.8rem 1rem;
+    }
+    .product-zoom-footer {
+        padding: 0.8rem 1rem;
+    }
+    .product-zoom-footer-actions {
+        width: 100%;
+    }
+    .btn-zoom-whatsapp, .btn-zoom-add-cart {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.82rem;
+        padding: 0.6rem 0.8rem;
+    }
 }
 

@@ -116,3 +116,10 @@ Se realizaron las siguientes correcciones y mejoras en el proyecto:
        b) 'img/manga_sisa_hombre.jpg': Joven afro-latino luciendo camiseta manga sisa negra con estampado DTF geométrico contemporáneo.
        c) 'img/manga_sisa_adulto.jpg': Hombre de mediana edad luciendo camiseta manga sisa gris carbón con estampado tipográfico minimalista.
      * Se sincronizaron en 'JS/catalogo.js' y 'JS/admin.js' con auto-migración de inventario dinámico en localStorage.
+
+16. Narrativa de Emprendimiento Familiar (Madre e Hijo) en nosotros.html:
+   - Se reescribió la sección de historia ('Sobre Kenou Camisetas' y 'Nuestra Historia') reflejando el origen real, emotivo y auténtico de la marca:
+     * Nació hace 3 años en Santiago de Cali como un proyecto de emprendimiento familiar donde madre e hijo complementan su arte, visión y cariño por los detalles.
+     * Ella aporta la cercanía humana, la sensibilidad y el cuidado minucioso en cada prenda; él aporta la creatividad gráfica, el diseño digital, la ilustración y las técnicas de vanguardia.
+     * Enfoque centrado en plasmar frases y dibujos al gusto de cada cliente, convirtiendo cada camiseta en una pieza artística cargada de identidad y emoción.
+     * Se actualizaron los badges y tarjetas destacadas a "3 Años de Emprendimiento Familiar" y "Cultura & Pasión Familiar".

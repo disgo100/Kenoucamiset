@@ -1,404 +1,837 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kenou Camisetas - Sobre Nosotros</title>
     <!-- Favicon con Logo Oficial -->
-    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="icon" type="image/jpeg" href="logo.jpg" />
     <!-- Estilos CSS Globales -->
-    <link rel="stylesheet" href="CSS styles/styles.css">
+    <link rel="stylesheet" href="CSS styles/styles.css" />
     <!-- Iconos FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
+      .story-grid-responsive {
+        display: grid;
+        grid-template-columns: 1.25fr 0.85fr;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      @media screen and (max-width: 992px) {
         .story-grid-responsive {
-            display: grid;
-            grid-template-columns: 1.25fr 0.85fr;
-            gap: 2.5rem;
-            align-items: center;
+          grid-template-columns: 1fr !important;
+          gap: 2rem !important;
         }
-        @media screen and (max-width: 992px) {
-            .story-grid-responsive {
-                grid-template-columns: 1fr !important;
-                gap: 2rem !important;
-            }
-        }
-        .story-highlight-box {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.4rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        }
-        .story-highlight-box:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent) !important;
-            box-shadow: var(--shadow-sm);
-            background: #ffffff;
-        }
+      }
+      .story-highlight-box {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
+        padding: 1.4rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        transition:
+          transform 0.25s ease,
+          border-color 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .story-highlight-box:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent) !important;
+        box-shadow: var(--shadow-sm);
+        background: #ffffff;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- OVERLAY OSCURO PARA EL MENÚ HAMBURGUESA -->
     <div class="nav-overlay" id="nav-overlay"></div>
 
     <!-- MENÚ DESPLEGABLE LATERAL (NAV DRAWER) -->
     <nav class="nav-drawer" id="nav-drawer" aria-hidden="true">
-        <div class="drawer-header">
-            <div class="drawer-brand">
-                <a href="index.html" title="Inicio - Kenou Camisetas">
-                    <img src="logo.jpg" alt="Logo Kenou Camisetas" class="drawer-logo-img">
-                </a>
-            </div>
-            <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+      <div class="drawer-header">
+        <div class="drawer-brand">
+          <a href="index.html" title="Inicio - Kenou Camisetas">
+            <img
+              src="logo.jpg"
+              alt="Logo Kenou Camisetas"
+              class="drawer-logo-img"
+            />
+          </a>
         </div>
+        <button
+          class="close-drawer-btn"
+          id="close-drawer-btn"
+          aria-label="Cerrar Menú"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
 
-        <ul class="drawer-links">
-            <li><a href="index.html" class="drawer-item"><i class="fa-solid fa-house"></i> Principal</a></li>
-            <li><a href="galeria.html" class="drawer-item"><i class="fa-solid fa-images"></i> Galería de Colección</a></li>
-            <li><a href="cotizador.html" class="drawer-item"><i class="fa-solid fa-calculator"></i> Cotizador Automático</a></li>
-            <li><a href="javascript:void(0)" class="drawer-item btn-open-size-guide"><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas & Medidas</a></li>
-            <li><a href="blog.html" class="drawer-item"><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a></li>
-            <li><a href="nosotros.html" class="drawer-item active"><i class="fa-solid fa-users"></i> Sobre Nosotros</a></li>
-            <li><a href="contacto.html" class="drawer-item"><i class="fa-solid fa-envelope"></i> Contacto Directo</a></li>
-            <li class="drawer-admin-divider">
-                <a href="admin.html" target="_blank" rel="noopener noreferrer" class="drawer-item btn-admin-drawer"><i class="fa-solid fa-user-gear"></i> Panel de Administración</a>
-            </li>
-        </ul>
+      <ul class="drawer-links">
+        <li>
+          <a href="index.html" class="drawer-item"
+            ><i class="fa-solid fa-house"></i> Principal</a
+          >
+        </li>
+        <li>
+          <a href="galeria.html" class="drawer-item"
+            ><i class="fa-solid fa-images"></i> Galería de Colección</a
+          >
+        </li>
+        <li>
+          <a href="cotizador.html" class="drawer-item"
+            ><i class="fa-solid fa-calculator"></i> Cotizador Automático</a
+          >
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="drawer-item btn-open-size-guide"
+            ><i class="fa-solid fa-ruler-combined"></i> Tabla de Tallas &
+            Medidas</a
+          >
+        </li>
+        <li>
+          <a href="blog.html" class="drawer-item"
+            ><i class="fa-solid fa-newspaper"></i> Blog & Cuidado</a
+          >
+        </li>
+        <li>
+          <a href="nosotros.html" class="drawer-item active"
+            ><i class="fa-solid fa-users"></i> Sobre Nosotros</a
+          >
+        </li>
+        <li>
+          <a href="contacto.html" class="drawer-item"
+            ><i class="fa-solid fa-envelope"></i> Contacto Directo</a
+          >
+        </li>
+        <li class="drawer-admin-divider">
+          <a
+            href="admin.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="drawer-item btn-admin-drawer"
+            ><i class="fa-solid fa-user-gear"></i> Panel de Administración</a
+          >
+        </li>
+      </ul>
     </nav>
 
     <!-- HEADER DE NAVEGACIÓN Y BOTÓN HAMBURGUESA -->
     <header class="main-header">
-        <div class="header-container">
-            
-            <!-- LOGO DESTACADO E IMPACTANTE -->
-            <div class="logo-brand">
-                <a href="index.html">
-                    <img src="logo.jpg" alt="Logo Kenou Camisetas" class="brand-logo-img">
-                    <h1>KENOU <span>CAMISETAS</span></h1>
-                </a>
-            </div>
-
-            <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
-            <div class="header-actions">
-                <a href="carrito.html" class="cart-icon-btn" title="Ver Carrito de Compras">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span id="cart-count" class="cart-badge">0</span>
-                </a>
-
-                <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
-                <button class="hamburger-btn" id="hamburger-btn" aria-label="Abrir Menú de Navegación">
-                    <i class="fa-solid fa-bars" id="hamburger-icon"></i>
-                </button>
-            </div>
-
+      <div class="header-container">
+        <!-- LOGO DESTACADO E IMPACTANTE -->
+        <div class="logo-brand">
+          <a href="index.html">
+            <img
+              src="logo.jpg"
+              alt="Logo Kenou Camisetas"
+              class="brand-logo-img"
+            />
+            <h1>KENOU <span>CAMISETAS</span></h1>
+          </a>
         </div>
+
+        <!-- ACCIONES RÁPIDAS (CARRITO Y BOTÓN HAMBURGUESA) -->
+        <div class="header-actions">
+          <a
+            href="carrito.html"
+            class="cart-icon-btn"
+            title="Ver Carrito de Compras"
+          >
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cart-count" class="cart-badge">0</span>
+          </a>
+
+          <!-- BOTÓN DE MENÚ HAMBURGUESA MINIMALISTA (☰) -->
+          <button
+            class="hamburger-btn"
+            id="hamburger-btn"
+            aria-label="Abrir Menú de Navegación"
+          >
+            <i class="fa-solid fa-bars" id="hamburger-icon"></i>
+          </button>
+        </div>
+      </div>
     </header>
 
     <!-- ENCABEZADO HERO DE NOSOTROS -->
-    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem;">
-        <div class="hero-content">
-            <span class="hero-tag">NUESTRA ESENCIA & TÉCNICAS DE ESTAMPADO</span>
-            <h2 class="hero-title">SOBRE KENOU CAMISETAS</h2>
-            <p class="hero-description">Kenou Camisetas no confecciona: nos especializamos en estampados de diferentes técnicas y procesos para embellecer las prendas. Fusionamos diseño urbano de vanguardia con acabados de alta definición como DTF, DTF Alto Relieve y Vinilo Textil.</p>
-        </div>
+    <section class="hero-section" style="padding: 3.5rem 1.5rem 2.5rem 1.5rem">
+      <div class="hero-content">
+        <span class="hero-tag">HISTORIA REAL & PASIÓN FAMILIAR</span>
+        <h2 class="hero-title">EL ARTE DE CREAR EN FAMILIA</h2>
+        <p class="hero-description">
+          Kenou Camisetas es el sueño compartido de madre e hijo: un
+          emprendimiento familiar nacido en Santiago de Cali donde unimos
+          sensibilidad, creatividad y tecnología textil para transformar cada
+          camiseta en una obra de arte personalizada al gusto de quien la viste.
+        </p>
+      </div>
     </section>
 
     <!-- SECCIÓN DE MISIÓN, VISIÓN Y VALORES -->
-    <main class="catalog-section" style="max-width: 1300px; margin-top: 1rem;">
-        
-        <!-- SECCIÓN: NUESTRA HISTORIA Y NACIMIENTO EN CALI -->
-        <section class="admin-card" style="margin-bottom: 3.5rem; padding: 2.5rem; background: #ffffff; border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--shadow-sm);">
-            <div class="story-grid-responsive">
-                <div>
-                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--accent-soft); color: var(--accent); padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.82rem; font-weight: 700; margin-bottom: 1rem; border: 1px solid rgba(2, 132, 199, 0.2);">
-                        <i class="fa-solid fa-location-dot"></i> Nacidos en Santiago de Cali • Estampado & Embellecimiento Textil
-                    </div>
-                    <h3 style="font-size: 1.85rem; color: var(--text-main); font-weight: 800; margin-bottom: 1.2rem; line-height: 1.3;">
-                        De Cali para el País: Expertos en Embellecer y Personalizar tus Prendas
-                    </h3>
-                    <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.75; margin-bottom: 1rem;">
-                        Hace <strong>5 años</strong>, en la vibrante y cálida ciudad de <strong>Santiago de Cali</strong>, nació <strong>Kenou Camisetas</strong> a raíz de la pasión por el diseño urbano y el arte gráfico aplicado a la ropa. Lo que comenzó en un pequeño espacio con una plancha térmica manual, rollos de vinilo y el deseo de transformar prendas ordinarias en piezas extraordinarias, fue ganando el reconocimiento de quienes buscaban autenticidad y estilo sin intermediarios.
-                    </p>
-                    <p style="color: var(--text-secondary); font-size: 0.98rem; line-height: 1.75; margin-bottom: 1.4rem;">
-                        Nuestra filosofía es clara: <strong>Kenou Camisetas no confecciona; nos especializamos en estampados de diferentes técnicas y procesos para embellecer las prendas</strong>. Seleccionamos algodones prémium de alto gramaje (<em>Heavy Weight 220g+</em>) y prendas frescas con cortes modernos, aplicando tecnología puntera de impresión <em>DTF (Direct to Film)</em> de ultra alta definición, <em>DTF en Alto Relieve</em> con tacto dimensional y vinilo textil mate indeformable. Cada estampado realizado en nuestro taller de Cali está concebido para durar y reflejar tu verdadera esencia urbana.
-                    </p>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="cotizador.html" class="btn-hero-primary" style="padding: 0.75rem 1.4rem; font-size: 0.92rem;">
-                            <i class="fa-solid fa-sliders"></i> Personalizar mi Prenda
-                        </a>
-                        <a href="contacto.html" class="btn-hero-secondary" style="padding: 0.75rem 1.4rem; font-size: 0.92rem;">
-                            <i class="fa-solid fa-location-dot"></i> Taller & Showroom en Cali
-                        </a>
-                    </div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 1.1rem;">
-                    <div class="story-highlight-box">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(2, 132, 199, 0.12); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
-                            <i class="fa-solid fa-seedling"></i>
-                        </div>
-                        <div>
-                            <h4 style="color: var(--text-main); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">+5 Años de Emprendimiento</h4>
-                            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0;">Nacimos como un proyecto autogestionado en Cali y hoy vestimos a miles de amantes del streetwear y marcas en todo el país.</p>
-                        </div>
-                    </div>
-
-                    <div class="story-highlight-box">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(16, 185, 129, 0.12); color: #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
-                            <i class="fa-solid fa-medal"></i>
-                        </div>
-                        <div>
-                            <h4 style="color: var(--text-main); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Calidad Textil Heavy Weight</h4>
-                            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0;">Algodón 100% peinado de alto gramaje, costuras dobles reforzadas y cuellos indeformables diseñados para soportar el ritmo diario.</p>
-                        </div>
-                    </div>
-
-                    <div class="story-highlight-box">
-                        <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(245, 158, 11, 0.12); color: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0;">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <div>
-                            <h4 style="color: var(--text-main); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem;">Personalización sin Límites</h4>
-                            <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0;">Impresión DTF digital con fidelidad fotográfica y colores vivos. Hacemos realidad cualquier diseño desde 1 unidad hasta producciones mayoristas.</p>
-                        </div>
-                    </div>
-                </div>
+    <main class="catalog-section" style="max-width: 1300px; margin-top: 1rem">
+      <!-- SECCIÓN: NUESTRA HISTORIA Y NACIMIENTO EN CALI -->
+      <section
+        class="admin-card"
+        style="
+          margin-bottom: 3.5rem;
+          padding: 2.5rem;
+          background: #ffffff;
+          border: 1px solid var(--border-color);
+          border-radius: 16px;
+          box-shadow: var(--shadow-sm);
+        "
+      >
+        <div class="story-grid-responsive">
+          <div>
+            <div
+              style="
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(239, 68, 68, 0.08);
+                color: #ef4444;
+                padding: 0.35rem 0.9rem;
+                border-radius: 50px;
+                font-size: 0.82rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+                border: 1px solid rgba(239, 68, 68, 0.2);
+              "
+            >
+              <i class="fa-solid fa-heart"></i> Emprendimiento Familiar •
+              Santiago de Cali
             </div>
-        </section>
+            <h3
+              style="
+                font-size: 1.85rem;
+                color: var(--text-main);
+                font-weight: 800;
+                margin-bottom: 1.2rem;
+                line-height: 1.3;
+              "
+            >
+              Dos Generaciones, una Misma Pasión: Madre e Hijo Dando Vida a tus
+              Ideas
+            </h3>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.98rem;
+                line-height: 1.8;
+                margin-bottom: 1rem;
+              "
+            >
+              Hace 3 años, en la calidez de nuestro hogar en santiago de Cali,
+              nació Kenou Camisetas no como una fría fábrica en serie, sino como
+              el encuentro genuino entre dos miradas y un mismo amor por el
+              arte: el de una madre y su hijo. Ella aporta el amor por el
+              detalle, la paciencia para escuchar lo que cada persona desea
+              transmitir y ese toque de calidez que convierte cada pedido en
+              algo íntimo y especial; él aporta la visión creativa, la pasión
+              por el diseño digital, las frases con carácter, los dibujos de
+              tendencia y las técnicas más avanzadas de estampado textil.
+            </p>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.98rem;
+                line-height: 1.8;
+                margin-bottom: 1rem;
+              "
+            >
+              Juntos entendimos que una prenda es mucho más que ropa: es un
+              mensaje que camina, una declaración de autenticidad y una forma de
+              llevar en el pecho recuerdos, pasiones, ilustraciones y palabras
+              que nos definen. Por eso, nos dedicamos a crear diseños totalmente
+              personalizados con las frases, dibujos y motivos al gusto exacto
+              de cada cliente, asesorándote de forma cercana y convirtiendo tus
+              bocetos o ideas sueltas en estampados con acabados profesionales
+              de impacto visual.
+            </p>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.98rem;
+                line-height: 1.8;
+                margin-bottom: 1.4rem;
+              "
+            >
+              Nuestra promesa es clara y transparente: Kenou Camisetas no
+              confecciona; nos especializamos en estampados de diferentes
+              técnicas y procesos (DTF de alta definición, DTF en Alto Relieve y
+              Vinilo Textil) para embellecer prendas de alto gramaje y prendas
+              frescas tipo manga sisa. Cada estampado que entregamos es el fruto
+              de dos generaciones trabajando unidas con dedicación, buscando que
+              cuando te pongas tu camiseta, sientas el valor y la energía del
+              verdadero trabajo hecho con el corazón.
+            </p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+              <a
+                href="cotizador.html"
+                class="btn-hero-primary"
+                style="padding: 0.75rem 1.4rem; font-size: 0.92rem"
+              >
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Personalizar mi
+                Diseño
+              </a>
+              <a
+                href="contacto.html"
+                class="btn-hero-secondary"
+                style="padding: 0.75rem 1.4rem; font-size: 0.92rem"
+              >
+                <i class="fa-solid fa-location-dot"></i> Conocer Nuestro Taller
+                en Cali
+              </a>
+            </div>
+          </div>
 
-        <!-- TARJETAS DESTACADAS EN GRID -->
-        <div class="floating-cards-container" style="margin-bottom: 3.5rem;">
-            
-            <!-- TARJETA 1: NUESTRA HISTORIA -->
-            <div class="floating-card">
-                <div class="card-icon-box accent-pink">
-                    <i class="fa-solid fa-fire fa-2x"></i>
-                </div>
-                <h3>Cultura Streetwear</h3>
-                <p>Nacimos en respuesta a la búsqueda de prendas con identidad propia. Diseñamos para quienes entienden la ropa como una declaración de estilo personal y autenticidad urbana en cada detalle.</p>
+          <div style="display: flex; flex-direction: column; gap: 1.1rem">
+            <div class="story-highlight-box">
+              <div
+                style="
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 12px;
+                  background: rgba(239, 68, 68, 0.12);
+                  color: #ef4444;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.35rem;
+                  flex-shrink: 0;
+                "
+              >
+                <i class="fa-solid fa-people-roof"></i>
+              </div>
+              <div>
+                <h4
+                  style="
+                    color: var(--text-main);
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  3 Años de Emprendimiento Familiar
+                </h4>
+                <p
+                  style="
+                    color: var(--text-muted);
+                    font-size: 0.88rem;
+                    line-height: 1.5;
+                    margin: 0;
+                  "
+                >
+                  Madre e hijo uniendo experiencia, juventud y dedicación desde
+                  Cali para brindarte una atención humana, cálida y directa.
+                </p>
+              </div>
             </div>
 
-            <!-- TARJETA 2: CALIDAD Y TECNOLOGÍA -->
-            <div class="floating-card">
-                <div class="card-icon-box accent-green">
-                    <i class="fa-solid fa-microchip fa-2x"></i>
-                </div>
-                <h3>Técnicas de Estampado</h3>
-                <p>Kenou Camisetas no confecciona: nos especializamos en estampados de diferentes técnicas y procesos (DTF, DTF Alto Relieve, Vinilo Textil) para embellecer prendas de alto gramaje, con máxima resistencia y fidelidad de color.</p>
+            <div class="story-highlight-box">
+              <div
+                style="
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 12px;
+                  background: rgba(2, 132, 199, 0.12);
+                  color: var(--accent);
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.35rem;
+                  flex-shrink: 0;
+                "
+              >
+                <i class="fa-solid fa-pen-nib"></i>
+              </div>
+              <div>
+                <h4
+                  style="
+                    color: var(--text-main);
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  Frases & Dibujos a tu Gusto
+                </h4>
+                <p
+                  style="
+                    color: var(--text-muted);
+                    font-size: 0.88rem;
+                    line-height: 1.5;
+                    margin: 0;
+                  "
+                >
+                  Diseños 100% personalizados: plasmamos la frase que te
+                  inspira, tu ilustración favorita o el arte que sueñas lucir.
+                </p>
+              </div>
             </div>
 
-            <!-- TARJETA 3: COMPROMISO LOCAL -->
-            <div class="floating-card">
-                <div class="card-icon-box accent-yellow">
-                    <i class="fa-solid fa-handshake fa-2x"></i>
-                </div>
-                <h3>Conexión Directa</h3>
-                <p>Brindamos atención personalizada a emprendedores, marcas locales y clientes individuales, con cotización transparente en tiempo real y punto de recogida sin costo adicional.</p>
+            <div class="story-highlight-box">
+              <div
+                style="
+                  width: 48px;
+                  height: 48px;
+                  border-radius: 12px;
+                  background: rgba(16, 185, 129, 0.12);
+                  color: #10b981;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 1.35rem;
+                  flex-shrink: 0;
+                "
+              >
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <div>
+                <h4
+                  style="
+                    color: var(--text-main);
+                    font-size: 1.05rem;
+                    font-weight: 700;
+                    margin-bottom: 0.25rem;
+                  "
+                >
+                  Estampado & Embellecimiento Textil
+                </h4>
+                <p
+                  style="
+                    color: var(--text-muted);
+                    font-size: 0.88rem;
+                    line-height: 1.5;
+                    margin: 0;
+                  "
+                >
+                  Impresión DTF fotográfica, acabados en alto relieve y vinilo
+                  de larga duración sobre telas prémium resistentes al lavado.
+                </p>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- TARJETAS DESTACADAS EN GRID -->
+      <div class="floating-cards-container" style="margin-bottom: 3.5rem">
+        <!-- TARJETA 1: NUESTRA HISTORIA -->
+        <div class="floating-card">
+          <div class="card-icon-box accent-pink">
+            <i class="fa-solid fa-fire fa-2x"></i>
+          </div>
+          <h3>Cultura & Pasión Familiar</h3>
+          <p>
+            Nacimos del amor compartido entre madre e hijo por el arte gráfico y
+            la moda urbana. Diseñamos para quienes entienden que una camiseta
+            personalizada es una declaración de autenticidad, estilo y emoción.
+          </p>
         </div>
 
-        <!-- SECCIÓN DE VALORES Y PILARES -->
-        <section class="admin-card" style="margin-bottom: 3.5rem;">
-            <h3><i class="fa-solid fa-shield-halved" style="color: var(--accent);"></i> Nuestros Pilares de Marca</h3>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-                <div style="background: #f8fafc; padding: 1.4rem; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-                    <h4 style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-check-double" style="color: #10b981;"></i> Calidad Garantizada</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Selección rigurosa de telas de algodón premium que no se deforman ni pierden el color.</p>
-                </div>
+        <!-- TARJETA 2: CALIDAD Y TECNOLOGÍA -->
+        <div class="floating-card">
+          <div class="card-icon-box accent-green">
+            <i class="fa-solid fa-microchip fa-2x"></i>
+          </div>
+          <h3>Técnicas de Estampado</h3>
+          <p>
+            Kenou Camisetas no confecciona: nos especializamos en estampados de
+            diferentes técnicas y procesos (DTF, DTF Alto Relieve, Vinilo
+            Textil) para embellecer prendas de alto gramaje, con máxima
+            resistencia y fidelidad de color.
+          </p>
+        </div>
 
-                <div style="background: #f8fafc; padding: 1.4rem; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-                    <h4 style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-bolt" style="color: var(--accent);"></i> Tiempos Ágiles</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Procesamiento rápido de cotizaciones e impresiones listas para entrega o despacho en tiempo récord.</p>
-                </div>
+        <!-- TARJETA 3: COMPROMISO LOCAL -->
+        <div class="floating-card">
+          <div class="card-icon-box accent-yellow">
+            <i class="fa-solid fa-handshake fa-2x"></i>
+          </div>
+          <h3>Conexión Directa</h3>
+          <p>
+            Brindamos atención personalizada a emprendedores, marcas locales y
+            clientes individuales, con cotización transparente en tiempo real y
+            punto de recogida sin costo adicional.
+          </p>
+        </div>
+      </div>
 
-                <div style="background: #f8fafc; padding: 1.4rem; border-radius: 14px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
-                    <h4 style="color: var(--text-main); font-size: 1.1rem; margin-bottom: 0.5rem;"><i class="fa-solid fa-paint-brush" style="color: #f59e0b;"></i> Personalización Total</h4>
-                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6;">Desde prendas unitarias hasta producciones al por mayor con descuentos automáticos por volumen.</p>
-                </div>
-            </div>
-        </section>
+      <!-- SECCIÓN DE VALORES Y PILARES -->
+      <section class="admin-card" style="margin-bottom: 3.5rem">
+        <h3>
+          <i class="fa-solid fa-shield-halved" style="color: var(--accent)"></i>
+          Nuestros Pilares de Marca
+        </h3>
 
+        <div
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+          "
+        >
+          <div
+            style="
+              background: #f8fafc;
+              padding: 1.4rem;
+              border-radius: 14px;
+              border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+            "
+          >
+            <h4
+              style="
+                color: var(--text-main);
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <i class="fa-solid fa-check-double" style="color: #10b981"></i>
+              Calidad Garantizada
+            </h4>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.92rem;
+                line-height: 1.6;
+              "
+            >
+              Selección rigurosa de telas de algodón premium que no se deforman
+              ni pierden el color.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #f8fafc;
+              padding: 1.4rem;
+              border-radius: 14px;
+              border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+            "
+          >
+            <h4
+              style="
+                color: var(--text-main);
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <i class="fa-solid fa-bolt" style="color: var(--accent)"></i>
+              Tiempos Ágiles
+            </h4>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.92rem;
+                line-height: 1.6;
+              "
+            >
+              Procesamiento rápido de cotizaciones e impresiones listas para
+              entrega o despacho en tiempo récord.
+            </p>
+          </div>
+
+          <div
+            style="
+              background: #f8fafc;
+              padding: 1.4rem;
+              border-radius: 14px;
+              border: 1px solid var(--border-color);
+              box-shadow: var(--shadow-sm);
+            "
+          >
+            <h4
+              style="
+                color: var(--text-main);
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+              "
+            >
+              <i class="fa-solid fa-paint-brush" style="color: #f59e0b"></i>
+              Personalización Total
+            </h4>
+            <p
+              style="
+                color: var(--text-secondary);
+                font-size: 0.92rem;
+                line-height: 1.6;
+              "
+            >
+              Desde prendas unitarias hasta producciones al por mayor con
+              descuentos automáticos por volumen.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- SECCIÓN INTERACTIVA DE REDES SOCIALES -->
     <section class="social-interactive-section">
-        <div class="social-interactive-container">
-            <h2 class="social-headline">SÍGUENOS EN REDES SOCIALES <span class="hashtag-symbol">#KENOUCAMISETAS</span></h2>
-            <p class="social-subtext">Únete a nuestra comunidad urbana y descubre nuevos lanzamientos, detrás de cámara y promociones.</p>
+      <div class="social-interactive-container">
+        <h2 class="social-headline">
+          SÍGUENOS EN REDES SOCIALES
+          <span class="hashtag-symbol">#KENOUCAMISETAS</span>
+        </h2>
+        <p class="social-subtext">
+          Únete a nuestra comunidad urbana y descubre nuevos lanzamientos,
+          detrás de cámara y promociones.
+        </p>
 
-            <div class="social-buttons-wrapper">
-                
-                <!-- PÍLDORA 1: INSTAGRAM -->
-                <a href="https://www.instagram.com/kenoucamisetas/" target="_blank" rel="noopener noreferrer" class="social-pill instagram-pill">
-                    <div class="icon-circle">
-                        <svg class="svg-icon" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </div>
-                    <div class="pill-text">
-                        <span class="brand-title">Instagram</span>
-                        <span class="brand-tag">@kenoucamisetas</span>
-                    </div>
-                </a>
-
-                <!-- PÍLDORA 2: TIKTOK -->
-                <a href="https://www.tiktok.com/@kenou.camisetas" target="_blank" rel="noopener noreferrer" class="social-pill tiktok-pill">
-                    <div class="icon-circle">
-                        <svg class="svg-icon tiktok-svg" viewBox="0 0 24 24">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.56-1.31 1.52-1.29 2.52.02.92.49 1.82 1.25 2.33.82.55 1.9.68 2.83.39.98-.28 1.77-1.02 2.08-1.99.17-.58.21-1.2.2-1.81V.02z"/>
-                        </svg>
-                    </div>
-                    <div class="pill-text">
-                        <span class="brand-title">TikTok</span>
-                        <span class="brand-tag">@kenou.camisetas</span>
-                    </div>
-                </a>
-
-                <!-- PÍLDORA 3: FACEBOOK -->
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-pill facebook-pill">
-                    <div class="icon-circle">
-                        <svg class="svg-icon" viewBox="0 0 24 24">
-                            <path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/>
-                        </svg>
-                    </div>
-                    <div class="pill-text">
-                        <span class="brand-title">Facebook</span>
-                        <span class="brand-tag">Kenou Camisetas</span>
-                    </div>
-                </a>
-
-                <!-- PÍLDORA 4: YOUTUBE -->
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-pill youtube-pill">
-                    <div class="icon-circle">
-                        <svg class="svg-icon" viewBox="0 0 24 24">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </div>
-                    <div class="pill-text">
-                        <span class="brand-title">YouTube</span>
-                        <span class="brand-tag">@kenoucamisetas</span>
-                    </div>
-                </a>
-
+        <div class="social-buttons-wrapper">
+          <!-- PÍLDORA 1: INSTAGRAM -->
+          <a
+            href="https://www.instagram.com/kenoucamisetas/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-pill instagram-pill"
+          >
+            <div class="icon-circle">
+              <svg class="svg-icon" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                />
+              </svg>
             </div>
+            <div class="pill-text">
+              <span class="brand-title">Instagram</span>
+              <span class="brand-tag">@kenoucamisetas</span>
+            </div>
+          </a>
+
+          <!-- PÍLDORA 2: TIKTOK -->
+          <a
+            href="https://www.tiktok.com/@kenou.camisetas"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-pill tiktok-pill"
+          >
+            <div class="icon-circle">
+              <svg class="svg-icon tiktok-svg" viewBox="0 0 24 24">
+                <path
+                  d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.56-1.31 1.52-1.29 2.52.02.92.49 1.82 1.25 2.33.82.55 1.9.68 2.83.39.98-.28 1.77-1.02 2.08-1.99.17-.58.21-1.2.2-1.81V.02z"
+                />
+              </svg>
+            </div>
+            <div class="pill-text">
+              <span class="brand-title">TikTok</span>
+              <span class="brand-tag">@kenou.camisetas</span>
+            </div>
+          </a>
+
+          <!-- PÍLDORA 3: FACEBOOK -->
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-pill facebook-pill"
+          >
+            <div class="icon-circle">
+              <svg class="svg-icon" viewBox="0 0 24 24">
+                <path
+                  d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"
+                />
+              </svg>
+            </div>
+            <div class="pill-text">
+              <span class="brand-title">Facebook</span>
+              <span class="brand-tag">Kenou Camisetas</span>
+            </div>
+          </a>
+
+          <!-- PÍLDORA 4: YOUTUBE -->
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-pill youtube-pill"
+          >
+            <div class="icon-circle">
+              <svg class="svg-icon" viewBox="0 0 24 24">
+                <path
+                  d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                />
+              </svg>
+            </div>
+            <div class="pill-text">
+              <span class="brand-title">YouTube</span>
+              <span class="brand-tag">@kenoucamisetas</span>
+            </div>
+          </a>
         </div>
+      </div>
     </section>
 
     <!-- BOTÓN FLOTANTE DE WHATSAPP -->
-    <a href="https://wa.me/573053905216?text=Hola%20Kenou%20Camisetas,%20deseo%20conocer%20más%20sobre%20su%20marca" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="whatsapp-float" 
-       title="Chatea con nosotros en WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
+    <a
+      href="https://wa.me/573053905216?text=Hola%20Kenou%20Camisetas,%20deseo%20conocer%20más%20sobre%20su%20marca"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="whatsapp-float"
+      title="Chatea con nosotros en WhatsApp"
+    >
+      <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <!-- FOOTER GENERAL MINIMALISTA (ESTILO REFERENCIA IBERIA) -->
     <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <!-- Columna 1: Marca & Compromiso de Calidad -->
-                <div class="footer-col footer-brand-col">
-                    <div class="footer-logo">
-                        <a href="index.html" class="footer-logo-link">
-                            <img src="logo.jpg" alt="Logo Kenou Camisetas" class="footer-logo-img">
-                            <span class="logo-text">KENOU <span>CAMISETAS</span></span>
-                        </a>
-                    </div>
-                    <p class="footer-tagline">Tienda On Line, especialistas en estampados y personalización textil.</p>
-                    <p class="footer-desc">En Kenou Camisetas no confeccionamos: nos especializamos en estampados de diferentes técnicas y procesos para embellecer las prendas de nuestros clientes con máxima durabilidad y estilo.</p>
-                    <div class="footer-social-links">
-                        <a href="https://www.instagram.com/kenoucamisetas/" target="_blank" rel="noopener noreferrer" class="footer-social-btn instagram" title="Síguenos en Instagram" aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-social-btn facebook" title="Síguenos en Facebook" aria-label="Facebook">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.tiktok.com/@kenou.camisetas" target="_blank" rel="noopener noreferrer" class="footer-social-btn tiktok" title="Síguenos en TikTok" aria-label="TikTok">
-                            <i class="fa-brands fa-tiktok"></i>
-                        </a>
-                        <a href="https://wa.me/573053905216" target="_blank" rel="noopener noreferrer" class="footer-social-btn whatsapp" title="Escríbenos a WhatsApp" aria-label="WhatsApp">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Columna 2: Navega -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Navega</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="cotizador.html">Personalizar</a></li>
-                        <li><a href="galeria.html">Tienda</a></li>
-                        <li><a href="blog.html">Blog & Cuidado</a></li>
-                        <li><a href="nosotros.html">Sobre Nosotros</a></li>
-                        <li><a href="contacto.html">Contactanos</a></li>
-                    </ul>
-                </div>
-
-                <!-- Columna 3: Servicios -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Servicios</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="cotizador.html">Estampados DTF & Alto Relieve</a></li>
-                        <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
-                        <li><a href="galeria.html">Camisetas Oversize Heavy Weight</a></li>
-                        <li><a href="galeria.html">Estampado de Busos Urbanos</a></li>
-                        <li><a href="galeria.html">Gorras y Accesorios (En construcción - Próximamente)</a></li>
-                        <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
-                    </ul>
-                </div>
-
-                <!-- Columna 4: Contáctanos -->
-                <div class="footer-col">
-                    <h4 class="footer-col-title">Contactanos</h4>
-                    <ul class="footer-contact-list">
-                        <li>
-                            <i class="fa-solid fa-location-dot"></i>
-                            <div>
-                                Taller & Showroom:<br>
-                                <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-phone"></i>
-                            <div>
-                                Celular / WhatsApp:<br>
-                                <strong>+57 305 390 5216</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-envelope"></i>
-                            <div>
-                                Correo de Atención:<br>
-                                <strong>camisetasKenou@gmail.com</strong>
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fa-solid fa-shield-halved"></i>
-                            <div>
-                                <a href="privacidad.html" class="footer-sublink">Políticas de privacidad</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Columna 1: Marca & Compromiso de Calidad -->
+          <div class="footer-col footer-brand-col">
+            <div class="footer-logo">
+              <a href="index.html" class="footer-logo-link">
+                <img
+                  src="logo.jpg"
+                  alt="Logo Kenou Camisetas"
+                  class="footer-logo-img"
+                />
+                <span class="logo-text">KENOU <span>CAMISETAS</span></span>
+              </a>
             </div>
-
-            <div class="footer-bottom-bar">
-                <p>&copy; 2026 Kenou Camisetas. Tienda On Line, estampado y personalización de camisetas. Todos los derechos reservados.</p>
+            <p class="footer-tagline">
+              Tienda On Line, especialistas en estampados y personalización
+              textil.
+            </p>
+            <p class="footer-desc">
+              En Kenou Camisetas no confeccionamos: nos especializamos en
+              estampados de diferentes técnicas y procesos para embellecer las
+              prendas de nuestros clientes con máxima durabilidad y estilo.
+            </p>
+            <div class="footer-social-links">
+              <a
+                href="https://www.instagram.com/kenoucamisetas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn instagram"
+                title="Síguenos en Instagram"
+                aria-label="Instagram"
+              >
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn facebook"
+                title="Síguenos en Facebook"
+                aria-label="Facebook"
+              >
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://www.tiktok.com/@kenou.camisetas"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn tiktok"
+                title="Síguenos en TikTok"
+                aria-label="TikTok"
+              >
+                <i class="fa-brands fa-tiktok"></i>
+              </a>
+              <a
+                href="https://wa.me/573053905216"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-btn whatsapp"
+                title="Escríbenos a WhatsApp"
+                aria-label="WhatsApp"
+              >
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
             </div>
+          </div>
+
+          <!-- Columna 2: Navega -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Navega</h4>
+            <ul class="footer-links-list">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="cotizador.html">Personalizar</a></li>
+              <li><a href="galeria.html">Tienda</a></li>
+              <li><a href="blog.html">Blog & Cuidado</a></li>
+              <li><a href="nosotros.html">Sobre Nosotros</a></li>
+              <li><a href="contacto.html">Contactanos</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 3: Servicios -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Servicios</h4>
+            <ul class="footer-links-list">
+              <li>
+                <a href="cotizador.html">Estampados DTF & Alto Relieve</a>
+              </li>
+              <li><a href="cotizador.html">Estampados en Vinilo Textil</a></li>
+              <li>
+                <a href="galeria.html">Camisetas Oversize Heavy Weight</a>
+              </li>
+              <li><a href="galeria.html">Estampado de Busos Urbanos</a></li>
+              <li>
+                <a href="galeria.html"
+                  >Gorras y Accesorios (En construcción - Próximamente)</a
+                >
+              </li>
+              <li><a href="contacto.html">Envíos a Nivel Nacional</a></li>
+            </ul>
+          </div>
+
+          <!-- Columna 4: Contáctanos -->
+          <div class="footer-col">
+            <h4 class="footer-col-title">Contactanos</h4>
+            <ul class="footer-contact-list">
+              <li>
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                  Taller & Showroom:<br />
+                  <strong>Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                  Celular / WhatsApp:<br />
+                  <strong>+57 305 390 5216</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                  Correo de Atención:<br />
+                  <strong>camisetasKenou@gmail.com</strong>
+                </div>
+              </li>
+              <li>
+                <i class="fa-solid fa-shield-halved"></i>
+                <div>
+                  <a href="privacidad.html" class="footer-sublink"
+                    >Políticas de privacidad</a
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <div class="footer-bottom-bar">
+          <p>
+            &copy; 2026 Kenou Camisetas. Tienda On Line, estampado y
+            personalización de camisetas. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
     </footer>
 
     <!-- LÓGICA JAVASCRIPT NAVEGADOR -->
     <script src="JS/menu_catalogo.js"></script>
-</body>
+  </body>
 </html>
