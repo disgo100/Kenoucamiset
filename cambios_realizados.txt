@@ -123,3 +123,20 @@ Se realizaron las siguientes correcciones y mejoras en el proyecto:
      * Ella aporta la cercanía humana, la sensibilidad y el cuidado minucioso en cada prenda; él aporta la creatividad gráfica, el diseño digital, la ilustración y las técnicas de vanguardia.
      * Enfoque centrado en plasmar frases y dibujos al gusto de cada cliente, convirtiendo cada camiseta en una pieza artística cargada de identidad y emoción.
      * Se actualizaron los badges y tarjetas destacadas a "3 Años de Emprendimiento Familiar" y "Cultura & Pasión Familiar".
+
+17. Diseño Totalmente Responsivo y Validación Multi-Usuario Administrador:
+   - Validación y Verificación de Credenciales de Administrador (JS/admin.js, JS/menu_catalogo.js y admin.html):
+     * Se implementó un mapeo seguro de usuarios y contraseñas independientes:
+       - Usuario: '@kenou' (o 'kenou') con Contraseña: 'kenou123'
+       - Usuario: 'admin' con Contraseña: 'admin123'
+     * Detección insensible a mayúsculas/minúsculas y almacenamiento de la sesión activa ('admin_logged_user') mostrando el nombre de usuario autenticado en la insignia de cabecera (ej. '🟢 Autenticado: @kenou' o '🟢 Autenticado: admin').
+     * Cierre de sesión limpio que elimina tanto el token de acceso como el usuario logueado en todas las páginas.
+   - Sistema de Diseño 100% Responsivo Global (css styles/styles.css y admin.html):
+     * Prevención de desbordamiento horizontal ('overflow-x: hidden') y compatibilidad fluida desde móviles ultra-compactos (360px) hasta pantallas 4K.
+     * Regla anti-zoom involuntario en iOS/móviles para inputs y selects (font-size: 16px).
+     * Cabecera y Barra de Navegación adaptable: logotipo, títulos e insignias con tamaño auto-escalable y compactación automática en smartphones pequeños.
+     * Grillas de catálogo, galería y servicios flotantes: adaptación progresiva (de 4 columnas en desktop a 2 en tablet y 1 en móviles con alturas de imagen optimizadas).
+     * Formularios y Paneles (Cotizador, Carrito, Contacto, Admin): colapso automático de grillas a 1 columna en pantallas <= 768px y <= 640px, manteniendo legibilidad de campos y botones táctiles accesibles.
+     * Modales y Tablas: visualización con max-width y max-height seguros (95vw / 90vh) con scroll touch nativo sin desborde.
+     * Pie de página y botones de redes sociales: reestructuración en 1 y 2 columnas con píldoras de acción fluidas.
+

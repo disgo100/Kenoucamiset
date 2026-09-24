@@ -451,12 +451,14 @@ function verificarIndicadorAdminGlobal() {
     // Evitar duplicar la etiqueta si ya existe en el árbol del DOM
     if (document.getElementById('admin-user-badge') || document.querySelector('.admin-global-badge')) return;
 
+    const loggedUser = localStorage.getItem('admin_logged_user') || sessionStorage.getItem('admin_logged_user') || 'Admin';
+
     const adminBadge = document.createElement('div');
     adminBadge.className = 'admin-global-badge';
 
     adminBadge.innerHTML = `
         <span style="width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 6px rgba(16, 185, 129, 0.4); display: inline-block;"></span>
-        <span>Admin Activo</span>
+        <span class="admin-badge-name">${loggedUser}</span>
         <a href="admin.html" target="_blank" rel="noopener noreferrer" title="Ir al Panel de Administración">
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
@@ -475,6 +477,8 @@ function verificarIndicadorAdminGlobal() {
             if (confirm('🔒 ¿Desea cerrar la sesión de Administrador y regresar a la página principal?')) {
                 localStorage.removeItem('admin_logged_in');
                 sessionStorage.removeItem('admin_logged_in');
+                localStorage.removeItem('admin_logged_user');
+                sessionStorage.removeItem('admin_logged_user');
                 window.location.href = 'index.html';
             }
         });

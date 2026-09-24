@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
   inicializarPanelAdmin();
 });
-const ADMIN_USER_DEFAULT = "@Kenou";
+const USUARIOS_ADMIN = {
+  "@kenou": "kenou123",
+  "kenou": "kenou123",
+  "admin": "admin123"
+};
+const ADMIN_USER_DEFAULT = "@kenou";
 const ADMIN_PASS_DEFAULT = "kenou123";
 let countTimerInterval = null;
 function inicializarPanelAdmin() {
@@ -41,6 +46,14 @@ function configurarSistemaAutenticacion() {
   if (isLoggedIn) {
     if (authOverlay) authOverlay.style.display = "none";
     if (adminBadge) adminBadge.style.display = "flex";
+    const sessionName = document.getElementById("admin-session-name");
+    const loggedUser =
+      localStorage.getItem("admin_logged_user") ||
+      sessionStorage.getItem("admin_logged_user") ||
+      "@kenou";
+    if (sessionName) {
+      sessionName.textContent = `🟢 Autenticado: ${loggedUser}`;
+    }
   } else {
     if (authOverlay) authOverlay.style.display = "flex";
     if (adminBadge) adminBadge.style.display = "none";
@@ -80,6 +93,8 @@ function configurarSistemaAutenticacion() {
       if (confirm("🔒 ¿Desea cerrar la sesión administrativa?")) {
         localStorage.removeItem("admin_logged_in");
         sessionStorage.removeItem("admin_logged_in");
+        localStorage.removeItem("admin_logged_user");
+        sessionStorage.removeItem("admin_logged_user");
         window.location.href = "index.html";
       }
     });
@@ -139,18 +154,22 @@ function procesarIntentoLogin() {
     return;
   }
 
-  const esUsuarioValido =
-    userInput.toLowerCase() === ADMIN_USER_DEFAULT.toLowerCase() ||
-    userInput.toLowerCase() === "kenou" ||
-    userInput.toLowerCase() === "admin";
-  const esPasswordValido = passInput === ADMIN_PASS_DEFAULT;
+  const userKey = (userInput || "").toLowerCase();
+  const passwordEsperada = USUARIOS_ADMIN[userKey];
+  const esCredencialesValidas = passwordEsperada !== undefined && passInput === passwordEsperada;
 
-  if (esUsuarioValido && esPasswordValido) {
+  if (esCredencialesValidas) {
     guardarIntentosFallidos(0);
     localStorage.removeItem("admin_lockout_until");
     localStorage.removeItem("admin_user_permanently_blocked");
     localStorage.setItem("admin_logged_in", "true");
     sessionStorage.setItem("admin_logged_in", "true");
+
+    const nombreSesion = userKey.startsWith("@")
+      ? userKey
+      : (userKey === "kenou" ? "@kenou" : "admin");
+    localStorage.setItem("admin_logged_user", nombreSesion);
+    sessionStorage.setItem("admin_logged_user", nombreSesion);
 
     if (alertBox) alertBox.style.display = "none";
     if (authOverlay) authOverlay.style.display = "none";

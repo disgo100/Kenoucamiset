@@ -490,7 +490,7 @@
             Acceso Administrativo
           </h3>
           <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0">
-            Ingrese sus credenciales para gestionar Kenou Camisetas
+            Ingrese sus credenciales de administrador (@kenou o admin) para gestionar Kenou Camisetas
           </p>
         </div>
 
@@ -523,13 +523,13 @@
               "
             >
               <i class="fa-solid fa-user" style="color: var(--accent)"></i>
-              Usuario Administrador:
+              Usuario Administrador (@kenou / admin):
             </label>
             <input
               type="text"
               id="auth-user"
               class="form-control-enhanced"
-              placeholder="Ej. @Kenou o admin"
+              placeholder="Ej. @kenou o admin"
               required
               autocomplete="username"
             />
@@ -683,6 +683,7 @@
         <div class="header-actions">
           <div
             id="admin-user-badge"
+            class="admin-global-badge"
             style="
               display: none;
               align-items: center;
@@ -1200,6 +1201,7 @@
 
           <!-- TIPO DE PRENDA -->
           <div
+            class="modal-form-row-2col"
             style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
           >
             <div>
@@ -1254,6 +1256,7 @@
 
           <!-- PRECIO Y CANTIDAD (STOCK) -->
           <div
+            class="modal-form-row-2col"
             style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem"
           >
             <div>
