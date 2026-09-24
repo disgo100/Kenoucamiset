@@ -86,16 +86,16 @@ const ARTICULOS_BLOG = [
         imagen: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600",
         resumen: "Aprende los secretos profesionales para evitar que el estampado DTF de tus camisetas se cuartee, se decolore o pierda elasticidad con los lavados cotidianos.",
         contenido: `
-            <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">¿Cómo alargar la vida útil de tu estampado DTF?</h3>
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">El estampado en <strong>Direct to Film (DTF)</strong> ofrece una resolución fotográfica excelente y tacto elástico de alta definición, pero requiere de ciertos cuidados básicos de lavado para mantener su elasticidad original.</p>
+            <h3 style="font-size: 1.35rem; color: #ffffff; font-weight: 700; margin-bottom: 1rem;">¿Cómo alargar la vida útil de tu estampado DTF?</h3>
+            <p style="color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem;">El estampado en <strong>Direct to Film (DTF)</strong> ofrece una resolución fotográfica excelente y tacto elástico de alta definición, pero requiere de ciertos cuidados básicos de lavado para mantener su elasticidad original.</p>
             
-            <h4 style="color: var(--accent); margin-top: 1.3rem; margin-bottom: 0.6rem;">Reglas de Oro para el Lavado:</h4>
-            <ul style="color: #bbb; margin-left: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                <li><strong>Voltea la prenda:</strong> Lava siempre la camiseta al revés con el estampado hacia adentro.</li>
-                <li><strong>Agua Fría:</strong> Utiliza ciclos de lavado suave con agua fría (máximo 30°C).</li>
-                <li><strong>Sin Blanqueadores:</strong> Evita el uso de cloro, lejía o suavizantes abrasivos.</li>
-                <li><strong>No Planchar Directamente:</strong> Si necesitas planchar, hazlo por el revés o utiliza papel siliconado/tela protectora encima del estampado.</li>
-                <li><strong>Secado al Aire:</strong> No uses secadora automática con calor alto. Seca siempre a la sombra.</li>
+            <h4 style="color: #38bdf8; font-size: 1.08rem; font-weight: 700; margin-top: 1.3rem; margin-bottom: 0.6rem;">Reglas de Oro para el Lavado:</h4>
+            <ul style="color: #cbd5e1; margin-left: 1.3rem; line-height: 1.85; margin-bottom: 1.5rem;">
+                <li><strong style="color: #ffffff;">Voltea la prenda:</strong> Lava siempre la camiseta al revés con el estampado hacia adentro.</li>
+                <li><strong style="color: #ffffff;">Agua Fría:</strong> Utiliza ciclos de lavado suave con agua fría (máximo 30°C).</li>
+                <li><strong style="color: #ffffff;">Sin Blanqueadores:</strong> Evita el uso de cloro, lejía o suavizantes abrasivos.</li>
+                <li><strong style="color: #ffffff;">No Planchar Directamente:</strong> Si necesitas planchar, hazlo por el revés o utiliza papel siliconado/tela protectora encima del estampado.</li>
+                <li><strong style="color: #ffffff;">Secado al Aire:</strong> No uses secadora automática con calor alto. Seca siempre a la sombra.</li>
             </ul>
         `
     },
@@ -109,15 +109,15 @@ const ARTICULOS_BLOG = [
         imagen: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600",
         resumen: "Conoce las diferencias técnicas en el cuidado de prendas con detalles en vinilo reflectivo y cómo evitar que el calor arruine la fijación del adhesivo térmico.",
         contenido: `
-            <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">Mantenimiento Especial para Vinilo Textil</h3>
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">El vinilo textil es ideal para diseños de corte limpio y efectos especiales como acabados reflectivos o neón. Para garantizar que los bordes no se levanten, sigue estas recomendaciones:</p>
+            <h3 style="font-size: 1.35rem; color: #ffffff; font-weight: 700; margin-bottom: 1rem;">Mantenimiento Especial para Vinilo Textil</h3>
+            <p style="color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem;">El vinilo textil es ideal para diseños de corte limpio y efectos especiales como acabados reflectivos o neón. Para garantizar que los bordes no se levanten, sigue estas recomendaciones:</p>
             
-            <h4 style="color: #00f2fe; margin-top: 1.3rem; margin-bottom: 0.6rem;">Tips de Mantenimiento:</h4>
-            <ul style="color: #bbb; margin-left: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                <li>Espera al menos 24 a 48 horas antes del primer lavado tras recibir la prenda.</li>
-                <li>Lava a mano o en ciclo delicado con detergente líquido suave.</li>
-                <li>Nunca exprimas o retuerzas la zona del vinilo al escurrir.</li>
-                <li>Guarda las prendas colgadas en ganchos para evitar marcas de doblez profundas en el diseño.</li>
+            <h4 style="color: #38bdf8; font-size: 1.08rem; font-weight: 700; margin-top: 1.3rem; margin-bottom: 0.6rem;">Tips de Mantenimiento:</h4>
+            <ul style="color: #cbd5e1; margin-left: 1.3rem; line-height: 1.85; margin-bottom: 1.5rem;">
+                <li><strong style="color: #ffffff;">Reposo inicial:</strong> Espera al menos 24 a 48 horas antes del primer lavado tras recibir la prenda.</li>
+                <li><strong style="color: #ffffff;">Lavado delicado:</strong> Lava a mano o en ciclo delicado con detergente líquido suave.</li>
+                <li><strong style="color: #ffffff;">Cero fricción:</strong> Nunca exprimas o retuerzas la zona del vinilo al escurrir.</li>
+                <li><strong style="color: #ffffff;">Almacenamiento:</strong> Guarda las prendas colgadas en ganchos para evitar marcas de doblez profundas en el diseño.</li>
             </ul>
         `
     },
@@ -131,10 +131,10 @@ const ARTICULOS_BLOG = [
         imagen: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600",
         resumen: "Descubre por qué las camisetas de alto gramaje (220g+) y los cortes oversize son la tendencia dominante de la moda urbana actual.",
         contenido: `
-            <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">La Silueta Oversize y la Calidad Heavy Weight</h3>
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">En 2026, la moda urbana prioriza la estructura del tejido y la durabilidad. Las telas de algodón de alto gramaje no solo caen mejor en el cuerpo, sino que retienen la pigmentación de los tintes por mucho más tiempo.</p>
+            <h3 style="font-size: 1.35rem; color: #ffffff; font-weight: 700; margin-bottom: 1rem;">La Silueta Oversize y la Calidad Heavy Weight</h3>
+            <p style="color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem;">En 2026, la moda urbana prioriza la estructura del tejido y la durabilidad. Las telas de algodón de alto gramaje no solo caen mejor en el cuerpo, sino que retienen la pigmentación de los tintes por mucho más tiempo.</p>
             
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1.5rem;">En <strong>Kenou Camisetas</strong> confeccionamos busos y camisetas pesadas diseñadas para resistir el uso diario de la calle sin perder su forma estructural.</p>
+            <p style="color: #cbd5e1; line-height: 1.8; margin-bottom: 1.5rem;">En <strong>Kenou Camisetas</strong> no confeccionamos: nos especializamos en estampados de diferentes técnicas y procesos para embellecer prendas y busos pesados, con acabados prémium diseñados para resistir el uso diario sin perder su calidad.</p>
         `
     },
     {
@@ -147,12 +147,12 @@ const ARTICULOS_BLOG = [
         imagen: "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=600",
         resumen: "Evita que tus busos y joggers negros tomen ese tono grisáceo y desgastado con el paso del tiempo aplicando trucos caseros seguros.",
         contenido: `
-            <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">Mantenimiento de Prendas Negras y Oscuras</h3>
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">La radiación solar y los detergentes en polvo son los principales enemigos del algodón negro. Sigue estos pasos para fijar el color:</p>
-            <ul style="color: #bbb; margin-left: 1.3rem; line-height: 1.8; margin-bottom: 1.5rem;">
-                <li>Lava siempre con agua fría (el agua tibia abre los poros de la fibra y expulsa el tinte).</li>
-                <li>Usa detergente especial para ropa oscura.</li>
-                <li>Seca la prenda en un lugar ventilado y bajo sombra, nunca bajo luz directa del sol.</li>
+            <h3 style="font-size: 1.35rem; color: #ffffff; font-weight: 700; margin-bottom: 1rem;">Mantenimiento de Prendas Negras y Oscuras</h3>
+            <p style="color: #cbd5e1; line-height: 1.8; margin-bottom: 1rem;">La radiación solar y los detergentes en polvo son los principales enemigos del algodón negro. Sigue estos pasos para fijar el color:</p>
+            <ul style="color: #cbd5e1; margin-left: 1.3rem; line-height: 1.85; margin-bottom: 1.5rem;">
+                <li><strong style="color: #ffffff;">Temperatura:</strong> Lava siempre con agua fría (el agua tibia abre los poros de la fibra y expulsa el tinte).</li>
+                <li><strong style="color: #ffffff;">Detergente:</strong> Usa detergente líquido especial para ropa oscura sin agentes blanqueadores.</li>
+                <li><strong style="color: #ffffff;">Secado:</strong> Seca la prenda en un lugar ventilado y bajo sombra, nunca bajo luz directa del sol.</li>
             </ul>
         `
     }
@@ -306,14 +306,15 @@ function abrirArticuloModal(id) {
 
         modalContent.innerHTML = `
             <img src="${articulo.imagen}" alt="${articulo.titulo}" 
-                 style="width: 100%; max-height: 250px; object-fit: cover; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid #333;"
+                 style="width: 100%; max-height: 270px; object-fit: cover; border-radius: 12px; margin-bottom: 1.3rem; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.6);"
                  onerror="this.src='https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600'">
-            <h2 style="font-size: 1.45rem; color: #fff; margin-bottom: 0.5rem; line-height: 1.3;">${articulo.titulo}</h2>
-            <div style="display: flex; gap: 1rem; color: #777; font-size: 0.82rem; margin-bottom: 1.4rem;">
-                <span><i class="fa-regular fa-calendar"></i> ${articulo.fecha}</span>
-                <span><i class="fa-regular fa-clock"></i> ${articulo.lectura}</span>
+            <h2 style="font-size: 1.55rem; color: #ffffff; font-weight: 800; margin-bottom: 0.6rem; line-height: 1.35; letter-spacing: -0.3px;">${articulo.titulo}</h2>
+            <div style="display: flex; gap: 1.2rem; align-items: center; color: #94a3b8; font-size: 0.86rem; margin-bottom: 1.4rem; padding-bottom: 0.9rem; border-bottom: 1px solid rgba(255,255,255,0.12);">
+                <span><i class="fa-regular fa-calendar" style="color: var(--accent);"></i> ${articulo.fecha}</span>
+                <span><i class="fa-regular fa-clock" style="color: var(--accent);"></i> ${articulo.lectura}</span>
+                <span style="color: #38bdf8; font-weight: 600;"><i class="fa-solid fa-tag"></i> ${articulo.categoriaNombre}</span>
             </div>
-            <div>
+            <div class="article-text-body" style="color: #cbd5e1; font-size: 0.96rem; line-height: 1.8;">
                 ${articulo.contenido}
             </div>
         `;

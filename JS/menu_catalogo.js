@@ -662,7 +662,7 @@ function asegurarModalTallasHTML() {
                     <div class="size-desc-box">
                         <i class="fa-solid fa-snowflake"></i>
                         <div>
-                            <strong>Busos con Capota Heavy Fleece (280g+):</strong> Confección con felpa térmica interior perchada suave, bolsillo canguro reforzado y capota con doble tela para abrigo y comodidad urbana.
+                            <strong>Busos con Capota Heavy Fleece (280g+):</strong> Felpa térmica interior perchada suave, bolsillo canguro reforzado y capota con doble tela para abrigo y comodidad urbana, ideales para estampados duraderos.
                         </div>
                     </div>
 
@@ -801,7 +801,7 @@ function asegurarModalTallasHTML() {
                     <div class="size-desc-box" style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25);">
                         <i class="fa-solid fa-person-running" style="color: #f59e0b;"></i>
                         <div>
-                            <strong style="color: #b45309;">Joggers y Pantalones Cargo (En construcción - Próximamente):</strong> Estamos preparando una nueva línea de joggers y pantalones técnicos de confección pesada. Muy pronto disponibles para personalización.
+                            <strong style="color: #b45309;">Joggers y Pantalones Cargo (En construcción - Próximamente):</strong> Estamos preparando una nueva línea de joggers y pantalones técnicos de alto gramaje. Muy pronto disponibles para estampado y personalización.
                         </div>
                     </div>
                 </div>
@@ -827,7 +827,7 @@ function asegurarModalTallasHTML() {
                     <div class="size-alert-note">
                         <i class="fa-solid fa-lightbulb" style="font-size: 1.2rem; margin-top: 0.1rem;"></i>
                         <div>
-                            <strong>Tip Kenou Camisetas:</strong> Las prendas confeccionadas en algodón pueden tener un margen de tolerancia artesanal de ±1 cm. Si buscas un ajuste holgado streetwear urbano, te recomendamos pedir tu talla habitual en corte Oversize o una talla superior en corte Regular.
+                            <strong>Tip Kenou Camisetas:</strong> Las prendas en algodón pueden tener un margen de tolerancia artesanal de ±1 cm. Si buscas un ajuste holgado streetwear urbano, te recomendamos pedir tu talla habitual en corte Oversize o una talla superior en corte Regular.
                         </div>
                     </div>
                 </div>

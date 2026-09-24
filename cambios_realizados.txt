@@ -101,3 +101,18 @@ Se realizaron las siguientes correcciones y mejoras en el proyecto:
    - Panel Derecho: Identidad y Título "Continúa con tu compra":
      * Se actualizó el encabezado principal de la columna derecha a "Continúa con tu compra" acompañado de un icono de bolsa de compras.
      * Se modernizó la tarjeta de datos personales del cliente y el selector de entrega a un esquema visual claro (#f8fafc con bordes suaves), eliminando recuadros oscuros desalineados para brindar una estética homogénea y profesional.
+
+15. Modales Oscuros de Lectura en Blog, Proposición de Marca y Modelos con Prendas Manga Sisa:
+   - Modales Oscuros de Lectura en Blog (blog.html, JS/blog.js y css styles/styles.css):
+     * Se redefinió el fondo de los modales de lectura (#article-modal y #video-modal) a un tono oscuro de alta gama (#090e17) con superposición oscura semitransparente (rgba(2, 6, 23, 0.88)) y desenfoque backdrop-filter.
+     * Se reestructuró la jerarquía tipográfica para alto contraste y máxima legibilidad: títulos en blanco puro (#ffffff), párrafos en #cbd5e1 con interlineado holgado (1.8), subtítulos en azul cielo (#38bdf8), y listas con énfasis destacado.
+     * Se rediseñaron los botones de cierre con la clase 'modal-close-dark-btn' con círculo translúcido y transición roja en hover.
+   - Proposición de Marca (Eliminación de "confección"):
+     * Se formalizó en todos los archivos del sitio (nosotros.html, index.html, galeria.html, blog.html, cotizador.html, contacto.html, carrito.html, admin.html, privacidad.html y JS/blog.js) que Kenou Camisetas no confecciona prendas desde cero, sino que se especializa en estampados de diferentes técnicas y procesos (DTF, DTF Alto Relieve, Vinilo Textil) para embellecer y personalizar prendas textiles urbanas.
+     * Se actualizaron los enlaces del pie de página de "Confección de Busos Urbanos" a "Estampado de Busos Urbanos".
+   - Nuevas Imágenes de Referencia con Prendas Frescas Tipo Manga Sisa:
+     * Se generaron e integraron en la carpeta local 'img/' tres fotografías comerciales de alta resolución con modelos luciendo prendas frescas manga sisa:
+       a) 'img/manga_sisa_mujer.jpg': Mujer joven luciendo camiseta manga sisa blanca con arte gráfico DTF vibrante en entorno urbano.
+       b) 'img/manga_sisa_hombre.jpg': Joven afro-latino luciendo camiseta manga sisa negra con estampado DTF geométrico contemporáneo.
+       c) 'img/manga_sisa_adulto.jpg': Hombre de mediana edad luciendo camiseta manga sisa gris carbón con estampado tipográfico minimalista.
+     * Se sincronizaron en 'JS/catalogo.js' y 'JS/admin.js' con auto-migración de inventario dinámico en localStorage.

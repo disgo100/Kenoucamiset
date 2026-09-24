@@ -320,20 +320,24 @@ const base64Input = document.getElementById('prod-imagen-base64');
     }
 }
 const PRODUCTOS_INICIALES_CATALOGO = [
-{ id: 'PRD-101', nombre: 'Camiseta Oversize Acid Wash', categoria: 'Camisetas', precio: 45000, stock: 25, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500' },
-{ id: 'PRD-102', nombre: 'Short Deportivo Streetwear', categoria: 'Shorts', precio: 38000, stock: 18, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500' },
-{ id: 'PRD-103', nombre: 'Gorra Trucker Snapback Black (En construcción - Próximamente)', categoria: 'Gorras', precio: 32000, stock: 30, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500' },
-{ id: 'PRD-104', nombre: 'Buso Oversize Heavy Fleece', categoria: 'Busos', precio: 85000, stock: 12, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500' },
-{ id: 'PRD-105', nombre: 'Pantalón Jogger Cargo Tech (En construcción - Próximamente)', categoria: 'Pantalones', precio: 68000, stock: 5, estado: 'Últimas Unidades', imagen: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500' }
+  { id: 'PRD-101', nombre: 'Camiseta Manga Sisa Fresh Urban (Mujer)', categoria: 'Camisetas', precio: 45000, stock: 25, estado: 'Disponible', imagen: 'img/manga_sisa_mujer.jpg' },
+  { id: 'PRD-102', nombre: 'Camiseta Manga Sisa Urban Tribe (Hombre)', categoria: 'Camisetas', precio: 45000, stock: 28, estado: 'Disponible', imagen: 'img/manga_sisa_hombre.jpg' },
+  { id: 'PRD-103', nombre: 'Camiseta Manga Sisa Urban Rhythm (Adulto)', categoria: 'Camisetas', precio: 48000, stock: 16, estado: 'Disponible', imagen: 'img/manga_sisa_adulto.jpg' },
+  { id: 'PRD-104', nombre: 'Short Deportivo Fresh Streetwear', categoria: 'Shorts', precio: 38000, stock: 18, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500' },
+  { id: 'PRD-105', nombre: 'Buso Oversize Heavy Fleece Street', categoria: 'Busos', precio: 85000, stock: 12, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500' },
+  { id: 'PRD-106', nombre: 'Gorra Trucker Snapback Black (En construcción - Próximamente)', categoria: 'Gorras', precio: 32000, stock: 30, estado: 'Disponible', imagen: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500' },
+  { id: 'PRD-107', nombre: 'Pantalón Jogger Cargo Tech (En construcción - Próximamente)', categoria: 'Pantalones', precio: 68000, stock: 4, estado: 'Últimas Unidades', imagen: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500' }
 ];
 function obtenerProductosAdmin() {
-const prods = localStorage.getItem('prendas_admin_products');
-if (!prods) {
-localStorage.setItem('prendas_admin_products', JSON.stringify(PRODUCTOS_INICIALES_CATALOGO));
-localStorage.setItem('prendas_catalog', JSON.stringify(PRODUCTOS_INICIALES_CATALOGO));
-return PRODUCTOS_INICIALES_CATALOGO;
-}
-return JSON.parse(prods);
+  let prods = localStorage.getItem('prendas_admin_products');
+  let parsed = prods ? JSON.parse(prods) : null;
+  const tieneMangaSisa = parsed && parsed.some(p => (p.nombre || '').toLowerCase().includes('manga sisa'));
+  if (!parsed || parsed.length === 0 || !tieneMangaSisa) {
+    localStorage.setItem('prendas_admin_products', JSON.stringify(PRODUCTOS_INICIALES_CATALOGO));
+    localStorage.setItem('prendas_catalog', JSON.stringify(PRODUCTOS_INICIALES_CATALOGO));
+    return PRODUCTOS_INICIALES_CATALOGO;
+  }
+  return parsed;
 }
 function guardarProductosAdmin(prods) {
 localStorage.setItem('prendas_admin_products', JSON.stringify(prods));
