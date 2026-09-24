@@ -1,5 +1,5 @@
 // =========================================================
-// PRENDAS & STYLOS - LÓGICA DEL CARRITO DE COMPRAS (js/carrito.js)
+// KENOU CAMISETAS - LÓGICA DEL CARRITO DE COMPRAS (js/carrito.js)
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
 inicializarCarritoPagina();
@@ -379,7 +379,7 @@ if (!ordenValida) return;
     const ordenNumWhatsApp = 'PS-' + Math.floor(100000 + Math.random() * 900000);
     registrarPedidoEnAdmin(ordenNumWhatsApp, cliente, cart, totalFinal, 'En proceso');
 
-    const mensajeWhatsApp = `Hola *Prendas & Stylos* 👋, confirmo el envío de mi orden de pedido:
+    const mensajeWhatsApp = `Hola *Kenou Camisetas* 👋, confirmo el envío de mi orden de pedido:
 
 👤 DATOS DEL CLIENTE:
 • Nombre: ${cliente.nombre}
@@ -391,7 +391,7 @@ ${listaItemsTexto}
 🚚 Método de Entrega: ${metodoEntregaTexto}
 💰 TOTAL A PAGAR: $${Math.round(totalFinal).toLocaleString('es-CO')} COP
 ¿Me pueden indicar las opciones de pago (Nequi, Daviplata, Bancolombia) para proceder?`;
-    const url = `https://wa.me/573173247083?text=${encodeURIComponent(mensajeWhatsApp)}`;
+    const url = `https://wa.me/573053905216?text=${encodeURIComponent(mensajeWhatsApp)}`;
     window.open(url, '_blank');
 }
 
@@ -471,7 +471,8 @@ function generarComprobanteOrden() {
     if (printableArea && modalReceipt) {
         printableArea.innerHTML = `
             <div style="text-align: center; border-bottom: 2px dashed var(--border-color, #cbd5e1); padding-bottom: 1rem; margin-bottom: 1rem;">
-                <h2 style="margin: 0; color: var(--text-main, #0f172a); font-size: 1.4rem; font-weight: 800;">PRENDAS & STYLOS</h2>
+                <img src="logo.jpg" alt="Logo Kenou Camisetas" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 0.4rem; object-fit: cover;">
+                <h2 style="margin: 0; color: var(--text-main, #0f172a); font-size: 1.4rem; font-weight: 800;">KENOU CAMISETAS</h2>
                 <p style="margin: 0.2rem 0 0 0; color: var(--text-muted, #64748b); font-size: 0.85rem;">COMPROBANTE DE ORDEN DE PEDIDO</p>
                 <p style="margin: 0.4rem 0 0 0; color: var(--accent, #0284c7); font-weight: 800; font-size: 1.05rem;">ORDEN #${ordenNum}</p>
                 <p style="margin: 0.2rem 0 0 0; color: var(--text-muted, #94a3b8); font-size: 0.75rem;">Fecha: ${fechaHora}</p>
@@ -515,7 +516,7 @@ function generarComprobanteOrden() {
 
             <div style="text-align: center; margin-top: 1.5rem; font-size: 0.78rem; color: var(--text-muted, #94a3b8); border-top: 1px solid var(--border-color, #e2e8f0); padding-top: 0.8rem;">
                 <p style="margin: 0;">Presenta este comprobante en el Punto de Entrega o envíalo por WhatsApp.</p>
-                <p style="margin: 0.2rem 0 0 0; font-weight: 600; color: var(--text-secondary, #64748b);">¡Gracias por comprar en Prendas & Stylos!</p>
+                <p style="margin: 0.2rem 0 0 0; font-weight: 600; color: var(--text-secondary, #64748b);">¡Gracias por comprar en Kenou Camisetas!</p>
             </div>
         `;
 
@@ -777,7 +778,8 @@ function mostrarComprobanteDesdeData(data) {
 
     printableArea.innerHTML = `
         <div style="text-align: center; border-bottom: 2px dashed var(--border-color, #cbd5e1); padding-bottom: 1rem; margin-bottom: 1rem;">
-            <h2 style="margin: 0; color: var(--text-main, #0f172a); font-size: 1.4rem; font-weight: 800;">PRENDAS & STYLOS</h2>
+            <img src="logo.jpg" alt="Logo Kenou Camisetas" style="width: 50px; height: 50px; border-radius: 50%; margin-bottom: 0.4rem; object-fit: cover;">
+            <h2 style="margin: 0; color: var(--text-main, #0f172a); font-size: 1.4rem; font-weight: 800;">KENOU CAMISETAS</h2>
             <p style="margin: 0.2rem 0 0 0; color: var(--text-muted, #64748b); font-size: 0.85rem;">COMPROBANTE DE PAGO Y ORDEN DE COMPRA</p>
             <p style="margin: 0.4rem 0 0 0; color: var(--accent, #0284c7); font-weight: 800; font-size: 1.05rem;">ORDEN #${data.orderNumber}</p>
             ${data.refCode ? `<span style="display: inline-block; background: #e0f2fe; color: #0369a1; padding: 0.15rem 0.55rem; border-radius: 6px; font-size: 0.76rem; font-weight: 700; margin-top: 0.25rem;">REF: ${data.refCode}</span>` : ''}
@@ -823,7 +825,7 @@ function mostrarComprobanteDesdeData(data) {
 
         <div style="text-align: center; margin-top: 1.3rem; font-size: 0.78rem; color: var(--text-muted, #94a3b8); border-top: 1px solid var(--border-color, #e2e8f0); padding-top: 0.8rem;">
             <p style="margin: 0; color: #10b981; font-weight: 700;">✓ Transacción verificada y aprobada por Pasarela Segura</p>
-            <p style="margin: 0.2rem 0 0 0; color: var(--text-secondary, #64748b);">¡Gracias por tu compra en Prendas & Stylos!</p>
+            <p style="margin: 0.2rem 0 0 0; color: var(--text-secondary, #64748b);">¡Gracias por tu compra en Kenou Camisetas!</p>
         </div>
     `;
 

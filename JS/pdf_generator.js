@@ -13,7 +13,7 @@ function generarOrdenPDFData(orderData) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Paleta de Colores de Prendas & Stylos (Valores RGB corregidos)
+    // Paleta de Colores de Kenou Camisetas (Valores RGB corregidos)
     const brandPink = [255, 51, 102];
     const darkHeader = [18, 18, 18];
 
@@ -23,7 +23,7 @@ function generarOrdenPDFData(orderData) {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
-    doc.text("PRENDAS & STYLOS", 15, 20);
+    doc.text("KENOU CAMISETAS", 15, 20);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text("Orden de Pedido Digital & Comprobante de Compra", 15, 27);
@@ -125,7 +125,7 @@ function generarOrdenPDFData(orderData) {
     // Pie de página
     doc.setFontSize(8);
     doc.setTextColor(120, 120, 120);
-    doc.text("Prendas & Stylos — Moda Urbana B2C | Documento generado automáticamente", 15, 285);
+    doc.text("Kenou Camisetas — Moda Urbana B2C | Documento generado automáticamente", 15, 285);
 
     // Descargar el archivo PDF con un breve retardo para asegurar la compilación binaria
     setTimeout(() => {

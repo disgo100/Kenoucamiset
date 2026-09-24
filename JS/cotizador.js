@@ -1,5 +1,5 @@
 // =========================================================
-// PRENDAS & STYLOS - LÓGICA DEL COTIZADOR AUTOMÁTICO (js/cotizador.js)
+// KENOU CAMISETAS - LÓGICA DEL COTIZADOR AUTOMÁTICO (js/cotizador.js)
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
 inicializarCotizador();
@@ -179,8 +179,8 @@ function enviarCotizacionWhatsApp() {
         console.warn('No se pudo registrar la cotización en admin:', e);
     }
 
-    const telefono = '573173247083';
-    const mensaje = `Hola *Prendas & Stylos* 👋, deseo consultar disponibilidad para la siguiente Pre-Orden (Cotización: ${ordenNum}):
+    const telefono = '573053905216';
+    const mensaje = `Hola *Kenou Camisetas* 👋, deseo consultar disponibilidad para la siguiente Pre-Orden (Cotización: ${ordenNum}):
 
 📌 *Prenda Base:* ${datosCotizacionActual.prenda}
 🎨 *Técnica:* ${datosCotizacionActual.tecnica}

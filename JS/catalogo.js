@@ -1,5 +1,5 @@
 /* ============================================================================
-   PRENDAS & STYLOS - LÓGICA DEL CATÁLOGO DINÁMICO (JS/catalogo.js)
+   KENOU CAMISETAS - LÓGICA DEL CATÁLOGO DINÁMICO (JS/catalogo.js)
    Sincronizado con inventario de Administrador y Carrito de Compras
    ============================================================================ */
 

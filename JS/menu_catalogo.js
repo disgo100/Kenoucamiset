@@ -1,5 +1,5 @@
 /* ============================================================================
-   PRENDAS & STYLOS - LÓGICA DE MENÚ Y CATÁLOGO GLOBAL
+   KENOU CAMISETAS - LÓGICA DE MENÚ Y CATÁLOGO GLOBAL
    Archivo: js/menu_catalogo.js
    ============================================================================ */
 
@@ -320,7 +320,10 @@ function asegurarEstructuraMenuDrawerHTML() {
 
         navDrawer.innerHTML = `
             <div class="drawer-header">
-                <span class="drawer-title">PRENDAS <span>& STYLOS</span></span>
+                <div class="drawer-brand">
+                    <img src="logo.jpg" alt="Logo Kenou Camisetas" class="drawer-logo-img">
+                    <span class="drawer-title">KENOU <span>CAMISETAS</span></span>
+                </div>
                 <button class="close-drawer-btn" id="close-drawer-btn" aria-label="Cerrar Menú">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -810,7 +813,7 @@ function asegurarModalTallasHTML() {
                     <div class="size-alert-note">
                         <i class="fa-solid fa-lightbulb" style="font-size: 1.2rem; margin-top: 0.1rem;"></i>
                         <div>
-                            <strong>Tip Prendas & Stylos:</strong> Las prendas confeccionadas en algodón pueden tener un margen de tolerancia artesanal de ±1 cm. Si buscas un ajuste holgado streetwear urbano, te recomendamos pedir tu talla habitual en corte Oversize o una talla superior en corte Regular.
+                            <strong>Tip Kenou Camisetas:</strong> Las prendas confeccionadas en algodón pueden tener un margen de tolerancia artesanal de ±1 cm. Si buscas un ajuste holgado streetwear urbano, te recomendamos pedir tu talla habitual en corte Oversize o una talla superior en corte Regular.
                         </div>
                     </div>
                 </div>
@@ -818,7 +821,7 @@ function asegurarModalTallasHTML() {
 
             <!-- PIE DEL MODAL -->
             <div class="modal-size-footer">
-                <a href="https://wa.me/573173247083?text=Hola%20Prendas%20%26%20Stylos,%20necesito%20ayuda%20para%20elegir%20mi%20talla%20ideal" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding: 0.6rem 1.2rem; font-size: 0.88rem; text-decoration: none;">
+                <a href="https://wa.me/573053905216?text=Hola%20Kenou%20Camisetas,%20necesito%20ayuda%20para%20elegir%20mi%20talla%20ideal" target="_blank" rel="noopener noreferrer" class="btn-hero-primary" style="padding: 0.6rem 1.2rem; font-size: 0.88rem; text-decoration: none;">
                     <i class="fa-brands fa-whatsapp"></i> ¿Dudas? Asesoría en WhatsApp
                 </a>
                 <button type="button" class="btn-hero-secondary" id="btn-close-size-guide-footer" style="padding: 0.6rem 1.2rem; font-size: 0.88rem;">

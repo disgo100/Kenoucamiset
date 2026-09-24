@@ -1,5 +1,5 @@
 // =========================================================
-// PRENDAS & STYLOS - LÓGICA DE CONTACTO Y ATENCIÓN (JS/contacto.js)
+// KENOU CAMISETAS - LÓGICA DE CONTACTO Y ATENCIÓN (JS/contacto.js)
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
 inicializarPaginaContacto();
@@ -93,8 +93,8 @@ function validarCamposContacto() {
 function enviarMensajePorWhatsApp() {
 const datos = validarCamposContacto();
 if (!datos) return;
-    const telefonoDestino = '573173247083';
-    const textoWhatsApp = `Hola *Prendas & Stylos* 👋, deseo realizar la siguiente consulta desde el formulario web de contacto:
+    const telefonoDestino = '573053905216';
+    const textoWhatsApp = `Hola *Kenou Camisetas* 👋, deseo realizar la siguiente consulta desde el formulario web de contacto:
 
 👤 DATOS DEL REMITENTE:
 • Nombre: ${datos.nombre}
@@ -120,17 +120,17 @@ function configurarAgendarCalendario() {
 const btnCal = document.getElementById('btn-agendar-calendario');
 if (!btnCal) return;
     btnCal.addEventListener('click', () => {
-        const titulo = encodeURIComponent('Atención & Showroom - Prendas & Stylos');
-        const detalles = encodeURIComponent('Horario de atención al cliente de Prendas & Stylos: Lunes a Viernes de 8:00 AM a 6:00 PM y Sábados de 9:00 AM a 1:00 PM. Ubicación: Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali.');
+        const titulo = encodeURIComponent('Atención & Showroom - Kenou Camisetas');
+        const detalles = encodeURIComponent('Horario de atención al cliente de Kenou Camisetas: Lunes a Viernes de 8:00 AM a 6:00 PM y Sábados de 9:00 AM a 1:00 PM. Ubicación: Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali.');
         const ubicacion = encodeURIComponent('Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali, Colombia');
         
         const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${titulo}&details=${detalles}&location=${ubicacion}&recur=RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA`;
 
         const icsContent = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Prendas & Stylos//Horario de Atención//ES
+PRODID:-//Kenou Camisetas//Horario de Atención//ES
 BEGIN:VEVENT
-SUMMARY:Atención & Showroom - Prendas & Stylos
+SUMMARY:Atención & Showroom - Kenou Camisetas
 DESCRIPTION:Horario de atención al cliente: Lunes a Viernes de 8:00 AM a 6:00 PM y Sábados de 9:00 AM a 1:00 PM.
 LOCATION:Cra 28 D1 #72 L 94 - Barrio Los Robles, Cali, Colombia
 RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA

@@ -1,5 +1,5 @@
 // ============================================================================
-// PRENDAS & STYLOS - LÓGICA DEL BLOG Y VIDEOTUTORIALES YOUTUBE (JS/blog.js)
+// KENOU CAMISETAS - LÓGICA DEL BLOG Y VIDEOTUTORIALES YOUTUBE (JS/blog.js)
 // ============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,7 +13,7 @@ const VIDEOS_YOUTUBE = [
     {
         id: "vid-1",
         titulo: "Cómo Lavar Camisetas con Estampado DTF sin Dañarlas",
-        canal: "Prendas & Stylos TV",
+        canal: "Kenou Camisetas TV",
         duracion: "04:15",
         thumbnail: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600",
         resumen: "Paso a paso definitivo para evitar cuarteaduras, pérdida de color y desprendimientos al lavar tus prendas DTF en lavadora o a mano.",
@@ -28,7 +28,7 @@ const VIDEOS_YOUTUBE = [
     {
         id: "vid-2",
         titulo: "Planchado Correcto para Vinilo Textil y Detalles Neón",
-        canal: "Prendas & Stylos TV",
+        canal: "Kenou Camisetas TV",
         duracion: "05:30",
         thumbnail: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600",
         resumen: "Aprende la temperatura adecuada y el uso de papel siliconado o tela protectora para evitar derretir o levantar bordes de vinilo térmico.",
@@ -43,7 +43,7 @@ const VIDEOS_YOUTUBE = [
     {
         id: "vid-3",
         titulo: "Secretos para Mantener la Ropa Negra y Hoodies sin Decolorarse",
-        canal: "Prendas & Stylos TV",
+        canal: "Kenou Camisetas TV",
         duracion: "06:45",
         thumbnail: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600",
         resumen: "El truco del vinagre blanco como fijador de tintes, detergentes específicos para prendas oscuras y secado estratégico en sombra.",
@@ -58,7 +58,7 @@ const VIDEOS_YOUTUBE = [
     {
         id: "vid-4",
         titulo: "Cómo Eliminar Manchas Difíciles sin Dañar Fibras de Algodón",
-        canal: "Prendas & Stylos TV",
+        canal: "Kenou Camisetas TV",
         duracion: "03:50",
         thumbnail: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600",
         resumen: "Remueve grasa, sudor y roces accidentales en algodón pesado y cortes oversize sin arruinar la suavidad del tejido.",
@@ -134,7 +134,7 @@ const ARTICULOS_BLOG = [
             <h3 style="font-size: 1.35rem; color: #fff; margin-bottom: 1rem;">La Silueta Oversize y la Calidad Heavy Weight</h3>
             <p style="color: #ccc; line-height: 1.7; margin-bottom: 1rem;">En 2026, la moda urbana prioriza la estructura del tejido y la durabilidad. Las telas de algodón de alto gramaje no solo caen mejor en el cuerpo, sino que retienen la pigmentación de los tintes por mucho más tiempo.</p>
             
-            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1.5rem;">En <strong>Prendas & Stylos</strong> confeccionamos hoodies y camisetas pesadas diseñadas para resistir el uso diario de la calle sin perder su forma estructural.</p>
+            <p style="color: #ccc; line-height: 1.7; margin-bottom: 1.5rem;">En <strong>Kenou Camisetas</strong> confeccionamos hoodies y camisetas pesadas diseñadas para resistir el uso diario de la calle sin perder su forma estructural.</p>
         `
     },
     {

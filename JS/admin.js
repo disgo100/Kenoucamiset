@@ -256,8 +256,8 @@ const iconLock = document.getElementById('auth-icon-lock');
                     <a href="mailto:soporte@prendasystylos.com?subject=Solicitud%20de%20Desbloqueo" class="btn-support-action btn-support-email" target="_blank">
                         <i class="fa-solid fa-envelope"></i> Enviar Correo a Soporte
                     </a>
-                    <a href="tel:+573173247083" class="btn-support-action btn-support-phone">
-                        <i class="fa-solid fa-phone"></i> Llamar a Soporte Directo (+57 317 324 7083)
+                    <a href="tel:+573053905216" class="btn-support-action btn-support-phone">
+                        <i class="fa-solid fa-phone"></i> Llamar a Soporte Directo (+57 305 390 5216)
                     </a>
                 </div>
             </div>
@@ -906,7 +906,7 @@ function exportarInventarioPDF() {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("PRENDAS & STYLOS", 14, 18);
+    doc.text("KENOU CAMISETAS", 14, 18);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text("Informe Oficial de Control de Inventario & Métricas Sincronizadas", 14, 26);
@@ -995,10 +995,10 @@ function exportarInventarioPDF() {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(7.5);
     doc.setTextColor(148, 163, 184);
-    doc.text("Prendas & Stylos — Sistema Administrativo B2C | Documento Oficial de Auditoría de Inventario", 14, 287);
+    doc.text("Kenou Camisetas — Sistema Administrativo B2C | Documento Oficial de Auditoría de Inventario", 14, 287);
 
     setTimeout(() => {
-        doc.save(`Inventario_PrendasStylos_${now.toISOString().slice(0, 10)}.pdf`);
+        doc.save(`Inventario_KenouCamisetas_${now.toISOString().slice(0, 10)}.pdf`);
     }, 100);
 }
 
@@ -1022,7 +1022,7 @@ function exportarPedidosPDF() {
     doc.setTextColor(255, 255, 255);
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("PRENDAS & STYLOS", 14, 18);
+    doc.text("KENOU CAMISETAS", 14, 18);
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     doc.text("Reporte Oficial de Pedidos Recibidos y Ventas", 14, 26);
