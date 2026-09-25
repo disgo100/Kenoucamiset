@@ -199,6 +199,8 @@ function agregarCotizacionAlCarrito() {
     const cartItem = {
         id: 'cot-' + Date.now(),
         nombre: `Pre-Orden: ${datosCotizacionActual.prenda} (${datosCotizacionActual.tecnica})`,
+        categoria: 'Cotización Personalizada',
+        detalle: `${datosCotizacionActual.posiciones} • Cant: ${datosCotizacionActual.cantidad} uds`,
         precio: Math.round(datosCotizacionActual.total / datosCotizacionActual.cantidad),
         imagen: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500',
         cantidad: datosCotizacionActual.cantidad
